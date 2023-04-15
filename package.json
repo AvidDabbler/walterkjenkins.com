@@ -9,13 +9,19 @@
     "start": "next start"
   },
   "dependencies": {
+    "mapbox-gl": "^2.14.1",
     "next": "^13.2.4",
+    "pbf": "^3.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "react-notion": "^0.10.0",
+    "sass": "^1.62.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/eslint": "^8.21.3",
+    "@types/mapbox-gl": "^2.7.10",
     "@types/node": "^18.15.5",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.28",

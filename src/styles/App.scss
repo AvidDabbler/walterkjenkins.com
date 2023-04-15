@@ -1,0 +1,312 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+:root {
+	--light-blue: #427aa1;
+	--white: #ebf2fa;
+	--medium-blue: #0f1b3d;
+	--orange: #f06543;
+	--dark-blue: #0a122a;
+}
+
+.App {
+	text-align: center;
+}
+
+.App-logo {
+	height: 40vmin;
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
+
+.App-header {
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
+
+.App-link {
+	color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.nav-header {
+	background-color: rgba(26, 48, 63, 0.8);
+	color: #f06543;
+}
+
+.mapContainer {
+	z-index: -1;
+}
+
+.signature {
+	top: 250px;
+	padding-left: 20px;
+	height: 70%;
+	position: relative;
+	font-family: "Pacifico", cursive;
+	padding: 0 0 0 20px;
+	margin: 0;
+	color: var(--orange);
+	text-shadow: -2px -2px 0 #213d50, 2px -2px 0 #213d50, -2px 2px 0 #213d50,
+		2px 2px 0 #213d50;
+}
+
+#root {
+	height: 100vh;
+	width: 100%;
+}
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
+}
+html,
+body {
+	height: 100%;
+}
+#head,
+#foot {
+	position: absolute;
+	background-color: rgba(26, 48, 63, 0.8);
+}
+.link {
+	color: var(--orange);
+	font-family: Helvetica, sans-serif;
+}
+.h60 {
+	height: 60px;
+}
+.zi99 {
+	z-index: 99;
+}
+.zi100 {
+	z-index: 100;
+}
+.zi200 {
+	z-index: 200;
+}
+.f-headline {
+	font-size: 6rem;
+}
+.f1 {
+	font-size: 3rem;
+}
+.signature h1 {
+	font-family: "Pacifico", cursive;
+	padding: 0 0 0 20px;
+	margin: 0;
+	color: var(--orange);
+	text-shadow: -2px -2px 0 #213d50, 2px -2px 0 #213d50, -2px 2px 0 #213d50,
+		2px 2px 0 #213d50;
+}
+.signature {
+	top: 250px;
+	padding-left: 20px;
+	height: 100%;
+	position: absolute;
+}
+
+.signature h2 {
+	font-family: "Pacifico", cursive;
+	margin: 0;
+	color: var(--white);
+	text-shadow: -2px -2px 0 #213d50, 2px -2px 0 #213d50, -2px 2px 0 #213d50,
+		2px 2px 0 #213d50;
+}
+.foot {
+	bottom: 0;
+}
+
+body,
+.mapContainer,
+.mapboxgl-canvas-container,
+.mapboxgl-canvas,
+.mapboxgl-canvas {
+	height: 100vh;
+	width: 100vw;
+}
+
+#map {
+	/* position: absolute; */
+	height: 100vh;
+	top: 0;
+	left: 0;
+	z-index: -100;
+}
+
+.blue-div {
+	background-color: rgba(66, 122, 161, 0.3);
+	max-width: 900px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.services {
+	flex: 0 1 24%;
+	height: 25%;
+}
+
+.section-title {
+	font-family: "Pacifico", cursive;
+	color: var(--orange);
+}
+
+.section-title h2 {
+	font-size: 40px;
+}
+
+.icon {
+	display: inline;
+}
+
+.project-side {
+	flex-direction: column;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.project-tags {
+	flex-wrap: wrap;
+	margin-right: auto;
+	margin-left: auto;
+	flex-direction: row;
+	float: right;
+}
+
+.bg-blue {
+	background-color: #0f1b3d;
+	opacity: 95%;
+}
+
+.bg-orange {
+	background-color: #f06543;
+	opacity: 65%;
+}
+
+.topo {
+	background-repeat: repeat;
+	background-attachment: fixed;
+	// background-image: url("./assets/topography.svg");
+}
+
+.signup {
+	bottom: 40px;
+	right: 20px;
+}
+.signup:hover {
+	transition: all ease-in-out 0.5s;
+	opacity: 100%;
+	svg {
+		height: 60px;
+	}
+}
+
+.web_development {
+	background-color: #427aa1;
+}
+.analysis_automation {
+	background-color: #42a179;
+}
+.cartography {
+	background-color: #8342a1;
+}
+
+.lessons {
+	.bg-orange {
+		opacity: 1;
+	}
+	.link:hover {
+		text-decoration: underline;
+	}
+}
+
+.notion {
+	color: white;
+	.notion-page-header {
+		font-size: xx-large;
+	}
+}
+
+.footer {
+	bottom: 0;
+}
+
+.hamburger-content-container {
+	background-color: #17295e;
+	transition: all 1s;
+	position: absolute;
+	padding: 12px 25px 12px 12px;
+	margin-top: 40px;
+	.link {
+		font-size: 18px;
+		margin: 8px 0;
+	}
+
+	&.right {
+		transition: all 1s;
+		right: -300px;
+	}
+	&.left {
+		transition: all 1s;
+		right: 0;
+	}
+}
+
+.header-hamburger {
+	margin-left: auto;
+	display: flex;
+	width: 40px;
+}
+
+@media screen and (max-width: 480px) {
+	.signature h1 {
+		font-size: 80px;
+		margin-left: -20px;
+	}
+	.signature h2 {
+		font-size: 30px;
+	}
+	.project-side {
+		width: 100%;
+		flex-direction: row;
+	}
+	.project-side img {
+		width: 50%;
+	}
+	.project-tags {
+		margin-right: auto;
+		margin-left: auto;
+		flex-direction: column;
+		float: right;
+	}
+}
