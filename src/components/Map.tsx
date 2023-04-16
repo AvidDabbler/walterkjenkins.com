@@ -12,7 +12,12 @@ import type {
 } from "mapbox-gl";
 import type { LngLatLike, Map as MapType } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import type { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
+import type {
+  FeatureCollection,
+  GeoJsonProperties,
+  Geometry,
+  Point,
+} from "geojson";
 import { mbAccessToken } from "~/config";
 import type { GeoJSONSource } from "mapbox-gl";
 
@@ -114,7 +119,12 @@ export const GeoJsonLayer = ({
   const refresh = async () => {
     const _source = map.getSource(source.id) as GeoJSONSource;
     if (!_source || typeof source.data !== "string") return;
-    await fetch(source.data).then((data: any) => _source.setData(data));
+    const data = await fetch(source.data);
+    const something = (await data.json()) as FeatureCollection<
+      Point,
+      GeoJsonProperties
+    >;
+    _source.setData(something);
   };
   const map = useMap();
   useEffect(() => {
@@ -122,10 +132,11 @@ export const GeoJsonLayer = ({
     loadGeojson({ map, layers, source });
     let timer: undefined | NodeJS.Timer;
     if (refreshInterval) {
-      timer = setInterval(() => refresh(), refreshInterval);
+      // eslint-disable-next-line
+      timer = setInterval(refresh, refreshInterval);
     }
     return () => clearInterval(timer);
-  }, [map, layers, source]);
+  }, [map, layers, source]); // eslint-disable-line
   return null;
 };
 

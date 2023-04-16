@@ -35,4 +35,7 @@
     "project": ["./tsconfig.json"],
     "extraFileExtensions": [".vue"],
   },
+    "rules": {
+      "@typescript-eslint/ban-ts-comment": "warning"
+  }
 }

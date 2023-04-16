@@ -1,4 +1,4 @@
-import Pbf from "pbf";
+import Pbf from "pbf"; 
 import { FeedMessage } from "../../controllers/gtfs-realtime.browser.proto";
 import { pburl } from "../../config";
 
