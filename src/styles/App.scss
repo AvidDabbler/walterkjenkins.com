@@ -216,7 +216,7 @@ body,
 .topo {
 	background-repeat: repeat;
 	background-attachment: fixed;
-	// background-image: url("./assets/topography.svg");
+	background-image: url("../assets/topography.svg");
 }
 
 .signup {
@@ -310,3 +310,193 @@ body,
 		float: right;
 	}
 }
+
+
+@-moz-keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% {
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+@-webkit-keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+@keyframes bounceDown {
+  0%, 20%, 50%, 80%, 100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+
+
+
+
+@-webkit-keyframes bounceLeft {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  40% {
+    -webkit-transform: translateX(30px);
+    transform: translateX(30px);
+  }
+  60% {
+    -webkit-transform: translateX(15px);
+    transform: translateX(15px);
+  }
+}
+@-moz-keyframes bounceLeft {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(30px);
+  }
+  60% {
+    transform: translateX(15px);
+  }
+}
+@keyframes bounceLeft {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+  }
+  40% {
+    -ms-transform: translateX(30px);
+    transform: translateX(30px);
+  }
+  60% {
+    -ms-transform: translateX(15px);
+    transform: translateX(15px);
+  }
+}
+/* /left bounce */
+
+
+/* right bounce */
+@-webkit-keyframes bounceRight {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  40% {
+    -webkit-transform: translateX(-30px);
+    transform: translateX(-30px);
+  }
+  60% {
+    -webkit-transform: translateX(-15px);
+    transform: translateX(-15px);
+  }
+}
+@-moz-keyframes bounceRight {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-30px);
+  }
+  60% {
+    transform: translateX(-15px);
+  }
+}
+@keyframes bounceRight {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -ms-transform: translateX(0);
+    transform: translateX(0);
+  }
+  40% {
+    -ms-transform: translateX(-30px);
+    transform: translateX(-30px);
+  }
+  60% {
+    -ms-transform: translateX(-15px);
+    transform: translateX(-15px);
+  }
+}
+/* /right bounce */
+
+
+/* assign bounce */
+.hover-right-bounce {
+	&:hover{
+		-webkit-animation: bounceRight 2s infinite;
+		animation: bounceRight 2s infinite;
+		float:right;
+	}
+}
+
+.hover-left-bounce {	
+	&:hover {  
+		-webkit-animation: bounceLeft 2s infinite;
+		animation: bounceLeft 2s infinite;
+	}
+}
+
+.fa-chevron-down {
+  -moz-animation: bounceDown 2s infinite;
+  -webkit-animation: bounceDown 2s infinite;
+  animation: bounceDown 2s infinite;
+text-align:center;
+  display:block;
+}
+
+
+.credits {padding-top:50px; display:block; clear:both;}

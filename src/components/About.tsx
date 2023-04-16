@@ -10,8 +10,8 @@ export function About() {
         <div className=" w my-20 flex flex-col justify-center rounded-lg text-center">
           <h2 className="text-center text-xl text-white">My Things</h2>
           <div className="m-6 flex flex-col text-center text-white">
-            <Link className="link m-6" href={paths.blog}>
-              Blog
+            <Link className="link m-6" href={paths.projects}>
+              Projects
             </Link>
             <a className="link m-6" href={links.github}>
               GitHub

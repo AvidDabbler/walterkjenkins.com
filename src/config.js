@@ -15,7 +15,5 @@ export const links = {
 export const paths = {
 	home: "/",
 	projects: "/projects",
-	blog: "/blog",
-	blogArticle: "/blog/:id",
 	contact: "/contact",
 };
