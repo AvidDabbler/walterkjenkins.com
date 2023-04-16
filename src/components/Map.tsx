@@ -14,6 +14,7 @@ import type { LngLatLike, Map as MapType } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import { mbAccessToken } from "~/config";
+import type { GeoJSONSource } from "mapbox-gl";
 
 export function useMapbox({
   center,
@@ -24,7 +25,6 @@ export function useMapbox({
   zoom?: number;
   onInit: (map: MapType) => void;
 }) {
-
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<MapType>();
   const [loaded, setLoaded] = useState<boolean>();
@@ -105,13 +105,26 @@ export const loadLayers = (
 export const GeoJsonLayer = ({
   layers,
   source,
+  refreshInterval,
 }: {
   layers: (CircleLayer | FillLayer | LineLayer | SymbolLayer | HeatmapLayer)[];
   source: { id: string; data: GeoJSONSourceRaw["data"] };
+  refreshInterval?: number;
 }) => {
+  const refresh = async () => {
+    const _source = map.getSource(source.id) as GeoJSONSource;
+    if (!_source || typeof source.data !== "string") return;
+    await fetch(source.data).then((data: any) => _source.setData(data));
+  };
   const map = useMap();
   useEffect(() => {
+    if (!source) return;
     loadGeojson({ map, layers, source });
+    let timer: undefined | NodeJS.Timer;
+    if (refreshInterval) {
+      timer = setInterval(() => refresh(), refreshInterval);
+    }
+    return () => clearInterval(timer);
   }, [map, layers, source]);
   return null;
 };
@@ -120,10 +133,12 @@ export const Map = ({
   options,
   children,
   className,
+  onLoadFunction,
 }: {
   children?: React.ReactNode;
   options: Partial<MapboxOptions>;
   className: string;
+  onLoadFunction?: (m: MapType) => void;
 }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<MapBoxMap | null>(null);
@@ -143,6 +158,9 @@ export const Map = ({
       const onLoad = () => {
         setMap(_map);
         setStyle(_map.getStyle().name);
+        if (onLoadFunction) {
+          onLoadFunction(_map);
+        }
       };
 
       _map.on("load", onLoad);

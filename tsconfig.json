@@ -28,6 +28,11 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs"
-  ],
-  "exclude": ["node_modules"],
+, "src/pages/api/vehicles.js"  ],
+  "exclude": ["node_modules", "**/*.js"],
+  "parserOptions": {
+    // "tsconfigRootDir": __dirname,
+    "project": ["./tsconfig.json"],
+    "extraFileExtensions": [".vue"],
+  },
 }

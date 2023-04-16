@@ -1,5 +1,4 @@
 export const pburl =
-	"https://afternoon-lowlands-09860.herokuapp.com/" +
 	"https://www.metrostlouis.org/RealTimeData/StlRealTimeVehicles.pb?cacheBust=" +
 	new Date().valueOf();
 export const mbAccessToken = process.env.NEXT_PUBLIC_MB_ACCESS_TOKEN;
