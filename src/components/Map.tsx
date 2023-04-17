@@ -21,6 +21,14 @@ import type {
 import { mbAccessToken } from "~/config";
 import type { GeoJSONSource } from "mapbox-gl";
 
+export type SourceType = { id: string; data: GeoJSONSourceRaw["data"] };
+export type LayerType =
+  | CircleLayer
+  | FillLayer
+  | LineLayer
+  | SymbolLayer
+  | HeatmapLayer;
+
 export function useMapbox({
   center,
   zoom = 17,
@@ -67,11 +75,8 @@ export const loadGeojson = ({
   source,
 }: {
   map: MapType;
-  layers: (CircleLayer | FillLayer | LineLayer | SymbolLayer | HeatmapLayer)[];
-  source: {
-    data: GeoJSONSourceRaw["data"];
-    id: string;
-  };
+  layers: LayerType[];
+  source: SourceType;
 }) => {
   if (!map.getSource(source.id)) {
     map.addSource(source.id, {
@@ -113,18 +118,18 @@ export const GeoJsonLayer = ({
   refreshInterval,
 }: {
   layers: (CircleLayer | FillLayer | LineLayer | SymbolLayer | HeatmapLayer)[];
-  source: { id: string; data: GeoJSONSourceRaw["data"] };
+  source: SourceType;
   refreshInterval?: number;
 }) => {
   const refresh = async () => {
     const _source = map.getSource(source.id) as GeoJSONSource;
     if (!_source || typeof source.data !== "string") return;
     const data = await fetch(source.data);
-    const something = (await data.json()) as FeatureCollection<
+    const featureCollection = (await data.json()) as FeatureCollection<
       Point,
       GeoJsonProperties
     >;
-    _source.setData(something);
+    _source.setData(featureCollection);
   };
   const map = useMap();
   useEffect(() => {
@@ -154,6 +159,8 @@ export const Map = ({
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<MapBoxMap | null>(null);
   const [style, setStyle] = useState<string | undefined>(undefined);
+
+  // map?.getSource('something')
 
   useEffect(() => {
     if (!mapContainer.current || map) return; // initialize map only once

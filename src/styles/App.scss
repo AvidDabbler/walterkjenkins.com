@@ -479,6 +479,7 @@ body,
 	&:hover{
 		-webkit-animation: bounceRight 2s infinite;
 		animation: bounceRight 2s infinite;
+		animation-delay: 0ms;
 		float:right;
 	}
 }

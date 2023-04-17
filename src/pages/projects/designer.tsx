@@ -1,22 +1,50 @@
-import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
+import type { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import Head from "next/head";
-import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Favicon } from "~/components/Favicon";
 import { Map } from "~/components/Map";
+import { AddFile } from "~/components/designer/AddFile";
+import { DesignerSourceType, LayerPanel } from "~/components/designer/LayerPanel";
 
-const Projects = () => {
-  const [files, setFiles] = useState<
-    FeatureCollection<Geometry, GeoJsonProperties>[]
-  >([]);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+const Designer = () => {
+  const [sources, setSources] = useState<DesignerSourceType[]>([]);
+  const [layers, setLayers] = useState<DesignerSourceType[]>([]);
+
+  const uploadSource = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const fileReader = new FileReader();
     fileReader.readAsText(e.target.files?.[0] as Blob, "UTF-8");
-    fileReader.onload = (e) => {
-      setFiles([...files, e.target?.result as any]);
+    fileReader.onload = (file) => {
+      if (
+        file.target?.result &&
+        typeof file.target?.result === "string" &&
+        e.target.files &&
+        e.target.files[0]
+      ) {
+        setSources([
+          ...sources,
+          {
+            data: JSON.parse(file.target?.result) as FeatureCollection<
+              Geometry,
+              GeoJsonProperties
+            >,
+            name: e.target.files[0].name,
+            id: (Math.random() * 1000).toString(),
+          },
+        ]);
+      }
     };
   };
+
+  const addUrlSource = (url: string) => {};
+
+  const closeModal = () => null;
+
+  useEffect(() => {
+    console.log({ sources });
+  }, [sources]);
+
   return (
     <>
       <Head>
@@ -26,29 +54,7 @@ const Projects = () => {
       </Head>
       <main>
         <div className="flex h-screen w-screen">
-          <div className="absolute left-5 top-5 z-20 grid max-w-xs gap-5 rounded bg-blue-900 p-6">
-            <h2 className="text-lg text-white">
-              Add some Geojson to the map and Let's make something fun!
-            </h2>
-            <input
-              type="text"
-              placeholder="add a url for geojson"
-              className="rounded p-2"
-            ></input>
-            <input
-              id="file-selector"
-              hidden
-              type="file"
-              accept="application/JSON"
-              onChange={(e) => handleChange(e)}
-            />
-            <label
-              htmlFor="file-selector"
-              className="w-30 rounded-xl bg-blue-300 p-2 text-center transition-colors hover:cursor-pointer hover:bg-blue-200"
-            >
-              Add a File
-            </label>
-          </div>
+          <AddFile uploadSource={uploadSource} addUrlSource={addUrlSource} />
           <Map
             className="flex h-screen w-screen"
             options={{
@@ -56,12 +62,14 @@ const Projects = () => {
               zoom: 3.55,
             }}
           ></Map>
+          <LayerPanel sources={sources} layers={layers}></LayerPanel>
+
           <div className="absolute bottom-10 right-5 ">
             <div className="grid gap-3">
-              <button className="hover-right-bounce rounded-lg bg-blue-300 p-2">
+              <button className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200">
                 🍔 Back to Projects
               </button>
-              <button className="hover-right-bounce rounded-lg bg-blue-300 p-2">
+              <button className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200">
                 💻 Work with Walter
               </button>
             </div>
@@ -71,4 +79,4 @@ const Projects = () => {
     </>
   );
 };
-export default Projects;
+export default Designer;
