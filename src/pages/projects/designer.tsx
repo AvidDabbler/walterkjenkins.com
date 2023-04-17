@@ -1,88 +1,22 @@
 import type { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import Head from "next/head";
-import { useEffect, useState } from "react";
-import { create } from "zustand";
+import { useEffect } from "react";
 import { Favicon } from "~/components/Favicon";
-import { LayerType, Map } from "~/components/Map";
+import { Map } from "~/components/Map";
 import { AddFile } from "~/components/designer/AddFile";
+import LayerPanel from "~/components/designer/LayerPanel";
 import {
-  DesignerSourceType,
-  LayerPanel,
-} from "~/components/designer/LayerPanel";
-import { devtools, persist, createJSONStorage } from "zustand/middleware";
-
-export type DesignMapStore = {
-  sources: DesignerSourceType[];
-  addSource: (source: DesignerSourceType) => void;
-  removeSource: (sourceId: string) => void;
-
-  layers: LayerType[];
-  addLayer: (layer: LayerType) => void;
-  removeLayerBySourceId: (sourceId: string) => void;
-  removeLayerByLayerId: (layerId: string) => void;
-
-  layersPanelState: { isOpen: boolean; focus: "sources" | "layers" };
-  toggleLayersPanel: () => void;
-  setLayerPanelFocus: (focus: "sources" | "layers") => void;
-
-  modalState: { isOpen: boolean; focus: string };
-  toggleModal: () => void;
-  setModalFocus: (focus: string) => void;
-};
-
-export const useDesignMapStore = create<DesignMapStore>()(
-  devtools(
-    persist(
-      (set) => ({
-        sources: [],
-        layers: [],
-
-        addSource: (source: DesignerSourceType) =>
-          set((state) => {
-            state.sources.push(source);
-            return { ...state, sources: state.sources };
-          }),
-        removeSource: (sourceId: string) =>
-          set((state) => {
-            state.sources.filter((s) => s.id !== sourceId);
-            return { ...state, sources: state.sources };
-          }),
-        addLayer: (layer: LayerType) =>
-          set((state) => {
-            state.layers.push(layer);
-            return { ...state, layers: state.layers };
-          }),
-        removeLayerBySourceId: (sourceId: string) =>
-          set((state) => {
-            state.layers.filter((l) => l.id !== sourceId);
-            return { ...state, layers: state.layers };
-          }),
-        removeLayerByLayerId: (layerId: string) =>
-          set((state) => {
-            state.layers.filter((l) => l.id !== layerId);
-            return { ...state, layers: state.layers };
-          }),
-        layersPanelState: { isOpen: false, focus: "sources" },
-        toggleLayersPanel: () => set((state) => {
-          return {...state, layersPanelState: {...state.layersPanelState, isOpen: !state.layersPanelState.isOpen}}}),
-        setLayerPanelFocus: (focus) => set((state) => {
-          return {...state, layersPanelState: {...state.layersPanelState, focus}}}),
-        modalState: { isOpen: false, focus: 'string' },
-        toggleModal:  () => set((state) => {
-          return {...state, modalState: {...state.modalState, isOpen: !state.modalState.isOpen}}}),
-        setModalFocus: (focus) => set((state) => {
-          return {...state, modalState: {...state.modalState, focus}}}),
-            }),
-      {
-        name: "map-design-storage", // name of the item in the storage (must be unique)
-        storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
-      }
-    )
-  )
-);
+  initialMapState,
+  useDesignMapStore,
+  useStore,
+} from "~/components/designer/store";
 
 const Designer = () => {
-  const { layers, sources, addSource } = useDesignMapStore();
+  const { layers, sources, addSource } = useStore(
+    useDesignMapStore,
+    (state) => state,
+    initialMapState
+  );
 
   const uploadSource = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;

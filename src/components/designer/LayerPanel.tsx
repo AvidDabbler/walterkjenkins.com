@@ -1,26 +1,21 @@
+'use-client'
 import clsx from "clsx";
 import React, { ReactNode, useState } from "react";
 import { Modal } from "../Modal";
 import { Button } from "./Button";
-import { LayerType, SourceType } from "../Map";
-import { useDesignMapStore } from "~/pages/projects/designer";
+import { LayerType } from "../Map";
+import { DesignerSourceType, useDesignMapStore } from "./store";
 
-export type DesignerSourceType = SourceType & { name: string };
 
-export const LayerPanel = ({
-  sources,
+const LayerPanel = ({
+sources,
   layers,
 }: {
   sources: DesignerSourceType[];
   layers: LayerType[];
 }) => {
-  // const [isOpen, setIsOpen] = useState<false | "layers">(false);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  const { modalState, layersPanelState, toggleLayersPanel, toggleModal} = useDesignMapStore()
-
-  // const togglePanel = (value: false | "layers") => {
-  //   toggleLayersPanel();
-  // };
+  const { modalState, layersPanelState, toggleLayersPanel, toggleModal } =
+    useDesignMapStore();
   return (
     <div>
       <button
@@ -28,8 +23,8 @@ export const LayerPanel = ({
         className={clsx(
           "absolute right-5 top-5 z-20 rounded p-2 px-6",
           layersPanelState.isOpen
-            ? "bg-blue-300 hover:bg-blue-200"
-            : "bg-orange-400 hover:bg-orange-200"
+            ? "bg-orange-400 hover:bg-orange-200"
+            : "bg-blue-300 hover:bg-blue-200"
         )}
       >
         <h3 className="text-lg">Layers</h3>
@@ -42,9 +37,13 @@ export const LayerPanel = ({
       >
         <div className="p-3">
           <h3 className="text-lg">Sources</h3>
-          {sources.length === 0
-            ? "No sources uploaded"
-            : sources.map((source) => <p key={source.id}>{source.name}</p>)}
+          <ul>
+            {sources.length === 0
+              ? "No sources uploaded"
+              : sources.map((source) => (
+                  <li key={source.id}>{source.name}</li>
+                ))}
+          </ul>
         </div>
         <Button onClick={() => null}>Open Panel</Button>
       </div>
@@ -61,3 +60,5 @@ export const LayerPanel = ({
     </div>
   );
 };
+
+export default LayerPanel;
