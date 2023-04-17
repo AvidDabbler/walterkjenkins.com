@@ -120,3 +120,10 @@ export const useDesignMapStore = create<DesignMapStore>()(
     )
   )
 );
+
+
+export const useMapStore = () => useStore(
+  useDesignMapStore,
+  (state) => state,
+  initialMapState
+);

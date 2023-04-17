@@ -5,18 +5,10 @@ import { Favicon } from "~/components/Favicon";
 import { Map } from "~/components/Map";
 import { AddFile } from "~/components/designer/AddFile";
 import LayerPanel from "~/components/designer/LayerPanel";
-import {
-  initialMapState,
-  useDesignMapStore,
-  useStore,
-} from "~/components/designer/store";
+import { useMapStore } from "~/components/designer/store";
 
 const Designer = () => {
-  const { layers, sources, addSource } = useStore(
-    useDesignMapStore,
-    (state) => state,
-    initialMapState
-  );
+  const { layers, sources, addSource } = useMapStore();
 
   const uploadSource = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
