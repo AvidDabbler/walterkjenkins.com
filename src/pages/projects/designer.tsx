@@ -11,22 +11,32 @@ import {
 } from "~/components/designer/LayerPanel";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
 
-type DesignMapStore = {
+export type DesignMapStore = {
   sources: DesignerSourceType[];
-  layers: LayerType[];
   addSource: (source: DesignerSourceType) => void;
   removeSource: (sourceId: string) => void;
+
+  layers: LayerType[];
   addLayer: (layer: LayerType) => void;
   removeLayerBySourceId: (sourceId: string) => void;
   removeLayerByLayerId: (layerId: string) => void;
+
+  layersPanelState: { isOpen: boolean; focus: "sources" | "layers" };
+  toggleLayersPanel: () => void;
+  setLayerPanelFocus: (focus: "sources" | "layers") => void;
+
+  modalState: { isOpen: boolean; focus: string };
+  toggleModal: () => void;
+  setModalFocus: (focus: string) => void;
 };
 
-const useDesignMapStore = create<DesignMapStore>()(
+export const useDesignMapStore = create<DesignMapStore>()(
   devtools(
     persist(
       (set) => ({
         sources: [],
         layers: [],
+
         addSource: (source: DesignerSourceType) =>
           set((state) => {
             state.sources.push(source);
@@ -52,7 +62,17 @@ const useDesignMapStore = create<DesignMapStore>()(
             state.layers.filter((l) => l.id !== layerId);
             return { ...state, layers: state.layers };
           }),
-      }),
+        layersPanelState: { isOpen: false, focus: "sources" },
+        toggleLayersPanel: () => set((state) => {
+          return {...state, layersPanelState: {...state.layersPanelState, isOpen: !state.layersPanelState.isOpen}}}),
+        setLayerPanelFocus: (focus) => set((state) => {
+          return {...state, layersPanelState: {...state.layersPanelState, focus}}}),
+        modalState: { isOpen: false, focus: 'string' },
+        toggleModal:  () => set((state) => {
+          return {...state, modalState: {...state.modalState, isOpen: !state.modalState.isOpen}}}),
+        setModalFocus: (focus) => set((state) => {
+          return {...state, modalState: {...state.modalState, focus}}}),
+            }),
       {
         name: "map-design-storage", // name of the item in the storage (must be unique)
         storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
@@ -62,8 +82,6 @@ const useDesignMapStore = create<DesignMapStore>()(
 );
 
 const Designer = () => {
-  // const [sources, setSources] = useState<DesignerSourceType[]>([]);
-  // const [layers, setLayers] = useState<LayerType[]>([]);
   const { layers, sources, addSource } = useDesignMapStore();
 
   const uploadSource = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -3,6 +3,7 @@ import React, { ReactNode, useState } from "react";
 import { Modal } from "../Modal";
 import { Button } from "./Button";
 import { LayerType, SourceType } from "../Map";
+import { useDesignMapStore } from "~/pages/projects/designer";
 
 export type DesignerSourceType = SourceType & { name: string };
 
@@ -13,19 +14,20 @@ export const LayerPanel = ({
   sources: DesignerSourceType[];
   layers: LayerType[];
 }) => {
-  const [isOpen, setIsOpen] = useState<false | "layers">(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState<false | "layers">(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const { modalState, layersPanelState, toggleLayersPanel, toggleModal} = useDesignMapStore()
 
-  const togglePanel = (value: false | "layers") => {
-    setIsOpen(isOpen === value ? false : value);
-  };
+  // const togglePanel = (value: false | "layers") => {
+  //   toggleLayersPanel();
+  // };
   return (
     <div>
       <button
-        onClick={() => togglePanel("layers")}
+        onClick={() => toggleLayersPanel()}
         className={clsx(
           "absolute right-5 top-5 z-20 rounded p-2 px-6",
-          isOpen !== "layers"
+          layersPanelState.isOpen
             ? "bg-blue-300 hover:bg-blue-200"
             : "bg-orange-400 hover:bg-orange-200"
         )}
@@ -35,7 +37,7 @@ export const LayerPanel = ({
       <div
         className={clsx(
           "absolute top-20 h-1/2 w-80 rounded bg-white shadow-lg transition-all duration-150",
-          isOpen ? "right-5" : "-right-96"
+          layersPanelState.isOpen ? "right-5" : "-right-96"
         )}
       >
         <div className="p-3">
@@ -47,13 +49,13 @@ export const LayerPanel = ({
         <Button onClick={() => null}>Open Panel</Button>
       </div>
       <Modal
-        isOpen={isModalOpen}
-        closeModal={() => setIsModalOpen(false)}
+        isOpen={modalState.isOpen}
+        closeModal={toggleModal}
         title="This is the best"
       >
         <div>
           <div>These are my children</div>
-          <Button onClick={() => setIsModalOpen(false)}>Close</Button>
+          <Button onClick={toggleModal}>Close</Button>
         </div>
       </Modal>
     </div>
