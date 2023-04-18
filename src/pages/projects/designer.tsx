@@ -2,13 +2,14 @@ import type { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import Head from "next/head";
 import { useEffect } from "react";
 import { Favicon } from "~/components/Favicon";
-import { Map } from "~/components/Map";
+import { GeoJsonLayer, Map } from "~/components/Map";
 import { AddFile } from "~/components/designer/AddFile";
 import LayerPanel from "~/components/designer/LayerPanel";
+import { SourceModal } from "~/components/designer/Modals";
 import { useMapStore } from "~/components/designer/store";
 
 const Designer = () => {
-  const { layers, sources, addSource } = useMapStore();
+  const { layers, sources, addSource, setSourceModal } = useMapStore();
 
   const uploadSource = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -21,14 +22,16 @@ const Designer = () => {
         e.target.files &&
         e.target.files[0]
       ) {
+        const id = (Math.random() * 1000).toString();
         addSource({
           data: JSON.parse(file.target?.result) as FeatureCollection<
             Geometry,
             GeoJsonProperties
           >,
           name: e.target.files[0].name,
-          id: (Math.random() * 1000).toString(),
+          id,
         });
+        setSourceModal({ id });
       }
     };
   };
@@ -57,9 +60,11 @@ const Designer = () => {
               center: [-97.93, 38.88],
               zoom: 3.55,
             }}
-          ></Map>
+          >
+            <GeoJsonLayer source={sources[0]} layers={[]} />
+          </Map>
           <LayerPanel sources={sources} layers={layers}></LayerPanel>
-
+          <SourceModal />
           <div className="absolute bottom-10 right-5 ">
             <div className="grid gap-3">
               <button className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200">

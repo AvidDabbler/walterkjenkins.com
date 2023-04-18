@@ -6,7 +6,6 @@ import { create } from "zustand";
 
 export type DesignerSourceType = SourceType & { name: string };
 
-
 export const useStore = <T, F>(
   store: (callback: (state: T) => unknown) => unknown,
   callback: (state: T) => F,
@@ -27,6 +26,7 @@ export type DesignMapValues = {
   layers: LayerType[];
   layersPanelState: { isOpen: boolean; focus: "sources" | "layers" };
   modalState: { isOpen: boolean; focus: string };
+  sourceModal: null | { id: string };
 };
 
 export type DesignMapStore = DesignMapValues & {
@@ -42,13 +42,16 @@ export type DesignMapStore = DesignMapValues & {
 
   toggleModal: () => void;
   setModalFocus: (focus: string) => void;
+
+  setSourceModal: (sourceModal: DesignMapValues["sourceModal"]) => void;
 };
 
 export const initialMapState: DesignMapValues = {
   sources: [],
   layers: [],
   layersPanelState: { isOpen: false, focus: "sources" },
-  modalState: { isOpen: false, focus: "" },
+  modalState: { isOpen: false, focus: "settings" },
+  sourceModal: null,
 };
 
 export const useDesignMapStore = create<DesignMapStore>()(
@@ -112,6 +115,10 @@ export const useDesignMapStore = create<DesignMapStore>()(
           set((state) => {
             return { ...state, modalState: { ...state.modalState, focus } };
           }),
+        setSourceModal: (sourceModal: DesignMapValues["sourceModal"]) =>
+          set((state) => {
+            return { ...state, sourceModal };
+          }),
       }),
       {
         name: "map-design-storage", // name of the item in the storage (must be unique)
@@ -121,9 +128,5 @@ export const useDesignMapStore = create<DesignMapStore>()(
   )
 );
 
-
-export const useMapStore = () => useStore(
-  useDesignMapStore,
-  (state) => state,
-  initialMapState
-);
+export const useMapStore = () =>
+  useStore(useDesignMapStore, (state) => state, initialMapState);
