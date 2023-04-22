@@ -22,12 +22,13 @@ import { mbAccessToken } from "~/config";
 import type { GeoJSONSource } from "mapbox-gl";
 
 export type SourceType = { id: string; data: GeoJSONSourceRaw["data"] };
-export type LayerType =
+export type LayerType = (
   | CircleLayer
   | FillLayer
   | LineLayer
   | SymbolLayer
-  | HeatmapLayer;
+  | HeatmapLayer
+) & { name: string };
 
 export function useMapbox({
   center,
@@ -89,27 +90,6 @@ export const loadGeojson = ({
   return () => {
     map.removeSource(source.id);
   };
-};
-
-export const loadLayers = (
-  map: MapType,
-  layerConfigs: {
-    layers: (
-      | CircleLayer
-      | FillLayer
-      | LineLayer
-      | SymbolLayer
-      | HeatmapLayer
-    )[];
-    source: {
-      data: FeatureCollection<Geometry, GeoJsonProperties> | string;
-      id: string;
-    };
-  }[]
-) => {
-  layerConfigs.forEach(({ layers, source }) =>
-    loadGeojson({ map, layers, source })
-  );
 };
 
 export const GeoJsonLayer = ({

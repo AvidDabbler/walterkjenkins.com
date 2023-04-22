@@ -7,9 +7,12 @@ import { AddFile } from "~/components/designer/AddFile";
 import LayerPanel from "~/components/designer/LayerPanel";
 import { SourceModal } from "~/components/designer/Modals";
 import { useMapStore } from "~/components/designer/store";
+import { paths } from "~/config";
+import Link from "next/link";
 
 const Designer = () => {
-  const { layers, sources, addSource, setSourceModal } = useMapStore();
+  const { layers, sources, addSource, addLayer, setSourceModal } =
+    useMapStore();
 
   const uploadSource = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -23,13 +26,27 @@ const Designer = () => {
         e.target.files[0]
       ) {
         const id = (Math.random() * 1000).toString();
+        const data = JSON.parse(file.target?.result) as FeatureCollection<
+          Geometry,
+          GeoJsonProperties
+        >;
+        const fileName = e.target.files[0].name;
+        const geomType = data.features[0]?.geometry.type;
+        if (!geomType || geomType === "GeometryCollection") return;
+        const layerType = geomType.toLowerCase().includes("point")
+          ? "circle"
+          : "fill";
         addSource({
-          data: JSON.parse(file.target?.result) as FeatureCollection<
-            Geometry,
-            GeoJsonProperties
-          >,
-          name: e.target.files[0].name,
+          data,
+          name: fileName,
+          type: data.features[0]?.geometry.type,
           id,
+        });
+        addLayer({
+          id: `${fileName}_${(Math.random() * 1000).toString()}`,
+          name: fileName,
+          type: layerType,
+          source: id,
         });
         setSourceModal({ id });
       }
@@ -38,11 +55,6 @@ const Designer = () => {
 
   const addUrlSource = (url: string) => {};
 
-  const closeModal = () => null;
-
-  useEffect(() => {
-    console.log({ sources });
-  }, [sources]);
 
   return (
     <>
@@ -61,18 +73,29 @@ const Designer = () => {
               zoom: 3.55,
             }}
           >
-            <GeoJsonLayer source={sources[0]} layers={[]} />
+            {sources.map((source) => (
+              <GeoJsonLayer
+                source={source}
+                layers={layers.filter((layer) => layer.source === source.id)}
+              />
+            ))}
           </Map>
           <LayerPanel sources={sources} layers={layers}></LayerPanel>
           <SourceModal />
           <div className="absolute bottom-10 right-5 ">
             <div className="grid gap-3">
-              <button className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200">
+              <Link
+                href={paths.projects}
+                className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
+              >
                 🍔 Back to Projects
-              </button>
-              <button className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200">
+              </Link>
+              <Link
+                href={paths.contact}
+                className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
+              >
                 💻 Work with Walter
-              </button>
+              </Link>
             </div>
           </div>
         </div>

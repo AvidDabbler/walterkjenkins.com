@@ -4,23 +4,18 @@ import { SourceType } from "../Map";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import { create } from "zustand";
 
-export type DesignerSourceType = SourceType & { name: string };
-
-export const useStore = <T, F>(
-  store: (callback: (state: T) => unknown) => unknown,
-  callback: (state: T) => F,
-  initialState: any
-) => {
-  const result = store(callback) as F;
-  const [data, setData] = useState<F>();
-
-  useEffect(() => {
-    setData(result);
-  }, [result]);
-
-  return data ?? initialState;
+export type DesignerSourceType = SourceType & {
+  name: string;
+  type:
+    | "Point"
+    | "MultiPoint"
+    | "LineString"
+    | "MultiLineString"
+    | "Polygon"
+    | "MultiPolygon"
+    | "GeometryCollection"
+    | undefined;
 };
-
 export type DesignMapValues = {
   sources: DesignerSourceType[];
   layers: LayerType[];
@@ -29,7 +24,7 @@ export type DesignMapValues = {
   sourceModal: null | { id: string };
 };
 
-export type DesignMapStore = DesignMapValues & {
+export type DesignStoreType = DesignMapValues & {
   addSource: (source: DesignerSourceType) => void;
   removeSource: (sourceId: string) => void;
 
@@ -46,6 +41,23 @@ export type DesignMapStore = DesignMapValues & {
   setSourceModal: (sourceModal: DesignMapValues["sourceModal"]) => void;
 };
 
+export const useStore = <T, F>(
+  store: (callback: (state: T) => unknown) => unknown,
+  callback: (state: T) => F,
+  initialState: DesignStoreType
+) => {
+  const result = store(callback) as DesignStoreType;
+  const [data, setData] = useState<DesignStoreType>();
+
+  useEffect(() => {
+    setData(result);
+  }, [result]);
+
+  
+
+  return data ?? initialState;
+};
+
 export const initialMapState: DesignMapValues = {
   sources: [],
   layers: [],
@@ -54,7 +66,7 @@ export const initialMapState: DesignMapValues = {
   sourceModal: null,
 };
 
-export const useDesignMapStore = create<DesignMapStore>()(
+export const useDesignMapStore = create<DesignStoreType>()(
   devtools(
     persist(
       (set) => ({
