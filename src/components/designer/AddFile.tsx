@@ -1,11 +1,57 @@
 import React from "react";
+import { useMap } from "../Map";
+import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
+import { useMapStore } from "./store";
+import bbox from "@turf/bbox";
 
-export const AddFile = ({
-  uploadSource,
-}: {
-  uploadSource: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  addUrlSource: (url: string) => void;
-}) => {
+export const AddFile = () => {
+  const map = useMap();
+  const { layers, sources, addSource, addLayer, setSourceModal } =
+    useMapStore();
+
+  const uploadSource = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    const fileReader = new FileReader();
+    fileReader.readAsText(e.target.files?.[0] as Blob, "UTF-8");
+    fileReader.onload = (file) => {
+      if (
+        file.target?.result &&
+        typeof file.target?.result === "string" &&
+        e.target.files &&
+        e.target.files[0]
+      ) {
+        const id = (Math.random() * 1000).toString();
+        const data = JSON.parse(file.target?.result) as FeatureCollection<
+          Geometry,
+          GeoJsonProperties
+        >;
+        const fileName = e.target.files[0].name;
+        const geomType = data.features[0]?.geometry.type;
+        if (!geomType || geomType === "GeometryCollection") return;
+        const layerType = geomType.toLowerCase().includes("point")
+          ? "circle"
+          : "fill";
+        addSource({
+          data,
+          name: fileName,
+          type: data.features[0]?.geometry.type,
+          id,
+        });
+        addLayer({
+          id: `${fileName}_${(Math.random() * 1000).toString()}`,
+          name: fileName,
+          type: layerType,
+          source: id,
+        });
+        setSourceModal({ id });
+        const bounds = bbox(data);
+        map.fitBounds(bounds, { padding: 20 });
+      }
+    };
+  };
+
+  const addUrlSource = (url: string) => {};
+
   return (
     <div className="absolute left-5 top-5 z-20 grid max-w-xs gap-3 rounded bg-blue-900 p-6">
       <h2 className="text-lg text-white">
@@ -19,7 +65,7 @@ export const AddFile = ({
         ></input>
         <input
           type="submit"
-          className="w-30 rounded-lg bg-blue-300 p-2 text-center transition-all hover:cursor-pointer hover:shadow-xl duration-150 hover:bg-blue-200"
+          className="w-30 rounded-lg bg-blue-300 p-2 text-center transition-all duration-150 hover:cursor-pointer hover:bg-blue-200 hover:shadow-xl"
           title="Use URL Data"
         ></input>
       </form>
@@ -33,7 +79,7 @@ export const AddFile = ({
       />
       <label
         htmlFor="file-selector"
-        className="w-30 rounded-lg bg-blue-300 p-2 text-center transition-all hover:cursor-pointer hover:shadow-xl duration-150 hover:bg-blue-200"
+        className="w-30 rounded-lg bg-blue-300 p-2 text-center transition-all duration-150 hover:cursor-pointer hover:bg-blue-200 hover:shadow-xl"
       >
         Add a File
       </label>

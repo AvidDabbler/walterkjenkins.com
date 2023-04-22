@@ -75,12 +75,10 @@ export const loadGeojson = ({
   map,
   layers,
   source,
-  zoomTo,
 }: {
   map: MapType;
   layers: LayerType[];
   source: SourceType;
-  zoomTo: boolean;
 }) => {
   if (!map.getSource(source.id)) {
     map.addSource(source.id, {
@@ -90,10 +88,6 @@ export const loadGeojson = ({
     });
   }
   layers.forEach((layer) => map.addLayer(layer));
-  if (zoomTo) {
-    const bounds = bbox(source.data);
-    map.fitBounds(bounds, { padding: 20 });
-  }
   return () => {
     map.removeSource(source.id);
   };
@@ -123,7 +117,7 @@ export const GeoJsonLayer = ({
   const map = useMap();
   useEffect(() => {
     if (!source) return;
-    loadGeojson({ map, layers, source, zoomTo });
+    loadGeojson({ map, layers, source });
     let timer: undefined | NodeJS.Timer;
     if (refreshInterval) {
       // eslint-disable-next-line
@@ -195,7 +189,7 @@ export const Map = ({
   }, [map]);
 
   return (
-    <div id="map-fullscreen-container" className={className}>
+    <div className={className}>
       <MapContext.Provider value={map}>
         <StyleContext.Provider value={style}>
           <div className={className} ref={mapContainer} />
