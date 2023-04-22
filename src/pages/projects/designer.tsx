@@ -55,7 +55,6 @@ const Designer = () => {
 
   const addUrlSource = (url: string) => {};
 
-
   return (
     <>
       <Head>
@@ -77,6 +76,7 @@ const Designer = () => {
               <GeoJsonLayer
                 source={source}
                 layers={layers.filter((layer) => layer.source === source.id)}
+                zoomTo={true}
               />
             ))}
           </Map>

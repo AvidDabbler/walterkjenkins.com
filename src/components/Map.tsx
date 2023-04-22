@@ -18,6 +18,7 @@ import type {
   Geometry,
   Point,
 } from "geojson";
+import bbox from "@turf/bbox";
 import { mbAccessToken } from "~/config";
 import type { GeoJSONSource } from "mapbox-gl";
 
@@ -74,10 +75,12 @@ export const loadGeojson = ({
   map,
   layers,
   source,
+  zoomTo,
 }: {
   map: MapType;
   layers: LayerType[];
   source: SourceType;
+  zoomTo: boolean;
 }) => {
   if (!map.getSource(source.id)) {
     map.addSource(source.id, {
@@ -87,6 +90,10 @@ export const loadGeojson = ({
     });
   }
   layers.forEach((layer) => map.addLayer(layer));
+  if (zoomTo) {
+    const bounds = bbox(source.data);
+    map.fitBounds(bounds, { padding: 20 });
+  }
   return () => {
     map.removeSource(source.id);
   };
@@ -96,10 +103,12 @@ export const GeoJsonLayer = ({
   layers,
   source,
   refreshInterval,
+  zoomTo
 }: {
   layers: (CircleLayer | FillLayer | LineLayer | SymbolLayer | HeatmapLayer)[];
   source: SourceType;
   refreshInterval?: number;
+  zoomTo?: boolean;
 }) => {
   const refresh = async () => {
     const _source = map.getSource(source.id) as GeoJSONSource;
@@ -114,7 +123,7 @@ export const GeoJsonLayer = ({
   const map = useMap();
   useEffect(() => {
     if (!source) return;
-    loadGeojson({ map, layers, source });
+    loadGeojson({ map, layers, source, zoomTo });
     let timer: undefined | NodeJS.Timer;
     if (refreshInterval) {
       // eslint-disable-next-line
@@ -139,8 +148,6 @@ export const Map = ({
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<MapBoxMap | null>(null);
   const [style, setStyle] = useState<string | undefined>(undefined);
-
-  // map?.getSource('something')
 
   useEffect(() => {
     if (!mapContainer.current || map) return; // initialize map only once
