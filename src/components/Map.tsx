@@ -97,12 +97,10 @@ export const GeoJsonLayer = ({
   layers,
   source,
   refreshInterval,
-  zoomTo
 }: {
-  layers: (CircleLayer | FillLayer | LineLayer | SymbolLayer | HeatmapLayer)[];
+  layers: LayerType[];
   source: SourceType;
   refreshInterval?: number;
-  zoomTo?: boolean;
 }) => {
   const refresh = async () => {
     const _source = map.getSource(source.id) as GeoJSONSource;

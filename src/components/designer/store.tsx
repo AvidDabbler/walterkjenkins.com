@@ -141,4 +141,5 @@ export const useDesignMapStore = create<DesignStoreType>()(
 );
 
 export const useMapStore = () =>
+// @ts-expect-error
   useStore(useDesignMapStore, (state) => state, initialMapState);

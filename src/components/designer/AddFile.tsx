@@ -3,6 +3,7 @@ import { useMap } from "../Map";
 import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import { useMapStore } from "./store";
 import bbox from "@turf/bbox";
+import { LngLatBoundsLike } from "mapbox-gl";
 
 export const AddFile = () => {
   const map = useMap();
@@ -44,7 +45,7 @@ export const AddFile = () => {
           source: id,
         });
         setSourceModal({ id });
-        const bounds = bbox(data);
+        const bounds = bbox(data) as LngLatBoundsLike;
         map.fitBounds(bounds, { padding: 20 });
       }
     };

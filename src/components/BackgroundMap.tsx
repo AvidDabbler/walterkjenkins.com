@@ -14,7 +14,7 @@ export const BackgroundMap = () => {
 
   const vehicles: {
     source: { id: string; data: GeoJSONSourceRaw["data"] };
-    layers: [SymbolLayer];
+    layers: [SymbolLayer & { name: string }];
   } = {
     source: {
       id: "vehicles",
@@ -23,6 +23,7 @@ export const BackgroundMap = () => {
     layers: [
       {
         id: "vehicles",
+        name: "vehicles",
         type: "symbol",
         layout: {
           "icon-image": "pulsing-dot",
