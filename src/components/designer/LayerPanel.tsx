@@ -1,12 +1,12 @@
 "use-client";
 import clsx from "clsx";
-import React, { ReactNode, useState } from "react";
+import React from "react";
 import { Modal } from "../Modal";
 import { Button } from "./Button";
-import { LayerType, useMap } from "../Map";
-import { DesignerSourceType, useDesignMapStore } from "./store";
+import { useMap } from "../Map";
+import { useDesignMapStore } from "./store";
 import { RiMore2Fill } from "react-icons/ri";
-import { Menu, Popover } from "@headlessui/react";
+import { Popover } from "@headlessui/react";
 import bbox from "@turf/bbox";
 import { LngLatBoundsLike } from "mapbox-gl";
 
@@ -33,9 +33,11 @@ const LayerPanel = () => {
   const deleteSource = (id: string) => {
     const source = sources.find((source) => (source.id = id));
     if (!source) return;
+
     map.removeSource(id);
     const removedLayers = layers.filter((layer) => layer.source === id);
-    if(removedLayers) removedLayers.forEach((layer) => map.removeLayer(layer.id));
+    removedLayers.forEach((layer) => map.removeLayer(layer.id));
+
     removeSource(id);
     removeLayerBySourceId(id);
   };

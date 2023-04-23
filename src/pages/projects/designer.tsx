@@ -1,15 +1,12 @@
-import type { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import Head from "next/head";
-import { useEffect } from "react";
 import { Favicon } from "~/components/Favicon";
-import { GeoJsonLayer, Map, useMap } from "~/components/Map";
+import { GeoJsonLayer, Map } from "~/components/Map";
 import { AddFile } from "~/components/designer/AddFile";
 import LayerPanel from "~/components/designer/LayerPanel";
 import { SourceModal } from "~/components/designer/Modals";
 import { useMapStore } from "~/components/designer/store";
 import { paths } from "~/config";
 import Link from "next/link";
-import bbox from "@turf/bbox";
 
 const Designer = () => {
   const { layers, sources } = useMapStore();

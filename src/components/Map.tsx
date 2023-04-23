@@ -15,10 +15,8 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import type {
   FeatureCollection,
   GeoJsonProperties,
-  Geometry,
   Point,
 } from "geojson";
-import bbox from "@turf/bbox";
 import { mbAccessToken } from "~/config";
 import type { GeoJSONSource } from "mapbox-gl";
 
