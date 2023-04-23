@@ -37,8 +37,8 @@ const Designer = () => {
                 layers={layers.filter((layer) => layer.source === source.id)}
               />
             ))}
-          </Map>
           <LayerPanel sources={sources} layers={layers}></LayerPanel>
+          </Map>
           <SourceModal />
           <div className="absolute bottom-10 right-5 ">
             <div className="grid gap-3">

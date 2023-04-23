@@ -1,21 +1,33 @@
-'use-client'
+"use-client";
 import clsx from "clsx";
 import React, { ReactNode, useState } from "react";
 import { Modal } from "../Modal";
 import { Button } from "./Button";
-import { LayerType } from "../Map";
+import { LayerType, useMap } from "../Map";
 import { DesignerSourceType, useDesignMapStore } from "./store";
-
+import { RiMore2Fill } from "react-icons/ri";
+import { Menu, Popover } from "@headlessui/react";
+import bbox from "@turf/bbox";
+import { LngLatBoundsLike } from "mapbox-gl";
 
 const LayerPanel = ({
-sources,
+  sources,
   layers,
 }: {
   sources: DesignerSourceType[];
   layers: LayerType[];
 }) => {
+  const map = useMap();
   const { modalState, layersPanelState, toggleLayersPanel, toggleModal } =
     useDesignMapStore();
+
+  const zoomTo = (id: string) => {
+    const source = sources.find((source) => source.id);
+    if (!source) return;
+    const bounds = bbox(source.data) as LngLatBoundsLike;
+    map.fitBounds(bounds, { padding: 20 });
+  };
+
   return (
     <div>
       <button
@@ -37,15 +49,33 @@ sources,
       >
         <div className="p-3">
           <h3 className="text-lg">Sources</h3>
-          <ul>
+          <ul className="p-2">
             {sources.length === 0
               ? "No sources uploaded"
               : sources.map((source) => (
-                  <li key={source.id}>{source.name}</li>
+                  <li key={source.id}>
+                    <div className="flex justify-between">
+                      <span>{source.name}</span>
+                      <Popover>
+                        <Popover.Button className="rounded-full">
+                          <RiMore2Fill />
+                        </Popover.Button>
+                        <Popover.Panel className="absolute right-3 mt-0 shadow-2xl">
+                          <div className="grid bg-gray-100">
+                            <button
+                              className="w-full rounded-md p-3 hover:bg-blue-300"
+                              onClick={() => zoomTo(source.id)}
+                            >
+                              Zoom to
+                            </button>
+                          </div>
+                        </Popover.Panel>
+                      </Popover>
+                    </div>
+                  </li>
                 ))}
           </ul>
         </div>
-        <Button onClick={() => null}>Open Panel</Button>
       </div>
       <Modal
         isOpen={modalState.isOpen}
