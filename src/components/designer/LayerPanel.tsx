@@ -10,22 +10,34 @@ import { Menu, Popover } from "@headlessui/react";
 import bbox from "@turf/bbox";
 import { LngLatBoundsLike } from "mapbox-gl";
 
-const LayerPanel = ({
-  sources,
-  layers,
-}: {
-  sources: DesignerSourceType[];
-  layers: LayerType[];
-}) => {
+const LayerPanel = () => {
   const map = useMap();
-  const { modalState, layersPanelState, toggleLayersPanel, toggleModal } =
-    useDesignMapStore();
+  const {
+    sources,
+    layers,
+    modalState,
+    layersPanelState,
+    removeSource,
+    removeLayerBySourceId,
+    toggleLayersPanel,
+    toggleModal,
+  } = useDesignMapStore();
 
   const zoomTo = (id: string) => {
-    const source = sources.find((source) => source.id);
+    const source = sources.find((source) => (source.id = id));
     if (!source) return;
     const bounds = bbox(source.data) as LngLatBoundsLike;
     map.fitBounds(bounds, { padding: 20 });
+  };
+
+  const deleteSource = (id: string) => {
+    const source = sources.find((source) => (source.id = id));
+    if (!source) return;
+    map.removeSource(id);
+    const removedLayers = layers.filter((layer) => layer.source === id);
+    if(removedLayers) removedLayers.forEach((layer) => map.removeLayer(layer.id));
+    removeSource(id);
+    removeLayerBySourceId(id);
   };
 
   return (
@@ -60,13 +72,19 @@ const LayerPanel = ({
                         <Popover.Button className="rounded-full">
                           <RiMore2Fill />
                         </Popover.Button>
-                        <Popover.Panel className="absolute right-3 mt-0 shadow-2xl">
-                          <div className="grid bg-gray-100">
+                        <Popover.Panel className="absolute right-3 mt-0 w-40 text-left shadow-2xl">
+                          <div className="grid bg-gray-100 text-left">
                             <button
-                              className="w-full rounded-md p-3 hover:bg-blue-300"
+                              className="w-full rounded-md p-3 text-left hover:bg-blue-300"
                               onClick={() => zoomTo(source.id)}
                             >
                               Zoom to
+                            </button>
+                            <button
+                              className="w-full rounded-md p-3 text-left hover:bg-blue-300"
+                              onClick={() => deleteSource(source.id)}
+                            >
+                              Delete
                             </button>
                           </div>
                         </Popover.Panel>

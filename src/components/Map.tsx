@@ -114,7 +114,7 @@ export const GeoJsonLayer = ({
   };
   const map = useMap();
   useEffect(() => {
-    if (!source) return;
+    if (!source || map.getSource(source.id)) return;
     loadGeojson({ map, layers, source });
     let timer: undefined | NodeJS.Timer;
     if (refreshInterval) {
@@ -178,7 +178,7 @@ export const Map = ({
       console.log("A error event occurred.", e, rest);
     };
     map.on("style.load", onStyleChange);
-    ``;
+
     map.on("error", onError);
     return () => {
       map.off("style.load", onStyleChange);

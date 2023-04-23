@@ -53,8 +53,6 @@ export const useStore = <T, F>(
     setData(result);
   }, [result]);
 
-  
-
   return data ?? initialState;
 };
 
@@ -78,8 +76,8 @@ export const useDesignMapStore = create<DesignStoreType>()(
           }),
         removeSource: (sourceId: string) =>
           set((state) => {
-            state.sources.filter((s) => s.id !== sourceId);
-            return { ...state, sources: state.sources };
+            const sources = state.sources.filter((s) => s.id !== sourceId);
+            return { ...state, sources: sources };
           }),
         addLayer: (layer: LayerType) =>
           set((state) => {
@@ -88,8 +86,8 @@ export const useDesignMapStore = create<DesignStoreType>()(
           }),
         removeLayerBySourceId: (sourceId: string) =>
           set((state) => {
-            state.layers.filter((l) => l.id !== sourceId);
-            return { ...state, layers: state.layers };
+            const newLayers = state.layers.filter((l) => l.source !== sourceId);
+            return { ...state, layers: newLayers };
           }),
         removeLayerByLayerId: (layerId: string) =>
           set((state) => {
@@ -141,5 +139,5 @@ export const useDesignMapStore = create<DesignStoreType>()(
 );
 
 export const useMapStore = () =>
-// @ts-expect-error
+  // @ts-expect-error
   useStore(useDesignMapStore, (state) => state, initialMapState);

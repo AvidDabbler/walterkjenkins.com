@@ -37,7 +37,7 @@ const Designer = () => {
                 layers={layers.filter((layer) => layer.source === source.id)}
               />
             ))}
-          <LayerPanel sources={sources} layers={layers}></LayerPanel>
+            <LayerPanel />
           </Map>
           <SourceModal />
           <div className="absolute bottom-10 right-5 ">
