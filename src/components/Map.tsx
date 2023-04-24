@@ -12,11 +12,7 @@ import type {
 } from "mapbox-gl";
 import type { LngLatLike, Map as MapType } from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import type {
-  FeatureCollection,
-  GeoJsonProperties,
-  Point,
-} from "geojson";
+import type { FeatureCollection, GeoJsonProperties, Point } from "geojson";
 import { mbAccessToken } from "~/config";
 import type { GeoJSONSource } from "mapbox-gl";
 
@@ -88,6 +84,7 @@ export const loadGeojson = ({
   layers.forEach((layer) => map.addLayer(layer));
   return () => {
     map.removeSource(source.id);
+    layers.forEach((layer) => map.removeLayer(layer.id));
   };
 };
 

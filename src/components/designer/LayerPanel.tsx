@@ -62,38 +62,46 @@ const LayerPanel = () => {
         )}
       >
         <div className="p-3">
-          <h3 className="text-lg">Sources</h3>
+          <h3 className="text-lg">layers</h3>
           <ul className="p-2">
-            {sources.length === 0
-              ? "No sources uploaded"
-              : sources.map((source) => (
-                  <li key={source.id}>
-                    <div className="flex justify-between">
-                      <span>{source.name}</span>
-                      <Popover>
-                        <Popover.Button className="rounded-full">
-                          <RiMore2Fill />
-                        </Popover.Button>
-                        <Popover.Panel className="absolute right-3 mt-0 w-40 text-left shadow-2xl">
-                          <div className="grid bg-gray-100 text-left">
-                            <button
-                              className="w-full rounded-md p-3 text-left hover:bg-blue-300"
-                              onClick={() => zoomTo(source.id)}
-                            >
-                              Zoom to
-                            </button>
-                            <button
-                              className="w-full rounded-md p-3 text-left hover:bg-blue-300"
-                              onClick={() => deleteSource(source.id)}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </Popover.Panel>
-                      </Popover>
-                    </div>
-                  </li>
-                ))}
+            {layers.length === 0
+              ? "No layers uploaded"
+              : sources.map((source) => {
+                  const layer = layers.find(
+                    (layer) => layer.source === source.id
+                  );
+                  const mapLayer = map.getLayer(layer.id)
+                  if(!layer) return;
+
+                  return (
+                    <li key={source.id}>
+                      <div className="flex justify-between">
+                        <span>{source.name}</span>
+                        <Popover>
+                          <Popover.Button className="rounded-full">
+                            <RiMore2Fill />
+                          </Popover.Button>
+                          <Popover.Panel className="absolute right-3 mt-0 w-40 text-left shadow-2xl">
+                            <div className="grid bg-gray-100 text-left">
+                              <button
+                                className="w-full rounded-md p-3 text-left hover:bg-blue-300"
+                                onClick={() => zoomTo(source.id)}
+                              >
+                                Zoom to
+                              </button>
+                              <button
+                                className="w-full rounded-md p-3 text-left hover:bg-blue-300"
+                                onClick={() => deleteSource(source.id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </Popover.Panel>
+                        </Popover>
+                      </div>
+                    </li>
+                  );
+                })}
           </ul>
         </div>
       </div>

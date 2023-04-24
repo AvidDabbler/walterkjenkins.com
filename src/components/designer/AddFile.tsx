@@ -1,14 +1,41 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { useMap } from "../Map";
 import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import { useMapStore } from "./store";
 import bbox from "@turf/bbox";
 import { LngLatBoundsLike } from "mapbox-gl";
+import { Modal } from "../Modal";
+import type { CircleLayer, FillLayer, LineLayer } from "mapbox-gl";
+import randomcolor from "randomcolor";
 
 export const AddFile = () => {
   const map = useMap();
-  const { layers, sources, addSource, addLayer, setSourceModal } =
+  const { addSource, addLayer, setSourceModal, showAddModal, setShowAddModal } =
     useMapStore();
+
+  const paintProperties = (
+    layerType: "circle" | "line" | "fill"
+  ): CircleLayer["paint"] | FillLayer["paint"] | LineLayer["paint"] => {
+    switch (layerType) {
+      case "circle":
+        return {
+          "circle-color": randomcolor(),
+          "circle-radius": 5,
+          "circle-stroke-color": randomcolor(),
+          "circle-stroke-width": 1,
+        };
+      case "fill":
+        return {
+          "fill-color": randomcolor(),
+          "fill-outline-color": randomcolor(),
+        };
+      case "line":
+        return {
+          "line-color": randomcolor(),
+          "line-width": 2,
+        };
+    }
+  };
 
   const uploadSource = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -31,7 +58,9 @@ export const AddFile = () => {
         if (!geomType || geomType === "GeometryCollection") return;
         const layerType = geomType.toLowerCase().includes("point")
           ? "circle"
-          : "fill";
+          : geomType.toLowerCase().includes("polygon")
+          ? "fill"
+          : "line";
         addSource({
           data,
           name: fileName,
@@ -43,10 +72,12 @@ export const AddFile = () => {
           name: fileName,
           type: layerType,
           source: id,
+          paint: paintProperties(layerType),
         });
         setSourceModal({ id });
         const bounds = bbox(data) as LngLatBoundsLike;
         map.fitBounds(bounds, { padding: 20 });
+        setShowAddModal(false);
       }
     };
   };
@@ -54,36 +85,41 @@ export const AddFile = () => {
   const addUrlSource = (url: string) => {};
 
   return (
-    <div className="absolute left-5 top-5 z-20 grid max-w-xs gap-3 rounded bg-blue-900 p-6">
-      <h2 className="text-lg text-white">
-        Add some geojson to the map and Let's make something fun!
-      </h2>
-      <form className="grid gap-3">
+    <Modal
+      isOpen={showAddModal}
+      closeModal={() => setShowAddModal(false)}
+      title="Add a Geojson URL or file to the map"
+    >
+      <div className=" z-20 grid gap-3 p-6">
+        <form className="grid gap-5">
+          <input
+            type="text"
+            placeholder="Add a URL"
+            className="rounded border border-gray-400 p-2"
+          ></input>
+          <button
+            type="submit"
+            className="w-30 rounded-lg bg-blue-300 p-2 text-center transition-all duration-150 hover:cursor-pointer hover:bg-blue-200 hover:shadow-xl"
+            title="Use URL Data"
+          >
+            Use URL Data
+          </button>
+        </form>
+        <p className="text-center text-black">OR</p>
         <input
-          type="text"
-          placeholder="Add a URL"
-          className="rounded p-2"
-        ></input>
-        <input
-          type="submit"
+          id="file-selector"
+          hidden
+          type="file"
+          accept="application/JSON"
+          onChange={(e) => uploadSource(e)}
+        />
+        <label
+          htmlFor="file-selector"
           className="w-30 rounded-lg bg-blue-300 p-2 text-center transition-all duration-150 hover:cursor-pointer hover:bg-blue-200 hover:shadow-xl"
-          title="Use URL Data"
-        ></input>
-      </form>
-      <p className="text-center text-white">OR</p>
-      <input
-        id="file-selector"
-        hidden
-        type="file"
-        accept="application/JSON"
-        onChange={(e) => uploadSource(e)}
-      />
-      <label
-        htmlFor="file-selector"
-        className="w-30 rounded-lg bg-blue-300 p-2 text-center transition-all duration-150 hover:cursor-pointer hover:bg-blue-200 hover:shadow-xl"
-      >
-        Add a File
-      </label>
-    </div>
+        >
+          Add a File
+        </label>
+      </div>
+    </Modal>
   );
 };

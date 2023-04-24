@@ -7,9 +7,10 @@ import { SourceModal } from "~/components/designer/Modals";
 import { useMapStore } from "~/components/designer/store";
 import { paths } from "~/config";
 import Link from "next/link";
+import { RiAddCircleFill } from "react-icons/ri";
 
 const Designer = () => {
-  const { layers, sources } = useMapStore();
+  const { layers, sources, showAddModal, setShowAddModal } = useMapStore();
 
   return (
     <>
@@ -28,12 +29,19 @@ const Designer = () => {
             }}
           >
             <AddFile />
+
             {sources.map((source) => (
               <GeoJsonLayer
                 source={source}
                 layers={layers.filter((layer) => layer.source === source.id)}
               />
             ))}
+            <button
+              onClick={() => setShowAddModal(true)}
+              className={"absolute rounded-full bg-blue-600 p-3 bottom-6 left-6 shadow-2xl hover:bg-blue-300 transition-colors"}
+            >
+              <RiAddCircleFill className="text-white w-8 h-8"/>
+            </button>
             <LayerPanel />
           </Map>
           <SourceModal />

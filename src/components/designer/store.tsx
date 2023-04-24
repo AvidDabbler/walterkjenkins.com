@@ -22,6 +22,7 @@ export type DesignMapValues = {
   layersPanelState: { isOpen: boolean; focus: "sources" | "layers" };
   modalState: { isOpen: boolean; focus: string };
   sourceModal: null | { id: string };
+  showAddModal: boolean;
 };
 
 export type DesignStoreType = DesignMapValues & {
@@ -39,6 +40,8 @@ export type DesignStoreType = DesignMapValues & {
   setModalFocus: (focus: string) => void;
 
   setSourceModal: (sourceModal: DesignMapValues["sourceModal"]) => void;
+
+  setShowAddModal: (event: boolean) => void;
 };
 
 export const useStore = <T, F>(
@@ -62,6 +65,7 @@ export const initialMapState: DesignMapValues = {
   layersPanelState: { isOpen: false, focus: "sources" },
   modalState: { isOpen: false, focus: "settings" },
   sourceModal: null,
+  showAddModal: false,
 };
 
 export const useDesignMapStore = create<DesignStoreType>()(
@@ -128,6 +132,10 @@ export const useDesignMapStore = create<DesignStoreType>()(
         setSourceModal: (sourceModal: DesignMapValues["sourceModal"]) =>
           set((state) => {
             return { ...state, sourceModal };
+          }),
+        setShowAddModal: (event) =>
+          set((state) => {
+            return { ...state, showAddModal: event };
           }),
       }),
       {
