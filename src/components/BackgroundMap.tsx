@@ -4,8 +4,8 @@ import type { Map, GeoJSONSourceRaw, SymbolLayer } from "mapbox-gl";
 export const BackgroundMap = () => {
   const initialMap = {
     loaded: false,
-    lng: -90.21,
-    lat: 38.53,
+    lng: -90.31,
+    lat: 38.63,
     zoom: 10.9,
     map: [],
     width: "100%",
@@ -97,7 +97,7 @@ export const BackgroundMap = () => {
         interactive: false,
       }}
       onLoadFunction={onLoad}
-      className=""
+      className="flex h-screen w-screen"
     >
       <GeoJsonLayer
         source={vehicles.source}

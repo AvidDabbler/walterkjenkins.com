@@ -5,6 +5,7 @@ import React from "react";
 import { Header, About, Signature } from "../components";
 import { BackgroundMap } from "~/components/BackgroundMap";
 import { Favicon } from "~/components/Favicon";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 const Home: NextPage = () => {
   return (
@@ -17,7 +18,7 @@ const Home: NextPage = () => {
       <main>
         <div>
           <div id="app" className="w-100 h-screen">
-            <div className=" w-100 zi100">
+            <div className=" w-100 ">
               <Header />
             </div>
             <div id="map" className="mapContainer w-100 fixed">

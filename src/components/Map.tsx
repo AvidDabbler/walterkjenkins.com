@@ -11,19 +11,14 @@ import type {
   Map as MapBoxMap,
 } from "mapbox-gl";
 import type { LngLatLike, Map as MapType } from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 import type { FeatureCollection, GeoJsonProperties, Point } from "geojson";
 import { mbAccessToken } from "~/config";
 import type { GeoJSONSource } from "mapbox-gl";
 
 export type SourceType = { id: string; data: GeoJSONSourceRaw["data"] };
-export type LayerType = (
-  | CircleLayer
-  | FillLayer
-  | LineLayer
-  | SymbolLayer
-  | HeatmapLayer
-) & { name: string };
+export type LayerType = (CircleLayer | FillLayer | LineLayer | SymbolLayer) & {
+  name: string;
+};
 
 export function useMapbox({
   center,
@@ -142,8 +137,8 @@ export const Map = ({
       mapboxgl.accessToken = mbAccessToken ?? "";
       const _map = new mapboxgl.Map({
         container: mapContainer.current,
-        fitBoundsOptions: { padding: 100, maxZoom: 18 },
-        style: "mapbox://styles/mapbox/navigation-night-v1", // style URL
+        fitBoundsOptions: { maxZoom: 18 },
+        style: "mapbox://styles/mapbox/streets-v11", // style URL
         ...options,
       });
 

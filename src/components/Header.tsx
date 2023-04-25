@@ -2,27 +2,30 @@ import Link from "next/link";
 import { FaHamburger } from "react-icons/fa";
 import { useRef, useState } from "react";
 import { paths } from "../config";
+import clsx from "clsx";
 
 export const Header = () => {
   const popoverRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <div id="head" className="nav-header absolute z-10 w-full py-3">
+    <div
+      id="head"
+      className="nav-header absolute z-10 w-screen overflow-x-hidden py-3"
+    >
       <nav className="ml-auto min-w-min px-4 py-2">
         <div className="header-hamburger">
-          <FaHamburger
-            onClick={() => setIsOpen(!isOpen)}
-            size={"32px"}
-          ></FaHamburger>
+          <button onClick={() => setIsOpen(!isOpen)}>
+            <FaHamburger size={"32px"}></FaHamburger>
+          </button>
         </div>
         <div
-          ref={popoverRef}
-          className={`hamburger-content-container ${
-            !isOpen ? "right" : "left"
-          }`}
+          className={clsx(
+            "fixed top-20  rounded bg-white shadow-lg transition-all duration-150 ",
+            isOpen ? "right-5" : "-right-96"
+          )}
         >
-          <div className={`popover flex flex-col`}>
+          <div className="grid gap-5 p-5">
             <Link className="link px-2" data-value="home" href={paths.home}>
               Home
             </Link>

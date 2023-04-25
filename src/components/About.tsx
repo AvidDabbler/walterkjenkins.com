@@ -35,7 +35,7 @@ export function About() {
             data visualizations that make sense to non-techies.
           </p>
         </div>
-        <div className="bg-blue-500/30 bg-opacity-95 w py-20 flex flex-col justify-center rounded-lg text-center">
+        <div className="bg-blue-500/30 bg-opacity-95 w py-20 flex flex-col justify-center rounded-lg text-center z-30">
           <h2 className="text-center text-xl text-white">My Things</h2>
           <div className="m-6 flex flex-col text-center text-white">
             <Link className="link m-6" href={paths.projects}>

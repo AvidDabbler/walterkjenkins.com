@@ -10,59 +10,51 @@ import Link from "next/link";
 import { RiAddCircleFill } from "react-icons/ri";
 
 const Designer = () => {
-  const { layers, sources, showAddModal, setShowAddModal } = useMapStore();
+  const { layers, sources, setShowAddModal } = useMapStore();
 
   return (
     <>
-      <Head>
-        <title>Mapbox layer Designer</title>
-        <meta name="description" content="Created by Walter" />
-        <Favicon />
-      </Head>
-      <main>
-        <div className="flex h-screen w-screen">
-          <Map
-            className="flex h-screen w-screen"
-            options={{
-              center: [-97.93, 38.88],
-              zoom: 3.55,
-            }}
+      <Map
+        className="flex h-screen w-screen"
+        options={{
+          center: [-97.93, 38.88],
+          zoom: 3.55,
+        }}
+      >
+        <AddFile />
+        {sources.map((source) => (
+          <GeoJsonLayer
+            source={source}
+            layers={layers.filter((layer) => layer.source === source.id)}
+          />
+        ))}
+        <button
+          onClick={() => setShowAddModal(true)}
+          className={
+            "absolute bottom-6 left-6 rounded-full bg-blue-600 p-3 shadow-2xl transition-colors hover:bg-blue-300"
+          }
+        >
+          <RiAddCircleFill className="h-8 w-8 text-white" />
+        </button>
+        <LayerPanel />
+      </Map>
+      <SourceModal />
+      <div className="absolute bottom-10 right-5 ">
+        <div className="grid gap-3">
+          <Link
+            href={paths.projects}
+            className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
           >
-            <AddFile />
-
-            {sources.map((source) => (
-              <GeoJsonLayer
-                source={source}
-                layers={layers.filter((layer) => layer.source === source.id)}
-              />
-            ))}
-            <button
-              onClick={() => setShowAddModal(true)}
-              className={"absolute rounded-full bg-blue-600 p-3 bottom-6 left-6 shadow-2xl hover:bg-blue-300 transition-colors"}
-            >
-              <RiAddCircleFill className="text-white w-8 h-8"/>
-            </button>
-            <LayerPanel />
-          </Map>
-          <SourceModal />
-          <div className="absolute bottom-10 right-5 ">
-            <div className="grid gap-3">
-              <Link
-                href={paths.projects}
-                className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
-              >
-                🍔 Back to Projects
-              </Link>
-              <Link
-                href={paths.contact}
-                className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
-              >
-                💻 Work with Walter
-              </Link>
-            </div>
-          </div>
+            🍔 Back to Projects
+          </Link>
+          <Link
+            href={paths.contact}
+            className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
+          >
+            💻 Work with Walter
+          </Link>
         </div>
-      </main>
+      </div>
     </>
   );
 };
