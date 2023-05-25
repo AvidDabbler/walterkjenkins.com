@@ -20,34 +20,6 @@ export type LayerType = (CircleLayer | FillLayer | LineLayer | SymbolLayer) & {
   name: string;
 };
 
-export function useMapbox({
-  center,
-  zoom = 17,
-  onInit,
-}: {
-  center: LngLatLike;
-  zoom?: number;
-  onInit: (map: MapType) => void;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<MapType>();
-  const [loaded, setLoaded] = useState<boolean>();
-  useEffect(() => {
-    console.log("here");
-    if (ref.current && !map && !loaded) {
-      const map = new mapboxgl.Map({
-        container: ref.current,
-        style: "mapbox://styles/mapbox/streets-v11",
-        center,
-        zoom,
-      });
-      setLoaded(true);
-      setMap(map);
-      map.on("load", () => onInit(map));
-    }
-  }, [ref, center, zoom, map]);
-  return { ref, map };
-}
 
 const MapContext = createContext<MapType | null>(null);
 const StyleContext = createContext<string | null | undefined>(null);
@@ -138,7 +110,7 @@ export const Map = ({
       const _map = new mapboxgl.Map({
         container: mapContainer.current,
         fitBoundsOptions: { maxZoom: 18 },
-        style: "mapbox://styles/mapbox/streets-v11", // style URL
+        style: "mapbox://styles/mapbox/navigation-night-v1", // style URL
         ...options,
       });
 

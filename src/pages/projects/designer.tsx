@@ -14,6 +14,11 @@ const Designer = () => {
 
   return (
     <>
+      <Head>
+        <title>GeoJson Layer Designer</title>
+        <meta name="description" content="Created by Walter" />
+        <Favicon />
+      </Head>
       <Map
         className="flex h-screen w-screen"
         options={{
