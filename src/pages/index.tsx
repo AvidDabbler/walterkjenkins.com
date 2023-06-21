@@ -14,6 +14,7 @@ const Home: NextPage = () => {
         <title>Walter Jenkins</title>
         <meta name="description" content="Created by Walter" />
         <Favicon />
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
       </Head>
       <main>
         <div>
