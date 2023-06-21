@@ -3,7 +3,7 @@ import { About, Header } from "../components";
 import Head from "next/head";
 import { Favicon } from "~/components/Favicon";
 
-export const Contact = () => {
+const Contact = () => {
   return (
     <>
       <Head>
@@ -18,3 +18,5 @@ export const Contact = () => {
     </>
   );
 };
+
+export default Contact;
