@@ -4,13 +4,12 @@ import type {
   CircleLayer,
   FillLayer,
   GeoJSONSourceRaw,
-  HeatmapLayer,
   LineLayer,
   SymbolLayer,
   MapboxOptions,
   Map as MapBoxMap,
 } from "mapbox-gl";
-import type { LngLatLike, Map as MapType } from "mapbox-gl";
+import type { Map as MapType } from "mapbox-gl";
 import type { FeatureCollection, GeoJsonProperties, Point } from "geojson";
 import { mbAccessToken } from "~/config";
 import type { GeoJSONSource } from "mapbox-gl";

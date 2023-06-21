@@ -70,7 +70,6 @@ const LayerPanel = () => {
                   const layer = layers.find(
                     (layer) => layer.source === source.id
                   );
-                  const mapLayer = map.getLayer(layer.id)
                   if(!layer) return;
 
                   return (

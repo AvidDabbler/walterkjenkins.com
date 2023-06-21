@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useMap } from "../Map";
+import { LayerType, useMap } from "../Map";
 import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import { useMapStore } from "./store";
 import bbox from "@turf/bbox";
@@ -73,7 +73,7 @@ export const AddFile = () => {
           type: layerType,
           source: id,
           paint: paintProperties(layerType),
-        });
+        } as LayerType);
         setSourceModal({ id });
         const bounds = bbox(data) as LngLatBoundsLike;
         map.fitBounds(bounds, { padding: 20 });
