@@ -66,7 +66,6 @@ export function Articles() {
         }
         return acc;
       }, {});
-    console.log({ request });
     setArticles(request);
   };
 
