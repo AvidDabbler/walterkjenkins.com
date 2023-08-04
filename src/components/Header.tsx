@@ -35,6 +35,9 @@ export const Header = () => {
             >
               Projects
             </Link>
+            <Link className="link px-2" data-value="about" href={paths.blog}>
+              Blog
+            </Link>
             <Link className="link px-2" data-value="about" href={paths.about}>
               About
             </Link>
