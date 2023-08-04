@@ -1,17 +1,16 @@
 import Link from "next/link";
 import { FaHamburger } from "react-icons/fa";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { paths } from "../config";
 import clsx from "clsx";
 
 export const Header = () => {
-  const popoverRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <div
       id="head"
-      className="nav-header absolute z-10 w-screen overflow-x-hidden py-3"
+      className="nav-header fixed z-10 w-screen overflow-x-hidden py-3"
     >
       <nav className="ml-auto min-w-min px-4 py-2">
         <div className="header-hamburger">
@@ -36,11 +35,7 @@ export const Header = () => {
             >
               Projects
             </Link>
-            <Link
-              className="link px-2"
-              data-value="about"
-              href={paths.about}
-            >
+            <Link className="link px-2" data-value="about" href={paths.about}>
               About
             </Link>
           </div>
