@@ -16,4 +16,5 @@ export const paths = {
 	home: "/",
 	projects: "/projects",
 	contact: "/contact",
+	about: "/about",
 };

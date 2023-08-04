@@ -38,10 +38,10 @@ export const Header = () => {
             </Link>
             <Link
               className="link px-2"
-              data-value="contact"
-              href={paths.contact}
+              data-value="about"
+              href={paths.about}
             >
-              Contact
+              About
             </Link>
           </div>
         </div>
