@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Header } from "~/components";
 import { Favicon } from "~/components/Favicon";
 import Image from "next/image";
-import MapDesigner from "../assets/map-designer.png";
+import MapDesigner from "../../assets/map-designer.png";
 
 const Projects = () => {
   return (
@@ -18,7 +18,8 @@ const Projects = () => {
           <div className=" w-100 zi100">
             <Header />
           </div>
-          <div className="m-auto grid w-5/6 pt-40 text-3xl ">
+          <div className="m-auto grid w-5/6 gap-12 pt-40 text-3xl">
+            <h2 className="text-3xl text-white text-center">Projects</h2>
             <div className="group grid gap-12 md:flex">
               <Image
                 src={MapDesigner}
