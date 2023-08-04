@@ -8,11 +8,11 @@ export function Footer() {
       <Link className="link flex" href={paths.home}>
         Home
       </Link>
-      {/* <Link className="link flex" href={paths?.blog}>
+      <Link className="link flex" href={paths.blog}>
         Blog
-      </Link> */}
-      <Link className="link flex" href={paths.contact}>
-        Contact
+      </Link>
+      <Link className="link flex" href={paths.projects}>
+        Projects
       </Link>
     </div>
   );
