@@ -11,7 +11,7 @@ const Contact = () => {
         <meta name="description" content="Created by Walter" />
         <Favicon />
       </Head>
-      <div>
+      <div className="h-full min-h-screen">
         <Header />
         <About />
       </div>
