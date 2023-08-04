@@ -1,9 +1,10 @@
-import React, { useEffect, useContext, Fragment } from "react";
-import { Article } from ".";
-import { ArticleType } from "../../types";
+import React, { useEffect, Fragment } from "react";
 import { Header } from ".";
+import { ArticleType } from "~/types";
+import { Article } from "./Article";
+import { useBlog } from "~/context/blog";
 
-export const ArticlesList = ({ articles }: { articles: any[] }) => {
+export const ArticlesList = ({ articles }: { articles: ArticleType[] }) => {
   return (
     <Fragment>
       {articles.map((el: ArticleType, i: number) => (
@@ -37,7 +38,7 @@ const months = [
 ];
 
 export function Articles() {
-  const { articles, setArticles } = useContext(appContext);
+  const { articles, setArticles } = useBlog();
   const getArticles = async () => {
     const request = (
       await fetch(
@@ -60,6 +61,7 @@ export function Articles() {
         if (!acc[yearMonth]) {
           acc[yearMonth] = [cur];
         } else {
+          // @ts-expect-error
           acc[yearMonth] = [...acc[yearMonth], cur];
         }
         return acc;
@@ -75,20 +77,25 @@ export function Articles() {
 
   return (
     <div className="my-auto h-full">
-      <div className="bg-orange h-px"></div>
-      <Header />
       <div className="bg-blue topo mp-14 flex h-full min-h-screen w-full flex-col items-center pt-14 text-white">
         <div className="my-14">
           <h1 className="text-3xl">Blog</h1>
           {!articles
             ? "loading..."
             : Object.keys(articles).map((yearMonth: any) => {
+                if (!articles[yearMonth]) return;
                 return (
                   <Fragment>
                     <h2 className=" mb-3 mt-10 text-xl font-bold">
                       {yearMonth}
                     </h2>
-                    <ArticlesList articles={articles[yearMonth]} />
+                    <Fragment>
+                      {articles[yearMonth]?.map(
+                        (el: ArticleType, i: number) => (
+                          <Article key={i} article={el} />
+                        )
+                      )}
+                    </Fragment>{" "}
                   </Fragment>
                 );
               })}
