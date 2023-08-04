@@ -19,11 +19,11 @@ const Projects = () => {
             <Header />
           </div>
           <div className="m-auto grid w-5/6 gap-12 pt-40 text-3xl">
-            <h2 className="text-3xl text-white text-center">Projects</h2>
+            <h2 className="text-center text-3xl text-white">Projects</h2>
             <div className="group grid gap-12 md:flex">
               <Image
                 src={MapDesigner}
-                className="lg:96 mx-auto h-64 w-64 rounded-md ring-4 drop-shadow-lg transition-all hover:h-[17rem] hover:w-[17rem] lg:w-96"
+                className="mx-auto h-64 w-64 rounded-md ring-4 drop-shadow-lg transition-all hover:h-[17rem] hover:w-[17rem] lg:h-[23rem] lg:w-[23rem] lg:hover:h-96 lg:hover:w-96"
                 alt="profile photo"
               ></Image>
               <div className="my-auto grid w-full gap-3 md:flex md:w-2/3 md:flex-col md:gap-6 md:pr-6">
