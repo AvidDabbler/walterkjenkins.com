@@ -104,7 +104,7 @@ const LayerPanel = () => {
           </ul>
         </div>
       </div>
-      <Modal
+      {/* <Modal
         isOpen={modalState.isOpen}
         closeModal={toggleModal}
         title="This is the best"
@@ -113,7 +113,7 @@ const LayerPanel = () => {
           <div>These are my children</div>
           <Button onClick={toggleModal}>Close</Button>
         </div>
-      </Modal>
+      </Modal> */}
     </div>
   );
 };
