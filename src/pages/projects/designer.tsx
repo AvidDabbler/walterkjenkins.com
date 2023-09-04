@@ -43,7 +43,7 @@ const Designer = () => {
         </button>
         <LayerPanel />
       </Map>
-      <SourceModal />
+      {/* <SourceModal /> */}
       <div className="absolute bottom-10 right-5 ">
         <div className="grid gap-3">
           <Link
