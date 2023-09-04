@@ -3,7 +3,11 @@ import { paths } from "../config";
 import Link from "next/link";
 import Image from "next/image";
 import Profile from "../assets/profile.png";
-
+import BRLogo from "../assets/br-logo.png";
+import MekongLoog from '../assets/mekong-logo.png'
+import MITLogo from '../assets/mit-logo.png'
+import CLTLogo from '../assets/clt-logo.jpg'
+import DuoLogo from '../assets/duo-logo.jpg'
 export function About() {
   return (
     <>
@@ -32,19 +36,14 @@ export function About() {
             </div>
           </div>
         </div>
-        <div className="grid gap-6">
-          <h2 className="text-center text-3xl text-white">Links</h2>
-          <div className="mx-auto grid gap-12 md:flex">
-            <Link href={paths.projects}>
-              <h2 className="text-center text-2xl text-orange-500 hover:text-orange-600">
-                Projects
-              </h2>
-            </Link>
-            <Link href={paths.blog}>
-              <h2 className="text-center text-2xl text-orange-500 hover:text-orange-600">
-                Blog
-              </h2>
-            </Link>
+        <div className="grid gap-12">
+          <h2 className="text-center text-3xl text-white">People I've worked with</h2>
+          <div className="mx-auto px-20 flex flex-wrap gap-10 justify-around">
+            <Image alt='BlueRaster Logo' src={BRLogo} width={150} height={150}></Image>
+            <Image alt='Mekong Logo' src={MekongLoog} width={150} height={150}></Image>
+            <Image alt='MIT Logo' src={MITLogo} width={150} height={150}></Image>
+            <Image alt='City of Charlote Logo' src={CLTLogo} width={150} height={150}></Image>
+            <Image alt='Duo Studio Logo' src={DuoLogo} width={150} height={150}></Image>
           </div>
         </div>
       </div>
