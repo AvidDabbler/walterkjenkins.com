@@ -6,6 +6,7 @@ import { Header, About, Signature } from "../components";
 import { BackgroundMap } from "~/components/BackgroundMap";
 import { Favicon } from "~/components/Favicon";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { Footer } from "~/components/Footer";
 
 const Home: NextPage = () => {
   return (
@@ -30,6 +31,7 @@ const Home: NextPage = () => {
           <About />
         </div>
       </main>
+      <Footer />
     </>
   );
 };

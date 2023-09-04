@@ -1,6 +1,7 @@
 import { type AppType } from "next/dist/shared/lib/utils";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "~/styles/globals.css";
+import "~/styles/index.scss"
 import "~/styles/App.scss";
 import "~/styles/notion.css";
 import Script from "next/script";
