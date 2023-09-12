@@ -1,5 +1,4 @@
 import React from "react";
-import { paths } from "../config";
 import Image from "next/image";
 import Profile from "../assets/profile.png";
 import BRLogo from "../assets/br-logo.png";
