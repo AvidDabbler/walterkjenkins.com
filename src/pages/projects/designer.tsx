@@ -3,7 +3,6 @@ import { Favicon } from "~/components/Favicon";
 import { GeoJsonLayer, Map } from "~/components/Map";
 import { AddFile } from "~/components/designer/AddFile";
 import LayerPanel from "~/components/designer/LayerPanel";
-import { SourceModal } from "~/components/designer/Modals";
 import { useMapStore } from "~/components/designer/store";
 import { paths } from "~/config";
 import Link from "next/link";

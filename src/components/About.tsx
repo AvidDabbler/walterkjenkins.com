@@ -4,7 +4,7 @@ import Image from "next/image";
 import Profile from "../assets/profile.png";
 import BRLogo from "../assets/br-logo.png";
 import MekongLoog from '../assets/mekong-logo.png'
-import MITLogo from '../assets/mit-logo.png'
+import MITLogo from '../assets/mitlogo.png'
 import CLTLogo from '../assets/clt-logo.jpg'
 import DuoLogo from '../assets/duo-logo.jpg'
 import ReactLogo from '../assets/react-logo.png'
