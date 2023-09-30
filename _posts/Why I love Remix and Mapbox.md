@@ -1,0 +1,50 @@
+---
+title: "Why I love Remix and Mapbox"
+tags: ["Remix", "Mapbox"]
+excerpt: "Mapbox is just better with Remix"
+coverImage: "/assets/blog/hello-world/cover.jpg"
+date: "2023-08-06"
+author:
+  name: Walter Jenkins
+  picture: "/assets/blog/authors/tim.jpeg"
+ogImage:
+  url: "/assets/blog/hello-world/cover.jpg"
+---
+
+Over the past few months, I have spent a lot of time combining Remix and Mapbox. Overall, I think it has been a great experience. Allowing users to co-locate database calls alongside front-end code and treating templating and type communication as a first-class citizen has simplified my development process.
+
+Switching from a backend framework that uses Mapbox has given me some interesting perspective on how to best build server-side rendered (SSR) mapping applications. While this article will cover why I love Remix, I hope to share more details in future articles.
+
+<aside>
+💡 I am aware that a lot of the things that are mentioned in this article can be done in NextJS and I have always found that with NextJS there is always something I need to add whether it is starting with TRPC for typesafety or using `getServerSideProps` , but in my experience there was always a gotcha that I didn’t really like.
+
+In short NextJS using T3 was easy to get started, but I think that a lot of the things that I was truly missing are out of the box with Remix.
+
+</aside>
+
+### Remix Concepts
+
+- Loader - The section of a route file that loads serverside data to pass to the route page.
+- Action - The section of a route file that handles post functions.
+- Page or Default Export - The section of the route file that handles displaying data
+- The Third Render or Canvas - The place where the html canvas (Mapbox container) is displayed on the page
+
+### Loading States
+
+When it comes to the web, we generally talk about server-side and client-side loading. However, in reality, the Mapbox canvas does not start loading on the server. Therefore, even though Remix provides server-side rendering out of the box, the canvas does not start loading until the payload is delivered to the client.
+
+![3rd-render.png](https://d8xb2q7aymoo.cloudfront.net/blog-images/remix-mapbox/3rd-render.png)
+
+### Typesafety
+
+One of the best features of Remix is its ability to communicate out-of-the-box types from loaders and actions throughout the application. When you return a Prisma query from a function, you can access it on the client and the types are automatically passed over.
+
+Although there have been a few issues with the third render of the Mapbox canvas, I think the Remix methodology aligns well with the way I have always wanted to build React applications.
+
+### Conclusion
+
+Frameworks are subjective to the developer's concerns. For me, as someone who dislikes dealing with client-side queries, endless hooks, and prefers type safety out of the box, Remix fits the bill.
+
+With Remix, I can easily access data in my database, properly process POST requests, and keep the data on my page up-to-date with optimistic updates. It works great with my workflow of building PostGIS functions and visualizing them in Mapbox.
+
+While there are still some caveats with The Third Render, my experience with Remix has been great. I have not had to reach for anything else, and all the tools seem to be there.
