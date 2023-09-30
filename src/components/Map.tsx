@@ -152,7 +152,7 @@ export const Map = ({
       <MapContext.Provider value={map}>
         <StyleContext.Provider value={style}>
           <div className={className} ref={mapContainer} />
-          {map && style && children}
+          {(map && style) && children}
         </StyleContext.Provider>
       </MapContext.Provider>
     </div>
