@@ -44,7 +44,7 @@ function BlogPost({ post }: Props) {
           <Header />
           <div className="bg-orange h-px"></div>
           <div className="bg-blue topo mp-14 flex h-full min-h-screen w-full flex-col items-center pt-14 text-white">
-            <div className="max-w-2xl mx-auto my-14 w-full p-14 md:w-2/3">
+            <div className="max-w-[800px] mx-auto my-14 w-full p-14 md:w-2/3">
               <h1 className="text-4xl bold">
                 {post.title}
               </h1>
