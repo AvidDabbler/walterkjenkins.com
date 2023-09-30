@@ -14,6 +14,7 @@
     "@types/geojson": "^7946.0.10",
     "build": "^0.1.4",
     "clsx": "^1.2.1",
+    "gray-matter": "^4.0.3",
     "mapbox-gl": "^2.14.1",
     "next": "^13.2.4",
     "pbf": "^3.2.1",
@@ -23,6 +24,8 @@
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.8.0",
     "react-notion": "^0.10.0",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
     "sass": "^1.62.0",
     "zod": "^3.21.4",
     "zustand": "^4.3.7"
