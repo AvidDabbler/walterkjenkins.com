@@ -24,7 +24,3 @@
 .markdown ul{
   @apply list-disc px-12
 }
-
-pre:has(.language-ts) {
-  @apply bg-gray-500
-}
