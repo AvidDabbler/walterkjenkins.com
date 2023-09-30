@@ -4,7 +4,8 @@ import { paths } from "../config";
 
 export function Footer() {
   return (
-    <div className="bg-blue footer text-orange flex h-10 w-full flex-row justify-around p-6 pb-10">
+    <div className="bg-blue footer text-orange flex h-10 w-screen
+     flex-row justify-around p-6 pb-10">
       <Link className="link flex" href={paths.home}>
         Home
       </Link>

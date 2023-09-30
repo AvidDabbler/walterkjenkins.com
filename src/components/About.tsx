@@ -20,7 +20,7 @@ import PrismaLogo from '../assets/prisma-logo.png'
 export function About() {
   return (
     <>
-      <div className="bg-blue topo flex h-full min-h-screen w-full flex-col gap-12 py-32">
+      <div className="bg-blue  topo flex h-full min-h-screen w-full flex-col gap-12 py-32">
         <div className="grid gap-28">
           <div className="mx-16 flex justify-between gap-3">
             <div className="grid gap-12 md:flex">

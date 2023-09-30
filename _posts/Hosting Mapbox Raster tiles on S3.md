@@ -11,6 +11,9 @@ ogImage:
   url: "/assets/blog/hello-world/cover.jpg"
 ---
 
+![Untitled](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/demo.gif)
+
+
 While I was working my day job I have found that there has been a resurgence in interest in drones and their use of mapping. Being the only GIS person in my company I have been trying to convince everyone that this is a pretty easy win for us. After explaining till my face turned blue I ended up just building something over the past week.
 
 The goal was to see what I could do with open data and see if I could visualize the raster imagery from drones in our application.
@@ -286,6 +289,6 @@ export default App;
 
 And you’re done! You have a mapbox map with some custom drone imagery. You could run this same code with your own drone imagery if you have some and wow your friends and clients.
 
-![Untitled](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/Untitled%206.png)
+![Untitled](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/demo.gif)
 
 github - [https://github.com/AvidDabbler/S3-Raster-tiles](https://github.com/AvidDabbler/S3-Raster-tiles)

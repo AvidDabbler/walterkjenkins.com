@@ -39,22 +39,20 @@ function BlogPost({ post }: Props) {
         <meta name="description" content="Created by Walter" />
         <Favicon />
       </Head>
-      <div>
-        <div className="mt-auto h-full">
-          <Header />
-          <div className="bg-orange h-px"></div>
-          <div className="bg-blue topo mp-14 flex h-full min-h-screen w-full flex-col items-center pt-14 text-white">
-            <div className="max-w-[800px] mx-auto my-14 w-full p-14 md:w-2/3">
-              <h1 className="text-4xl bold">
-                {post.title}
-              </h1>
-              <article className="mb-32">
-                <PostBody content={post.content} />
-              </article>
-            </div>
+      <div className="mt-auto h-full w-full">
+        <Header />
+        <div className="bg-orange h-px"></div>
+        <div className="bg-blue topo mp-14 flex min-h-screen w-full flex-col items-center pt-14 text-white">
+          <div className="max-w-[800px] mx-auto my-14 w-full p-14 md:w-2/3">
+            <h1 className="text-4xl bold">
+              {post.title}
+            </h1>
+            <article className="mb-32">
+              <PostBody content={post.content} />
+            </article>
           </div>
-          <Footer />
         </div>
+        <Footer />
       </div>
     </>
   );

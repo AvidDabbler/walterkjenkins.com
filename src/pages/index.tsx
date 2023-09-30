@@ -17,19 +17,17 @@ const Home: NextPage = () => {
         <Favicon />
         <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
       </Head>
-      <main>
-        <div>
-          <div id="app" className="w-100 h-screen">
-            <div className=" w-100 ">
-              <Header />
-            </div>
-            <div id="map" className="mapContainer w-100 fixed">
-              <BackgroundMap />
-            </div>
-            <Signature />
+      <main className="w-screen">
+        <div id="app" className="w-screen h-screen">
+          <div className=" w-100 ">
+            <Header />
           </div>
-          <About />
+          <div id="map" className="mapContainer w-100 fixed">
+            <BackgroundMap />
+          </div>
+          <Signature />
         </div>
+        <About />
       </main>
       <Footer />
     </>
