@@ -7,6 +7,8 @@ import { Post } from "~/types";
 import { remark } from 'remark'
 import html from 'remark-html'
 import markdownStyles from '~/styles/markdown-styles.module.css'
+import Head from "next/head";
+import { Favicon } from "~/components/Favicon";
 
 const PostBody = ({ content }: {
   content: string
@@ -33,23 +35,30 @@ type Props = {
 function BlogPost({ post }: Props) {
 
   return (
-    <div>
-      <div className="mt-auto h-full">
-        <Header />
-        <div className="bg-orange h-px"></div>
-        <div className="bg-blue topo mp-14 flex h-full min-h-screen w-full flex-col items-center pt-14 text-white">
-          <div className="my-14 w-full p-14 md:w-2/3">
-            <h1 className="text-2xl bold">
-              {post.title}
-            </h1>
-            <article className="mb-32">
-              <PostBody content={post.content} />
-            </article>
+    <>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content="Created by Walter" />
+        <Favicon />
+      </Head>
+      <div>
+        <div className="mt-auto h-full">
+          <Header />
+          <div className="bg-orange h-px"></div>
+          <div className="bg-blue topo mp-14 flex h-full min-h-screen w-full flex-col items-center pt-14 text-white">
+            <div className="my-14 w-full p-14 md:w-2/3">
+              <h1 className="text-2xl bold">
+                {post.title}
+              </h1>
+              <article className="mb-32">
+                <PostBody content={post.content} />
+              </article>
+            </div>
           </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
-    </div>
+    </>
   );
 }
 type Params = {
