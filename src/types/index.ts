@@ -58,6 +58,7 @@ export interface ArticleType {
 	name: string;
 }
 
+
 export interface SelectOption {
 	value: string | number;
 	label: string | number;
