@@ -1,0 +1,24 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Blog posts | RSS Feed",
+    "home_page_url": "https://www.walterkjenkins.com/",
+    "feed_url": "https://www.walterkjenkins.com//rss.json",
+    "description": "Welcome to this blog posts!",
+    "icon": "https://www.walterkjenkins.com//logo.png",
+    "items": [
+        {
+            "id": "https://www.walterkjenkins.com//blog/Hosting Mapbox Raster tiles on S3",
+            "url": "https://www.walterkjenkins.com//blog/Hosting Mapbox Raster tiles on S3",
+            "title": "Hosting Mapbox Raster tiles on S3",
+            "summary": "I learned how to host my own drone tiles on S3",
+            "date_modified": "2023-09-23T00:00:00.000Z"
+        },
+        {
+            "id": "https://www.walterkjenkins.com//blog/Why I love Remix and Mapbox",
+            "url": "https://www.walterkjenkins.com//blog/Why I love Remix and Mapbox",
+            "title": "Why I love Remix and Mapbox",
+            "summary": "Mapbox is just better with Remix",
+            "date_modified": "2023-08-06T00:00:00.000Z"
+        }
+    ]
+}

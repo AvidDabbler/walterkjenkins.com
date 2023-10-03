@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Blog posts | RSS Feed</title>
+        <link>https://www.walterkjenkins.com/</link>
+        <description>Welcome to this blog posts!</description>
+        <lastBuildDate>Tue, 03 Oct 2023 19:38:10 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>Feed for Node.js</generator>
+        <image>
+            <title>Blog posts | RSS Feed</title>
+            <url>https://www.walterkjenkins.com//logo.png</url>
+            <link>https://www.walterkjenkins.com/</link>
+        </image>
+        <copyright>All rights reserved 2023, Ibas</copyright>
+        <item>
+            <title><![CDATA[Hosting Mapbox Raster tiles on S3]]></title>
+            <link>https://www.walterkjenkins.com//blog/Hosting Mapbox Raster tiles on S3</link>
+            <guid>https://www.walterkjenkins.com//blog/Hosting Mapbox Raster tiles on S3</guid>
+            <pubDate>Sat, 23 Sep 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[I learned how to host my own drone tiles on S3]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Why I love Remix and Mapbox]]></title>
+            <link>https://www.walterkjenkins.com//blog/Why I love Remix and Mapbox</link>
+            <guid>https://www.walterkjenkins.com//blog/Why I love Remix and Mapbox</guid>
+            <pubDate>Sun, 06 Aug 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[Mapbox is just better with Remix]]></description>
+        </item>
+    </channel>
+</rss>

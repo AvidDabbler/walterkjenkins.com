@@ -6,6 +6,7 @@ import { z } from "zod";
  */
 const server = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
+  CLOUDFRONT_URL: z.string().url(),
 });
 
 /**
@@ -14,6 +15,7 @@ const server = z.object({
  */
 const client = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+  CLOUDFRONT_URL: z.string().url(),
 });
 
 /**
@@ -24,6 +26,7 @@ const client = z.object({
  */
 const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
+  CLOUDFRONT_URL: process.env.CLOUDFRONT_URL,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 

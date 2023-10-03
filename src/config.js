@@ -19,3 +19,6 @@ export const paths = {
   about: "/about",
   blog: "/blog",
 };
+
+
+export const cloudfront = process.env.CLOUDFRONT_URL

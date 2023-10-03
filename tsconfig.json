@@ -28,7 +28,7 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs"
-, "src/pages/api/vehicles.js"  ],
+, "src/pages/api/vehicles.js", "src/scripts/gen-rss.ts"  ],
   "exclude": ["node_modules", "**/*.js"],
   "parserOptions": {
     // "tsconfigRootDir": __dirname,
