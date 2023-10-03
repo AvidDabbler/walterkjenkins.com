@@ -492,3 +492,41 @@ text-align:center;
 .mapboxgl-ctrl-bottom-right{
 	display: none !important;
 }
+
+.blog-post{
+	@apply text-lg leading-relaxed;
+	ol{
+		@apply list-decimal px-12
+	}
+	ul{
+		@apply list-disc px-12
+	}
+	
+	p,
+	ul,
+	ol,
+	blockquote {
+		@apply my-6;
+	}
+	
+	h2 {
+		@apply text-3xl mt-12 mb-4 leading-snug;
+	}
+	
+	h3 {
+		@apply text-2xl mt-8 mb-4 leading-snug;
+	} 
+	
+	ol{
+		@apply list-decimal px-12
+	}
+	
+	ul{
+		@apply list-disc px-12
+	}
+
+	pre {
+		@apply bg-gray-200 text-black p-6 overflow-auto;
+
+	}
+}

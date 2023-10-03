@@ -1,41 +1,26 @@
-import React from "react";
-import { Header } from "~/components";
-import { Footer } from "~/components/Footer";
-import { useRouter } from "next/router";
-import { getAllPosts, getPostBySlug } from "~/utils/blog";
-import { Post } from "~/types";
-import { remark } from 'remark'
-import html from 'remark-html'
-import markdownStyles from '~/styles/markdown-styles.module.css'
-import Head from "next/head";
 import { Favicon } from "~/components/Favicon";
-
-const PostBody = ({ content }: {
-  content: string
-}) => {
-  return (
-    <div
-      className={markdownStyles['markdown']}
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
-  )
-}
-export async function markdownToHtml(markdown: string) {
-  const result = await remark().use(html).process(markdown)
-  return result.toString()
-}
+import fs from 'fs'
+import matter from 'gray-matter'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
+import Head from 'next/head'
+import path from 'path'
+import { Footer } from "~/components/Footer";
+import { Header } from "~/components";
+import { Post } from "~/types";
+import { POSTS_PATH, postFilePaths, zBlogMeta } from "~/utils/blog";
 
 type Props = {
-  post: Post
+  meta: Post
+  source: MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>
 }
 
-
-function BlogPost({ post }: Props) {
+function BlogPost({ meta, source }: Props) {
 
   return (
     <>
       <Head>
-        <title>{post.title}</title>
+        <title>{meta.title}</title>
         <meta name="description" content="Created by Walter" />
         <Favicon />
       </Head>
@@ -45,10 +30,12 @@ function BlogPost({ post }: Props) {
         <div className="bg-blue topo mp-14 flex min-h-screen w-full flex-col items-center pt-14 text-white">
           <div className="max-w-[800px] mx-auto my-14 w-full p-14 md:w-2/3">
             <h1 className="text-4xl bold">
-              {post.title}
+              {meta.title}
             </h1>
             <article className="mb-32">
-              <PostBody content={post.content} />
+              <div className="blog-post">
+                <MDXRemote {...source} />
+              </div>
             </article>
           </div>
         </div>
@@ -57,45 +44,45 @@ function BlogPost({ post }: Props) {
     </>
   );
 }
+
 type Params = {
   params: {
     slug: string
   }
 }
 
-export async function getStaticProps({ params }: Params) {
-  const post = getPostBySlug(params.slug, [
-    'title',
-    'date',
-    'slug',
-    'author',
-    'content',
-    'ogImage',
-    'coverImage',
-  ])
-  const content = await markdownToHtml(post.content || '')
+export const getStaticProps = async ({ params }: Params) => {
+  const postFilePath = path.join(POSTS_PATH, `${params.slug}.mdx`)
+  const source = fs.readFileSync(postFilePath)
+
+  const { content, data } = matter(source)
+
+  const mdxSource = await serialize(content, {
+    // Optionally pass remark/rehype plugins
+    mdxOptions: {
+      remarkPlugins: [],
+      rehypePlugins: [],
+    },
+    scope: data,
+  })
 
   return {
     props: {
-      post: {
-        ...post,
-        content,
-      },
+      source: mdxSource,
+      meta: zBlogMeta.parse(data),
     },
   }
 }
 
-export async function getStaticPaths() {
-  const posts = getAllPosts(['slug'])
+export const getStaticPaths = async () => {
+  const paths = postFilePaths
+    // Remove file extensions for page paths
+    .map((path) => path.replace(/\.mdx?$/, ''))
+    // Map the path into the static paths object required by Next.js
+    .map((slug) => ({ params: { slug } }))
 
   return {
-    paths: posts.map((post) => {
-      return {
-        params: {
-          slug: post.slug,
-        },
-      }
-    }),
+    paths,
     fallback: false,
   }
 }
