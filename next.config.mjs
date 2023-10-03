@@ -33,5 +33,14 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'd8xb2q7aymoo.cloudfront.net',
+        port: '',
+        pathname: '/**',
+      },
+    ],  },
 };
 export default withMDX(config);

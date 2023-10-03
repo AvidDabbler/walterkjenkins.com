@@ -21,6 +21,7 @@ export const zBlogMeta = z.object({
   coverImage: z.string(),
   excerpt: z.string(),
   tags: z.array(z.string()),
+  ogImage: z.string(),
 });
 
 export type BlogMetaType = z.infer<typeof zBlogMeta>;

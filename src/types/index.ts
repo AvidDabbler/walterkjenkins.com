@@ -73,17 +73,15 @@ export type Author = {
   picture: string
 }
 
-export type Post = {
-  slug: string
-  title: string
-  date: string
-  coverImage: string
-  author: Author
-  excerpt: string
-	tags: string[]
-  ogImage: {
-    url: string
-  }
-  content: string
-}
+// export type Post = {
+//   slug: string
+//   title: string
+//   date: string
+//   coverImage: string
+//   author: Author
+//   excerpt: string
+// 	tags: string[]
+//   ogImage:  string
+//   content: string
+// }
 
