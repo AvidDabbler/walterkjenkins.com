@@ -1,16 +1,39 @@
-import fs from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
+import { z } from 'zod';
+import fs from "fs";
+import path from "path";
+
+// POSTS_PATH is useful when you want to get the path to a specific file
+export const POSTS_PATH = path.join(process.cwd(), "_posts");
+
+// postFilePaths is the list of all mdx files inside the POSTS_PATH directory
+export const postFilePaths = fs
+  .readdirSync(POSTS_PATH)
+  // Only include md(x) files
+  .filter((path) => /\.mdx?$/.test(path));
+
+
+export const zBlogMeta = z.object({
+  title: z.string(),
+  date: z.string(),
+  author: z.object({ name: z.string(), picture: z.string() }),
+  coverImage: z.string(),
+  excerpt: z.string(),
+  tags: z.array(z.string()),
+});
+
+export type BlogMetaType = z.infer<typeof zBlogMeta>;
 
 const postsDirectory = join(process.cwd(), '_posts')
 
 export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory).filter(val => val.endsWith('.md'))
+  return fs.readdirSync(postsDirectory).filter(val => val.endsWith('.mdx'))
 }
 
 export function getPostBySlug(slug: string, fields: string[] = []) {
-  const realSlug = slug.replace(/\.md$/, '')
-  const fullPath = join(postsDirectory, `${realSlug}.md`)
+  const realSlug = slug.replace(/\.mdx$/, '')
+  const fullPath = join(postsDirectory, `${realSlug}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content, tags } = matter(fileContents) as any
 
