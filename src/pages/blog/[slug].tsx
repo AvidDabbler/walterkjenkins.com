@@ -40,6 +40,7 @@ function BlogPost({ meta, source }: Props) {
           </h1>
           <div className="max-w-[900px] mx-auto mb-14 w-full p-14 md:w-2/3 gap-10">
             <Image src={meta.ogImage} alt={meta.title} width={0}
+              loading="lazy"
               height={0}
               style={{ width: "100%", height: 'auto' }} />
             <article className="mb-32">

@@ -8,7 +8,7 @@ import { Feed } from "feed";
 export async function generateRssFeed() {
   const allPosts = getAllPosts();
 
-  const site_url = "https://www.walterkjenkins.com/blog/";
+  const site_url = "https://www.walterkjenkins.com/";
 
   const feedOptions = {
     title: "Blog posts | RSS Feed",
