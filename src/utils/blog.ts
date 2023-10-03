@@ -39,11 +39,11 @@ export async function generateRssFeed() {
     });
   });
 
-  fs.writeFileSync("./public/rss.xml", feed.rss2());
+  fs.writeFileSync("./public/blog/rss.xml", feed.rss2());
 
   // write other feed formats to public folder
-  fs.writeFileSync("./public/rss.json", feed.json1());
-  fs.writeFileSync("./public/atom.xml", feed.atom1());
+  fs.writeFileSync("./public/blog/rss.json", feed.json1());
+  fs.writeFileSync("./public/blog/atom.xml", feed.atom1());
 }
 
 export const POSTS_PATH = path.join(process.cwd(), "_posts");
