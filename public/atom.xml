@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://www.walterkjenkins.com/blog/</id>
+    <title>Blog posts | RSS Feed</title>
+    <updated>2023-10-03T19:26:20.925Z</updated>
+    <generator>Feed for Node.js</generator>
+    <link rel="alternate" href="https://www.walterkjenkins.com/blog/"/>
+    <link rel="self" href="https://www.walterkjenkins.com/blog//atom.xml"/>
+    <subtitle>Welcome to this blog posts!</subtitle>
+    <logo>https://www.walterkjenkins.com/blog//logo.png</logo>
+    <icon>https://www.walterkjenkins.com/blog//favicon.png</icon>
+    <rights>All rights reserved 2023, Ibas</rights>
+    <entry>
+        <title type="html"><![CDATA[Hosting Mapbox Raster tiles on S3]]></title>
+        <id>https://www.walterkjenkins.com/blog//blog/Hosting Mapbox Raster tiles on S3</id>
+        <link href="https://www.walterkjenkins.com/blog//blog/Hosting Mapbox Raster tiles on S3"/>
+        <updated>2023-09-23T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[I learned how to host my own drone tiles on S3]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Why I love Remix and Mapbox]]></title>
+        <id>https://www.walterkjenkins.com/blog//blog/Why I love Remix and Mapbox</id>
+        <link href="https://www.walterkjenkins.com/blog//blog/Why I love Remix and Mapbox"/>
+        <updated>2023-08-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Mapbox is just better with Remix]]></summary>
+    </entry>
+</feed>

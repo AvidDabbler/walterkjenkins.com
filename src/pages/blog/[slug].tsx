@@ -79,7 +79,7 @@ export const getStaticProps = async ({ params }: Params) => {
   return {
     props: {
       source: mdxSource,
-      meta: zBlogMeta.parse(data),
+      meta: zBlogMeta.parse({ ...data, slug: params.slug }),
     },
   }
 }
