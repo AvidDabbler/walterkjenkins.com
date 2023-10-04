@@ -16,7 +16,6 @@ export function Footer() {
         Projects
       </Link>
       <a href="https://sendfox.com/walter.k.jenkins" className="bg-orange-400 hover:bg-orange-500 text-white rounded-md px-3 py-2 font-bold ">Sign-up for Updates</a>
-
     </div>
   );
 }
