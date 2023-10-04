@@ -9,6 +9,7 @@ import { Footer } from "~/components/Footer";
 import { Header } from "~/components";
 import Image from 'next/image'
 import { POSTS_PATH, postFilePaths, zBlogMeta, BlogMetaType } from "~/utils/blog";
+import { Button } from "~/components/designer/Button";
 
 type Props = {
   meta: BlogMetaType,
@@ -60,6 +61,8 @@ function BlogPost({ meta, source }: Props) {
               </article>
             </div>
           </div>
+          <h2 className="text-3xl font-bold pt-12">Like what you read?</h2>
+          <a href="https://sendfox.com/walter.k.jenkins" className="bg-orange-400 hover:bg-orange-500 rounded-md px-3 py-2 font-bold text-2xl">Sign-up for Updates</a>
         </div>
         <Footer />
       </div>
