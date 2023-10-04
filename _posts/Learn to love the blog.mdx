@@ -1,0 +1,69 @@
+---
+title: "How I Learned to Stop Worrying and Love the Blog"
+tags: ["meta", "blog", "NextJS"]
+excerpt: "The classic blog is a simple site, right? The journey I went through to update this blog and what I eventually landed on. It's not for everyone, but I really like it."
+coverImage: "https://d8xb2q7aymoo.cloudfront.net/blog-images/love-the-blog/heading-image.jpg"
+date: "2023-10-03"
+author:
+  name: Walter Jenkins
+  picture: "/assets/blog/authors/tim.jpeg"
+ogImage: "https://d8xb2q7aymoo.cloudfront.net/blog-images/love-the-blog/heading-image.jpg"
+---
+
+![Learn to love the blog header image](https://d8xb2q7aymoo.cloudfront.net/blog-images/love-the-blog/heading-image.jpg)
+
+Over the years I have had a round robin of blogs that I have tried working with. In 2023, I did a big assessment of what works. I went through a lot of options that would allow me to easily update and I will outline why I landed on just building it with NextJS and it has always been one of those things that I have struggled with decision fatigue about what exactly I want in blog. As of recent it has become more front of mind since I am building [TransitChat](https://www.transit.chat/) and I need to use it to talk about my product and gather emails for potential customers.
+
+As all things developery you should first get started on your portfolio site. Over this blog post I'll go through my decision and some of the configuration, but of course you can take a look at the [codebase](https://github.com/AvidDabbler/walterkjenkins.com) to understand how I did this better.
+
+## The Goals
+
+1. Host the blog
+2. Manage posts
+3. Collect emails and contact info
+4. Send emails when blogs are posted
+5. Have a RSS feed
+
+**Bonus: Connect to Hubspot**
+
+## Ghost
+
+I have been hosting a Ghost blog for about a year on Ghost and I love it for what it does for me. The user interface and ability to just send people emails is great. There is great docs on how to setup simple connections with other programs and setting up a [Make.com](https://www.make.com) integration is really easy.
+
+If you want to setup emails out of the box however, even though it is running on a server you cannot send emails from it nor can you setup an email integration with Gmail, SES or another SMTP connection. You are limited to only working with just Mailgun. Which is fine, but their pricing is a bit confusing and that makes me wary. On their site it is either $0 or $35 with an unadvertised flex plan.
+
+Ghost does meet most of the requirements I take some issues with mailgun, some of the api's at Ghost and the lack of customization on some of the aspects of the pages and email. Also the lack of
+
+## Wordpress
+
+I will say that I gave wp the good old college try for about 5 hours on saturday. The goal was to setup contact collection, send emails with server, setup a workflow for sending emails when posts are published. I was able to accomplish sending a test email. there are so many plugins it is truely confusing along with setting up all the plugins and finding out if they are free
+
+*takes breath
+
+Setting up the domain, figuring out if its siteground settings or wp settitngs, finding settings for all the plugins. I got so overwhelmed im going to try and process a refund.
+WP seems great. I get why people use it. it is intuitive if you use it and have used it and know of plugins that you like. 
+
+While it supposedly it does meet all of the requirements, I really do not have the time to figure it all out. And honestly it pains me. I want Wordpress to work, but it is just clunky and outside of my wheel house. 
+
+## NextJS / Custom
+
+And then there is custom. 
+
+Which is spoiler what I am going with for now and probably in the near future. And honestly I couldn't be happier to work on something simple and easy outside of work and [TransitChat](https://www.transit.chat/). Honestly there are a lot of templates and tutorials for NextJS blogs. All you need is Markdown and I was able to find some that work with MDX files.
+
+[NextJS for Blogging](https://github.com/vercel/next.js/tree/canary/examples/with-mdx-remote)
+
+To Create the RSS feed I was able to just create an rss feed and store it in the public folder. I used this tutorial for the start of it, but one of the things that I did not like was that the rss feed was going to regenerate every time someone routed to the `/blog` page. So instead I created a node script to just run when a pull request is merged into `main`. You can take a look at the [action](https://github.com/AvidDabbler/walterkjenkins.com/blob/main/.github/workflows/merge-main.yml) and the [generating function](https://github.com/AvidDabbler/walterkjenkins.com/blob/527641099ea00e24a114ad248c5437a28b14b438/src/utils/blog.ts#L8) in the [repo](https://github.com/AvidDabbler/walterkjenkins.com/blob/).
+
+[Adding an RSS Feed](https://blog.logrocket.com/adding-rss-feed-next-js-app/)
+
+As far as sending out email there are 2 issues. Storing and collecting the emails and sending the emails. As for storing emails I am probably going to go with something simple like [SendFox](htts://www.sendfox.com). I love sendfox because its stupid simple. When it comes to services like MailChimp I just get so over whelmed with all of it and would just rather use SendFox's api to get and store contacts rather deal with a bunch of stuff.
+
+As far as email is concerned I am going to just use [React Email](https://react.email/) and either use a service like SES, Resend and setup a [cron function](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule) on github actions to check for new posts
+
+![architecture diagram](https://d8xb2q7aymoo.cloudfront.net/blog-images/love-the-blog/diagram.png)
+
+
+## Conclusion
+
+While it kind of sucks that there really is not a solution that I am happy with at the moment, its great that I get to cratch that itch to build something new and fresh. 

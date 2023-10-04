@@ -41,7 +41,7 @@ function Blog({ allPosts }: Props) {
                         <div className="flex  flex-wrap"></div>
                         <div className="flex flex-wrap my-2">
                           {article.tags.map((tag) => (
-                            <p className="flex flex-wrap bg-orange text-white px-2 mx-1 rounded-2xl">
+                            <p className="flex flex-wrap bg-orange-400 capitalize text-white px-2 mx-1 rounded-2xl">
                               {tag}
                             </p>
                           ))}

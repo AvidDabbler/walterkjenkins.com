@@ -9,6 +9,7 @@ import { Footer } from "~/components/Footer";
 import { Header } from "~/components";
 import Image from 'next/image'
 import { POSTS_PATH, postFilePaths, zBlogMeta, BlogMetaType } from "~/utils/blog";
+import { Button } from "~/components/designer/Button";
 
 type Props = {
   meta: BlogMetaType,
@@ -34,21 +35,34 @@ function BlogPost({ meta, source }: Props) {
       <div className="mt-auto h-full w-full">
         <Header />
         <div className="bg-orange h-px"></div>
-        <div className="bg-blue topo mp-14 flex min-h-screen w-full flex-col items-center pt-14 text-white">
-          <h1 className="max-w-[1000px] text-5xl font-extrabold mt-14 pb-10 text-center">
-            {meta.title}
-          </h1>
-          <div className="max-w-[900px] mx-auto mb-14 w-full p-14 md:w-2/3 gap-10">
-            <Image src={meta.ogImage} alt={meta.title} width={0}
-              loading="lazy"
-              height={0}
-              style={{ width: "100%", height: 'auto' }} />
-            <article className="mb-32">
-              <div className="blog-post">
-                <MDXRemote {...source} />
+        <div className="bg-blue topo mp-14 flex min-h-screen w-full flex-col items-center pt-32 pb-12 text-white gap-6">
+          <div className="max-w-[1000px] bg-blue-400/20">
+            <div className="max-w-[1000px] text-center pt-14 grid gap-3">
+              <h1 className=" text-5xl font-extrabold px-12 capitalize">
+                {meta.title}
+              </h1>
+              <div className="max-w-[800px] mx-auto gap-3 grid">
+                <p className="text-xl">{meta.date}</p>
+                <div className="flex flex-wrap mx-auto">
+                  {meta.tags.map((tag) => (
+                    <p className="flex flex-wrap bg-orange-400 capitalize text-white px-2 mx-1 rounded-2xl">
+                      {tag}
+                    </p>
+                  ))}
+                </div>
+                <p className="text-xl max-w-[800px] text-center">{meta.excerpt}</p>
               </div>
-            </article>
+            </div>
+            <div className="max-w-[900px] mx-auto w-full md:w-2/3 gap-10">
+              <article className="mb-32">
+                <div className="blog-post">
+                  <MDXRemote {...source} />
+                </div>
+              </article>
+            </div>
           </div>
+          <h2 className="text-3xl font-bold pt-12">Like what you read?</h2>
+          <a href="https://sendfox.com/walter.k.jenkins" className="bg-orange-400 hover:bg-orange-500 rounded-md px-3 py-2 font-bold text-2xl">Sign-up for Updates</a>
         </div>
         <Footer />
       </div>
