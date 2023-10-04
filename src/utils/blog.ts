@@ -4,6 +4,7 @@ import { z } from "zod";
 import fs from "fs";
 import path from "path";
 import { Feed } from "feed";
+import { cloudfront } from "~/config";
 
 export async function generateRssFeed() {
   const allPosts = getAllPosts();
@@ -33,9 +34,14 @@ export async function generateRssFeed() {
     feed.addItem({
       title: post.title,
       id: `${site_url}/blog/${post.slug}`,
+      content: post.excerpt,
+      image: post.ogImage,
       link: `${site_url}/blog/${post.slug}`,
       description: post.excerpt,
       date: new Date(post.date),
+      author: [{
+        name: post.author.name,
+      }]
     });
   });
 
