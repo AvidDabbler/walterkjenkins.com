@@ -1,0 +1,87 @@
+---
+title: "Adding Conditional Statements to Drizzle Queries"
+tags: ["Drizzle", "Typescript"]
+excerpt: "Working with Drizzle to manage your types is great, but what is the best way to programatically add parameters to sql clauses?" 
+coverImage: "https://d8xb2q7aymoo.cloudfront.net/blog-images/drizzle-conditional-queries/cover-image.jpg"
+date: "2023-11-03"
+author:
+  name: Walter Jenkins
+  picture: "/assets/blog/authors/tim.jpeg"
+ogImage: "https://d8xb2q7aymoo.cloudfront.net/blog-images/drizzle-conditional-queries/cover-image.jpg"
+---
+
+
+![Drizzle conditional queries header image](https://d8xb2q7aymoo.cloudfront.net/blog-images/drizzle-conditional-queries/cover-image.jpg)
+
+
+```
+export const getConversations = async (tcAgencyIds: string[], routeLongNames: string []) => {
+  if (routes.length > 0)
+    return await db
+      .select()
+      .from(tables.conversation)
+      .where(
+      and(
+          inArray(tables.conversation.tcAgencyId, tcAgencyIds),
+          inArray(
+            tables.conversation.routeLongName,
+            routeLongNames // Array of strings
+          ),
+        )
+      )
+      .orderBy(desc(tables.conversation.updatedAt));
+  else
+    return await db
+      .select()
+      .from(tables.conversation)
+      .where(
+        and(
+            inArray(tables.conversation.tcAgencyId, tcAgencyIds),
+            inArray(
+              tables.conversation.routeLongName,
+              routeLongNames // Array of strings
+            ),
+          )
+        )
+      .orderBy(desc(tables.conversation.updatedAt));
+};
+```
+
+
+```
+export const getConversations = async (tcAgencyIds: string[], routeLongNames: string []) => {
+  const where = [inArray(tables.conversation.tcAgencyId, tcAgencyIds), isNotNull(tables.user.id)];
+  if (routes.length > 0)
+    where.push(
+      inArray(
+        tables.conversation.routeLongName,
+        routes.map((route) => route.routeLongName)
+      )
+    );
+
+  return await db
+    .select({
+      id: tables.conversation.id,
+      tcAgencyId: tables.conversation.tcAgencyId,
+      agencyName: tables.tcAgency.agencyName,
+      title: tables.conversation.title,
+      bookmarked: tables.conversation.bookmarked,
+      subscribed: tables.conversation.subscribed,
+      mainCategory: tables.conversation.mainCategory,
+      createdAt: tables.conversation.createdAt,
+      routeLongName: tables.conversation.routeLongName,
+      stopName: tables.conversation.stopName,
+      user: {
+        firstName: tables.user.firstName,
+        lastName: tables.user.lastName,
+        avatarColor: tables.user.avatarColor,
+      },
+    })
+    .from(tables.conversation)
+    .fullJoin(tables.tcAgency, eq(tables.tcAgency.tcAgencyId, tables.conversation.tcAgencyId))
+    .leftJoin(tables.user, eq(tables.user.id, tables.conversation.userId))
+    .where(and(...where))
+    .orderBy(desc(tables.conversation.updatedAt));
+};
+
+```
