@@ -13,6 +13,52 @@ ogImage: "https://d8xb2q7aymoo.cloudfront.net/blog-images/drizzle-conditional-qu
 
 ![Drizzle conditional queries header image](https://d8xb2q7aymoo.cloudfront.net/blog-images/drizzle-conditional-queries/cover-image.jpg)
 
+Recently I have started migrating from [ Prisma ](https://www.prisma.io/docs) over to using [ Drizzle ](https://orm.drizzle.team/) based on some feedback that I got about the way that Prisma handles joins and table relations. 
+One of the things that I loved about Prisma was the easy of setting up conditional queries where you can just use a terenary operator to inject in the optional conditions
+based on the arguments in the function.
+
+## Migrating to Drizzle
+
+
+Below is an example of how I would set up a conditional query in Prisma.
+
+```
+
+export const getConversations = async (tcAgencyIds: string[], routeLongNames: string []) => {
+    return await db.conversations.findMany().where({
+        tcAgencyId: {
+          hasSome: tcAgencyIds 
+        },
+        routeLongNames: routeLongNames.length === 0 ? undefined :
+          routeLongNames.length === 1 ? {has: routeLongNames[0]} :
+          {hasSome: routeLongNames}
+      })
+  }
+```
+
+I really liked this pattern because I just needed to import Prisma and everything else was just there, however if you want to do anything other than the Prisma way it could make things difficult.
+And again, being able to programatically add in parameters and chain together where clauses and being able to use `undefined` was a huge plus. 
+
+[Prisma "where" syntax](https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#where)
+
+
+However, when I did make the switch over to Drizzle I found this kind of pattern a bit lacking. The way that it typically works in Drizzle is you would need to use the `and()` function and then add in the 
+where clause parameters inside of the `and()` function and the where clause would be built for you.
+
+[Drizzle Operators](https://orm.drizzle.team/docs/operators)
+
+This understandably so left me wanting the `undefined` option as well as a lack of being able to easily chain together
+the where parameters in my function. Another option in Drizzle land is to use the [`sql` operator](https://orm.drizzle.team/docs/sql#sql-in-where) and then build the statement manually, but this is not a perfect
+solution ether as you are just writing and appending strings at this point.
+
+
+## My First attempt
+
+
+My first attempt at programatically building queries using Drizzle left some wanting. To get it working I was doing double duty. I am really actually embarrassed by how unsustainable code like this is 🤣.
+What I ended up doing is just having 2 different queries based on the number of `routeLongNames` that are being fed into the function. So if I wanted to make a minor tweak I would need to update both query functions
+to finish the ticket.
+
 
 ```
 export const getConversations = async (tcAgencyIds: string[], routeLongNames: string []) => {
@@ -47,17 +93,98 @@ export const getConversations = async (tcAgencyIds: string[], routeLongNames: st
 };
 ```
 
+## Second attempt
+:
+My second attempt at making this a little bit more refined was to actually setup a variable before the query that takes in an array of drizzle where conditions.
+
 
 ```
 export const getConversations = async (tcAgencyIds: string[], routeLongNames: string []) => {
   const where = [inArray(tables.conversation.tcAgencyId, tcAgencyIds), isNotNull(tables.user.id)];
-  if (routes.length > 0)
+  if (routes.length > 0){ 
     where.push(
       inArray(
         tables.conversation.routeLongName,
         routes.map((route) => route.routeLongName)
       )
     );
+ }
+  return await db
+    .select()
+    .from(tables.conversation)
+    .fullJoin(tables.tcAgency, eq(tables.tcAgency.tcAgencyId, tables.conversation.tcAgencyId))
+    .leftJoin(tables.user, eq(tables.user.id, tables.conversation.userId))
+    .where(and(...where))
+    .orderBy(desc(tables.conversation.updatedAt));
+};
+
+```
+
+## One step further
+
+If you wanted to you would be able to generalize this type of array function for each column condition and then use this for all of your tables by passing in the array and the `Column` that you were interested in.
+
+```
+const tcAgencyIdsWhereClause = (tcAgencyIds: string[], column: Column) => {
+  if (tcAgencyIds.length === 0) return undefined;
+  else if (tcAgencyIds.length === 1) return eq(column, tcAgencyIds[0]);
+  else return inArray(column, tcAgencyIds);
+};
+
+const routeLongNamesWhereClause = (routeLongNames: string[], column: Column) => {
+  if (routeLongNames.length === 0) return undefined;
+  else if (routeLongNames.length === 1) return eq(column, routeLongNames[0]);
+  else return inArray(column, routeLongNames);
+};
+```
+
+The above functions build the where clauses for routeLongNames and tcAgencyIds. The user would just need to pass in the array of values and the proper drizzle column from the table object.
+
+```
+const where = [
+  tcAgencyIdsWhereClause(tcAgencyIds, tables.conversations.tcAgencyId),
+  routeLongNamesWhereClause(routeLongNames, tables.conversations.routeLongName)
+]
+  return await db
+    .select()
+    .from(tables.conversation)
+    .fullJoin(tables.tcAgency, eq(tables.tcAgency.tcAgencyId, tables.conversation.tcAgencyId))
+    .leftJoin(tables.user, eq(tables.user.id, tables.conversation.userId))
+    .where(and(...where))
+    .orderBy(desc(tables.conversation.updatedAt));
+};
+```
+
+## Generalizing the where clause function
+
+Once you I established the pattern of returning `undefined`, `string`, or an array of strings you could then build on this and generalize the function to be used across your application. In the below code I put
+together a function called `buildArrayWhereClause` where it generalizes the logic for optimizing array queries to return either undefined, string or an array of string wrapped in a where clause with the appropriate
+operator.
+
+```
+const buildArrayWhereClause = (array: string[], column: Column) => {
+  if (array.length === 0) return undefined;
+  else if (array.length === 1) return eq(column, array[0]);
+  else return inArray(column, array);
+};
+
+const tcAgencyIdsWhereClause = (tcAgencyIds: string[], column: Column) => {
+  return buildArrayWhereClause(tcAgencyIds, column);
+};
+
+const routeLongNamesWhereClause = (routeLongNames: string[], column: Column) => {
+  return buildArrayWhereClause(routeLongNames, column);
+};
+
+export const getConversations = async (tcAgencyIds: string[], routes: { tcAgencyId: string; routeLongName: string }[]) => {
+  const where = [
+    isNotNull(tables.user.id),
+    tcAgencyIdsWhereClause(tcAgencyIds, tables.conversation.tcAgencyId),
+    routeLongNamesWhereClause(
+      routes.map((route) => route.routeLongName),
+      tables.conversation.routeLongName
+    ),
+  ];
 
   return await db
     .select({
@@ -80,8 +207,9 @@ export const getConversations = async (tcAgencyIds: string[], routeLongNames: st
     .from(tables.conversation)
     .fullJoin(tables.tcAgency, eq(tables.tcAgency.tcAgencyId, tables.conversation.tcAgencyId))
     .leftJoin(tables.user, eq(tables.user.id, tables.conversation.userId))
-    .where(and(...where))
+    .where(() => and(...where))
     .orderBy(desc(tables.conversation.updatedAt));
 };
-
 ```
+
+Honestly this is far from perfect at the moment, but this is a lot better than what I was working with and makes the most sense to me at the moment. I hope this helps you out in your ORM journey 😊
