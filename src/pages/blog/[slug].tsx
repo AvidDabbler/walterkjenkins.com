@@ -14,7 +14,6 @@ import {
   zBlogMeta,
   BlogMetaType,
 } from "~/utils/blog";
-import { Button } from "~/components/designer/Button";
 
 type Props = {
   meta: BlogMetaType;
@@ -39,8 +38,8 @@ function BlogPost({ meta, source }: Props) {
         <div className="bg-orange h-px"></div>
         <div className="bg-blue topo flex min-h-screen w-full flex-col items-center gap-6 pb-12 pt-32 text-white">
           <div className="md:mx-full w-[90%] max-w-[1000px] bg-blue-400/20 px-8">
-            <div className="grid max-w-[1000px] gap-3 pt-14 text-center">
-              <h1 className=" px-12 text-5xl font-extrabold capitalize">
+            <div className="flex w-full flex-col gap-3 break-words pt-14 text-center">
+              <h1 className="px-12 text-3xl font-extrabold capitalize md:text-5xl">
                 {meta.title}
               </h1>
               <div className="mx-auto grid max-w-[800px] gap-3">
