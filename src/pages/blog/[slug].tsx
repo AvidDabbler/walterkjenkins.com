@@ -7,7 +7,6 @@ import Head from "next/head";
 import path from "path";
 import { Footer } from "~/components/Footer";
 import { Header } from "~/components";
-import Image from "next/image";
 import {
   POSTS_PATH,
   postFilePaths,
