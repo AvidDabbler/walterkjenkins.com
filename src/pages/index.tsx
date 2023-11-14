@@ -2,7 +2,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import React from "react";
-import { Header, About, Signature } from "../components";
+import { Header, Projects, Signature } from "../components";
 import { BackgroundMap } from "~/components/BackgroundMap";
 import { Favicon } from "~/components/Favicon";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -15,10 +15,13 @@ const Home: NextPage = () => {
         <title>Walter Jenkins</title>
         <meta name="description" content="Created by Walter" />
         <Favicon />
-        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <main className="w-screen">
-        <div id="app" className="w-screen h-screen">
+        <div id="app" className="h-screen w-screen">
           <div className=" w-100 ">
             <Header />
           </div>
@@ -27,7 +30,7 @@ const Home: NextPage = () => {
           </div>
           <Signature />
         </div>
-        <About />
+        <Projects />
       </main>
       <Footer />
     </>
