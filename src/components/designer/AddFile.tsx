@@ -91,21 +91,6 @@ export const AddFile = () => {
       title="Add a Geojson URL or file to the map"
     >
       <div className=" z-20 grid gap-3 p-6">
-        <form className="grid gap-5">
-          <input
-            type="text"
-            placeholder="Add a URL"
-            className="rounded border border-gray-400 p-2"
-          ></input>
-          <button
-            type="submit"
-            className="w-30 rounded-lg bg-blue-300 p-2 text-center transition-all duration-150 hover:cursor-pointer hover:bg-blue-200 hover:shadow-xl"
-            title="Use URL Data"
-          >
-            Use URL Data
-          </button>
-        </form>
-        <p className="text-center text-black">OR</p>
         <input
           id="file-selector"
           hidden
