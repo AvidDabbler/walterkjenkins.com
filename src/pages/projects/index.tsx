@@ -1,9 +1,10 @@
 import Head from "next/head";
 import { Header } from "~/components";
 import { Favicon } from "~/components/Favicon";
+import { Projects } from "~/components/Projects";
 import { Footer } from "~/components/Footer";
 
-const Projects = () => {
+const ProjectsPage = () => {
   return (
     <>
       <Head>
@@ -17,4 +18,4 @@ const Projects = () => {
     </>
   );
 };
-export default Projects;
+export default ProjectsPage;
