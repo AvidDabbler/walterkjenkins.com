@@ -36,11 +36,12 @@ const config = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'd8xb2q7aymoo.cloudfront.net',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "data.walterkjenkins.com.s3.amazonaws.com",
+        port: "",
+        pathname: "/**",
       },
-    ],  },
+    ],
+  },
 };
 export default withMDX(config);

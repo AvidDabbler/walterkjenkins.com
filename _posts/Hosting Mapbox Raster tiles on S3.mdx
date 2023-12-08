@@ -2,14 +2,14 @@
 title: "Hosting Mapbox Raster tiles on S3"
 tags: ["GIS", "MapBox", "aws"]
 excerpt: "I learned how to host my own drone tiles on S3"
-coverImage: "https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/demo.gif"
+coverImage: "https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/demo.gif"
 date: "2023-09-23"
 author:
   name: Walter Jenkins
   picture: "/assets/blog/authors/tim.jpeg"
-ogImage: "https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/demo.gif"
+ogImage: "https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/demo.gif"
 ---
-![Demo Visualization](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/demo.gif)
+![Demo Visualization](https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/demo.gif)
 
 While I was working my day job I have found that there has been a resurgence in interest in drones and their use of mapping. Being the only GIS person in my company I have been trying to convince everyone that this is a pretty easy win for us. After explaining till my face turned blue I ended up just building something over the past week.
 
@@ -33,15 +33,15 @@ Link to Data - [https://hub.dronedb.app/r/odm/aukerman](https://hub.dronedb.app/
 
 Once you find the Geotiff that you want you just have to right click the image and click “Share/Embed” and then select the qgis option and copy the URI.
 
-![Untitled](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/input.png)
+![Untitled](https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/input.png)
 
-![Untitled](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/Untitled-1.png)
+![Untitled](https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/Untitled-1.png)
 
 ## Import the Data
 
 Open up qgis and open the data source manager and select raster, https protocol, and paste in the uri.
 
-![Untitled](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/Untitled%202.png)
+![Untitled](https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/Untitled%202.png)
 
 ## Convert the data
 
@@ -50,19 +50,19 @@ Now that the data is imported you need to do 2 things:
 1. Update the project projection
 2. Convert to tiles
 
-   ![Untitled](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/Untitled%203.png)
+   ![Untitled](https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/Untitled%203.png)
 
 ### Convert the project projection
 
 You can do this by right clicking the layer in the layers panel and then click layer crs and Set Project CRS from layer. This will make sure that the tiles line up properly when you are loading in mapbox.
 
-![Untitled](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/Untitled%204.png)
+![Untitled](https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/Untitled%204.png)
 
 ### Convert to Tiles
 
 In the geoprocessing tools list you can just search for xyz and select Generate XYZ
 
-![input.png](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/input.png)
+![input.png](https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/input.png)
 
 ## Add a bucket
 
@@ -103,7 +103,7 @@ I am not going to go fully into adding a bucket and configuring, but will give y
 
 Uploading files to the bucket is easy. In your bucket just select the upload button and then drag and drop all of your folders that were created by qgis over to your bucket.
 
-![Untitled](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/Untitled%205.png)
+![Untitled](https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/Untitled%205.png)
 
 ## Setting up Cloudfront (Optional)
 
@@ -286,6 +286,6 @@ export default App;
 
 And you’re done! You have a mapbox map with some custom drone imagery. You could run this same code with your own drone imagery if you have some and wow your friends and clients.
 
-![Untitled](https://d8xb2q7aymoo.cloudfront.net/blog-images/s3-raster/demo.gif)
+![Untitled](https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/s3-raster/demo.gif)
 
 github - [https://github.com/AvidDabbler/S3-Raster-tiles](https://github.com/AvidDabbler/S3-Raster-tiles)
