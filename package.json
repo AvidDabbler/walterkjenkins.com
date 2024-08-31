@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
+    "@loaders.gl/core": "^4.2.2",
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@next/mdx": "^13.5.4",
@@ -18,6 +19,9 @@
     "@types/geojson": "^7946.0.10",
     "build": "^0.1.4",
     "clsx": "^1.2.1",
+    "d3-dsv": "^3.0.1",
+    "d3-scale": "^4.0.2",
+    "deck.gl": "^9.0.28",
     "eslint-plugin-mdx": "^2.2.0",
     "feed": "^4.2.2",
     "gray-matter": "^4.0.3",
@@ -30,6 +34,7 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.8.0",
+    "react-map-gl": "^7.1.7",
     "react-notion": "^0.10.0",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
@@ -39,6 +44,8 @@
     "zustand": "^4.3.7"
   },
   "devDependencies": {
+    "@loaders.gl/csv": "^4.2.0",
+    "@loaders.gl/polyfills": "^4.2.0",
     "@types/eslint": "^8.21.3",
     "@types/mapbox-gl": "^2.7.10",
     "@types/node": "^18.15.5",

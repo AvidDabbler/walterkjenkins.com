@@ -19,7 +19,6 @@ export type LayerType = (CircleLayer | FillLayer | LineLayer | SymbolLayer) & {
   name: string;
 };
 
-
 const MapContext = createContext<MapType | null>(null);
 const StyleContext = createContext<string | null | undefined>(null);
 
@@ -152,7 +151,7 @@ export const Map = ({
       <MapContext.Provider value={map}>
         <StyleContext.Provider value={style}>
           <div className={className} ref={mapContainer} />
-          {(map && style) && children}
+          {map && style && children}
         </StyleContext.Provider>
       </MapContext.Provider>
     </div>
