@@ -81,6 +81,7 @@ export const GeoJsonLayer = ({
       // eslint-disable-next-line
       timer = setInterval(refresh, refreshInterval);
     }
+    // @ts-ignore
     return () => clearInterval(timer);
   }, [map, layers, source]); // eslint-disable-line
   return null;
