@@ -1,16 +1,14 @@
 import Head from "next/head";
 import { CSVLoader } from "@loaders.gl/csv";
 import { load } from "@loaders.gl/core";
-import Map, { Source } from "react-map-gl";
+import Map from "react-map-gl";
 import { Favicon } from "~/components/Favicon";
 import { paths } from "~/config";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
   AmbientLight,
-  Color,
   DeckGL,
-  GeoJsonLayer,
   HexagonLayer,
   LightingEffect,
   MapViewState,
@@ -83,7 +81,6 @@ const Designer = ({ data }: { data: DataPoint[] }) => {
     }
     const count = object.points.length;
 
-    console.log(object);
     return `\
       ${object.points.reduce((acc: number, cur: any) => {
         return acc + cur.source.tax_area;
@@ -91,13 +88,19 @@ const Designer = ({ data }: { data: DataPoint[] }) => {
      ${count} Parcels`;
   }
 
-  const colorRange: Color[] = [
-    [1, 152, 189],
-    [73, 227, 206],
-    [216, 254, 181],
-    [254, 237, 177],
-    [254, 173, 84],
-    [209, 55, 78],
+  const colorRange: [number, number, number, number][] = [
+    [1, 102, 139, 100], // Transparent color (fully transparent)
+    [1, 132, 159, 250], // Transparent color (fully transparent)
+    [1, 152, 189, 255], // Opaque colors
+    [32, 190, 198, 255],
+    [129, 240, 193, 255],
+    [211, 252, 180, 255],
+    [254, 245, 179, 255],
+    [254, 214, 130, 255],
+    [254, 188, 106, 255],
+    [254, 144, 81, 255],
+    [231, 88, 79, 255],
+    [209, 55, 78, 255],
   ];
   useEffect(() => {
     console.log(data[0]);
