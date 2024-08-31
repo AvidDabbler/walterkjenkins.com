@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { CSVLoader } from "@loaders.gl/csv";
 import { load } from "@loaders.gl/core";
-import Map from "react-map-gl";
+import { Map } from "react-map-gl";
 import { Favicon } from "~/components/Favicon";
 import { paths } from "~/config";
 import Link from "next/link";
@@ -15,6 +15,7 @@ import {
   PickingInfo,
   PointLight,
 } from "deck.gl";
+import { useMap } from "react-map-gl";
 
 type DataPoint = {
   HANDLE: string;
@@ -27,7 +28,7 @@ type DataPoint = {
   lon: number;
   lat: number;
 };
-
+const PARCEL_LAYER_ID = "heatmap";
 const ambientLight = new AmbientLight({
   color: [255, 255, 255],
   intensity: 1.0,
@@ -60,21 +61,6 @@ const INITIAL_VIEW_STATE: MapViewState = {
 };
 
 const Designer = ({ data }: { data: DataPoint[] }) => {
-  const [settings, setSettings] = useState({
-    scrollZoom: true,
-    boxZoom: true,
-    dragRotate: true,
-    dragPan: true,
-    keyboard: true,
-    doubleClickZoom: true,
-    touchZoomRotate: true,
-    touchPitch: true,
-    minZoom: 0,
-    maxZoom: 20,
-    minPitch: 0,
-    maxPitch: 85,
-  });
-
   function getTooltip({ object }: PickingInfo) {
     if (!object) {
       return null;
@@ -102,12 +88,10 @@ const Designer = ({ data }: { data: DataPoint[] }) => {
     [231, 88, 79, 255],
     [209, 55, 78, 255],
   ];
-  useEffect(() => {
-    console.log(data[0]);
-  }, [data]);
+
   const layers = [
     new HexagonLayer({
-      id: "heatmap",
+      id: PARCEL_LAYER_ID,
       colorRange,
       coverage: 8,
       data,
@@ -125,6 +109,10 @@ const Designer = ({ data }: { data: DataPoint[] }) => {
         points.reduce((acc, point) => acc + point.tax_area, 0),
       getPointRadius: 40,
       pickable: true,
+      onClick: (e) => {
+        console.log(e.object.points);
+        return true;
+      },
       radius: 10,
       upperPercentile: 100,
       material: {
@@ -133,7 +121,6 @@ const Designer = ({ data }: { data: DataPoint[] }) => {
         shininess: 32,
         specularColor: [51, 51, 51],
       },
-
       transitions: {
         elevationScale: 3000,
       },
@@ -155,30 +142,18 @@ const Designer = ({ data }: { data: DataPoint[] }) => {
               effects={[lightingEffect]}
               initialViewState={INITIAL_VIEW_STATE}
               controller={true}
+              _pickable={true}
               getTooltip={getTooltip}
             >
               <Map
                 reuseMaps
                 mapboxAccessToken="pk.eyJ1Ijoid2FsdGVyaiIsImEiOiJjbHA5dW0xa3kwMHFyMmlxb3E3MjN1NXZqIn0.6pfIrIBF1NhDy9HbXoNxxw"
                 mapStyle="mapbox://styles/mapbox/navigation-night-v1"
-              />
+              >
+                <ClickHandler />
+              </Map>
             </DeckGL>
           )}
-          {/* <Map */}
-          {/*   initialViewState={initialViewState} */}
-          {/*   {...settings} */}
-          {/*   mapStyle="mapbox://styles/mapbox/navigation-night-v1" */}
-          {/*   mapboxAccessToken="pk.eyJ1Ijoid2FsdGVyaiIsImEiOiJjbHA5dW0xa3kwMHFyMmlxb3E3MjN1NXZqIn0.6pfIrIBF1NhDy9HbXoNxxw" */}
-          {/* > */}
-          {/*   <Source */}
-          {/*     id="parcels" */}
-          {/*     type="geojson" */}
-          {/*     data="/layers/stl_parcel_layer_pts.geojson" */}
-          {/*     cluster={true} */}
-          {/*     clusterMaxZoom={14} */}
-          {/*     clusterRadius={50} */}
-          {/*   ></Source> */}
-          {/* </Map> */}
         </div>
         <div className="absolute bottom-10 right-5 ">
           <div className="grid gap-3">
@@ -217,4 +192,10 @@ const DesignerPage = () => {
   return <Designer data={data} />;
 };
 
+const ClickHandler = () => {
+  const { map } = useMap();
+
+  map?.on("click", PARCEL_LAYER_ID, (e) => console.log(e));
+  return null;
+};
 export default DesignerPage;
