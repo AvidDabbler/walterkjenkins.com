@@ -12,9 +12,11 @@ const ProjectsPage = () => {
         <meta name="description" content="Created by Walter" />
         <Favicon />
       </Head>
-      <Header />
-      <Projects></Projects>
-      <Footer />
+      <div>
+        <Header />
+        <Projects></Projects>
+        <Footer />
+      </div>
     </>
   );
 };

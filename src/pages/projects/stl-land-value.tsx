@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { CSVLoader } from "@loaders.gl/csv";
 import { load } from "@loaders.gl/core";
-import { Map } from "react-map-gl";
+import { Map, MapProvider } from "react-map-gl";
 import { Favicon } from "~/components/Favicon";
 import { paths } from "~/config";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   AmbientLight,
   DeckGL,
@@ -60,7 +60,13 @@ const INITIAL_VIEW_STATE: MapViewState = {
   pitch: 55,
 };
 
-const Designer = ({ data }: { data: DataPoint[] }) => {
+const LandValueMap = ({
+  data,
+  setSelectedFeatures,
+}: {
+  data: DataPoint[];
+  setSelectedFeatures: (e: any) => void;
+}) => {
   function getTooltip({ object }: PickingInfo) {
     if (!object) {
       return null;
@@ -110,7 +116,7 @@ const Designer = ({ data }: { data: DataPoint[] }) => {
       getPointRadius: 40,
       pickable: true,
       onClick: (e) => {
-        console.log(e.object.points);
+        setSelectedFeatures(e.object.points);
         return true;
       },
       radius: 10,
@@ -129,57 +135,31 @@ const Designer = ({ data }: { data: DataPoint[] }) => {
 
   return (
     <>
-      <Head>
-        <title>St Louis Land Values</title>
-        <meta name="description" content="Created by Walter" />
-        <Favicon />
-      </Head>
-      <div className="flex overflow-hidden">
-        <div className="flex h-screen w-screen overflow-hidden">
-          {data.length > 0 && (
-            <DeckGL
-              layers={layers}
-              effects={[lightingEffect]}
-              initialViewState={INITIAL_VIEW_STATE}
-              controller={true}
-              _pickable={true}
-              getTooltip={getTooltip}
-            >
-              <Map
-                reuseMaps
-                mapboxAccessToken="pk.eyJ1Ijoid2FsdGVyaiIsImEiOiJjbHA5dW0xa3kwMHFyMmlxb3E3MjN1NXZqIn0.6pfIrIBF1NhDy9HbXoNxxw"
-                mapStyle="mapbox://styles/mapbox/navigation-night-v1"
-              >
-                <ClickHandler />
-              </Map>
-            </DeckGL>
-          )}
-        </div>
-        <div className="absolute bottom-10 right-5 ">
-          <div className="grid gap-3">
-            <Link
-              href={paths.projects}
-              className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
-            >
-              🍔 Back to Projects
-            </Link>
-            <Link
-              href={"/"}
-              className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
-            >
-              💻 Work with Walter
-            </Link>
-          </div>
-        </div>
-      </div>
+      {data.length > 0 && (
+        <DeckGL
+          layers={layers}
+          effects={[lightingEffect]}
+          initialViewState={INITIAL_VIEW_STATE}
+          controller={true}
+          _pickable={true}
+          getTooltip={getTooltip}
+        >
+          <Map
+            id="LandValueMap"
+            reuseMaps
+            mapboxAccessToken="pk.eyJ1Ijoid2FsdGVyaiIsImEiOiJjbHA5dW0xa3kwMHFyMmlxb3E3MjN1NXZqIn0.6pfIrIBF1NhDy9HbXoNxxw"
+            mapStyle="mapbox://styles/mapbox/navigation-night-v1"
+          ></Map>
+        </DeckGL>
+      )}
     </>
   );
 };
 
 const DesignerPage = () => {
+  const [selectedFeatures, setSelectedFeatures] = useState<any[]>([]);
   const [data, setData] = useState<any[]>([]);
-  const DATA_URL =
-    "https://walterkjenkins-com-git-main-aviddabblers-projects.vercel.app/layers/stl_parcel_layer_pts.csv";
+  const DATA_URL = "/layers/stl_parcel_layer_pts.csv";
   const loadIt = async () => {
     const _data = (await load(DATA_URL, CSVLoader)).data as DataPoint[];
     setData(_data);
@@ -189,13 +169,80 @@ const DesignerPage = () => {
     loadIt();
   }, []);
 
-  return <Designer data={data} />;
+  return (
+    <div>
+      <Head>
+        <title>St Louis Land Values</title>
+        <meta
+          name="description"
+          content="VIsualizing St Louis Land values by concentration"
+        />
+        <meta
+          property="og:image"
+          content="/blog-images/3d-land-value/demo.gif"
+        />
+        <meta
+          property="twitter:image"
+          content="/blog-images/3d-land-value/demo.gif"
+        />
+        <meta name="description" content="Created by Walter" />
+        <Favicon />
+      </Head>
+      <div className="grid h-36 w-36 grid-cols-8">
+        <MapProvider>
+          <div className="flex w-36">
+            <LandValueMap
+              data={data}
+              setSelectedFeatures={setSelectedFeatures}
+            />
+            ;
+          </div>
+          <ClickHandler setSelectedFeatures={setSelectedFeatures} />
+        </MapProvider>
+      </div>
+      <div className="absolute bottom-0 w-screen ">
+        <aside className="grid h-[30vh] min-h-[200px] w-full grid-rows-8 rounded-lg bg-white shadow-lg">
+          <h2>Features</h2>
+          <div className="row-span-7 h-full w-full overflow-auto text-sm">
+            {selectedFeatures.map((el, i) => {
+              return (
+                <div key={i} className="grid grid-cols-8 ">
+                  <p className="col-span-2 truncate">{el.source.address}</p>
+                  <p className="col-span-2 truncate">{el.source.OwnerName}</p>
+                  <p className="col-span-2 truncate">{el.source.TaxAmt}</p>
+                </div>
+              );
+            })}
+          </div>
+        </aside>
+      </div>
+      <div className="absolute bottom-10 right-5 ">
+        <div className="grid gap-3">
+          <Link
+            href={paths.projects}
+            className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
+          >
+            🍔 Back to Projects
+          </Link>
+          <Link
+            href={"/"}
+            className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
+          >
+            💻 Work with Walter
+          </Link>
+        </div>
+      </div>{" "}
+    </div>
+  );
 };
 
-const ClickHandler = () => {
-  const { map } = useMap();
+const ClickHandler = ({
+  setSelectedFeatures,
+}: {
+  setSelectedFeatures: (e: any) => void;
+}) => {
+  const { LandValueMap: map } = useMap();
 
-  map?.on("click", PARCEL_LAYER_ID, (e) => console.log(e));
   return null;
 };
 export default DesignerPage;

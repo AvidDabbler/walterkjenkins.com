@@ -2,16 +2,16 @@
 title: "Adding Conditional Statements to Drizzle Queries"
 tags: ["Drizzle", "Typescript"]
 excerpt: "Working with Drizzle to manage your types is great, but what is the best way to programatically add parameters to sql clauses?" 
-coverImage: "https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/drizzle-conditional-queries/cover-image.jpg"
+coverImage: "/blog-images/drizzle-conditional-queries/cover-image.jpg"
 date: "2023-11-03"
 author:
   name: Walter Jenkins
   picture: "/assets/blog/authors/tim.jpeg"
-ogImage: "https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/drizzle-conditional-queries/cover-image.jpg"
+ogImage: "/blog-images/drizzle-conditional-queries/cover-image.jpg"
 ---
 
 
-![Drizzle conditional queries header image](https://data.walterkjenkins.com.s3.amazonaws.com/blog-images/drizzle-conditional-queries/cover-image.jpg)
+![Drizzle conditional queries header image](/blog-images/drizzle-conditional-queries/cover-image.jpg)
 
 Recently I have started migrating from [ Prisma ](https://www.prisma.io/docs) over to using [ Drizzle ](https://orm.drizzle.team/) based on some feedback that I got about the way that Prisma handles joins and table relations. 
 One of the things that I loved about Prisma was the easy of setting up conditional queries where you can just use a terenary operator to inject in the optional conditions
@@ -94,14 +94,14 @@ export const getConversations = async (tcAgencyIds: string[], routeLongNames: st
 ```
 
 ## Second attempt
+
 :
 My second attempt at making this a little bit more refined was to actually setup a variable before the query that takes in an array of drizzle where conditions.
-
 
 ```
 export const getConversations = async (tcAgencyIds: string[], routeLongNames: string []) => {
   const where = [inArray(tables.conversation.tcAgencyId, tcAgencyIds), isNotNull(tables.user.id)];
-  if (routes.length > 0){ 
+  if (routes.length > 0){
     where.push(
       inArray(
         tables.conversation.routeLongName,
