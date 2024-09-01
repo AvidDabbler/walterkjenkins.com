@@ -1,9 +1,7 @@
-"use client";
 import { type NextPage } from "next";
 import Head from "next/head";
 import React from "react";
-import { Header, Projects, Signature } from "../components";
-import { BackgroundMap } from "~/components/BackgroundMap";
+import { Header } from "../components";
 import { Favicon } from "~/components/Favicon";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Footer } from "~/components/Footer";
@@ -22,17 +20,14 @@ const Home: NextPage = () => {
         />
       </Head>
       <main className="w-screen">
-        <div id="app" className="h-screen w-screen">
+        <div>
           <div className=" w-100 ">
             <Header />
+            <div className=" bg-blue topo py-32">
+              <AboutWalter />
+            </div>
           </div>
-          <div id="map" className="mapContainer w-100 fixed">
-            <BackgroundMap />
-          </div>
-          <Signature />
         </div>
-        <AboutWalter />
-        <Projects />
       </main>
       <Footer />
     </>

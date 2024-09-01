@@ -39,7 +39,7 @@ export function Projects() {
     <>
       <div className="bg-blue topo flex h-full min-h-screen w-full flex-col gap-12 py-32">
         <div id="app" className="w-100">
-          <div className=" w-100 zi100"></div>i
+          <div className=" w-100 zi100"></div>
           <div className="pt-30 m-auto grid w-5/6 gap-12 text-3xl">
             <h2 className="text-center text-3xl text-white">Projects</h2>
             <div className="group grid gap-12 md:flex">

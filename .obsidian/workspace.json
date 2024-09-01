@@ -148,6 +148,13 @@
   },
   "active": "ded8ef69c4473ad4",
   "lastOpenFiles": [
+    "src/components/about.tsx",
+    "src/pages/about.tsx~",
+    "public/images/headshot.jpg",
+    "public/images/PXL_20221109_181035186.PORTRAIT_edit-removebg-preview.jpg",
+    "public/images",
+    "public/untitled folder",
+    "src/pages/about.tsx",
     "public/blog-images/3d-land-value/final-map.png",
     "_posts/3D Land Value Visualization.mdx",
     "public/blog-images/3d-land-value/h3-map.png",
@@ -162,12 +169,6 @@
     "public/blog-images/3d-land-value",
     "public/blog-images/untitled folder",
     "public/hamburger.png",
-    "_posts/Hosting Mapbox Raster tiles on S3.mdx~",
-    "public/blog-images/s3-raster/demo.gif",
-    "public/blog-images/s3-raster/input.png",
-    "public/blog-images/s3-raster",
-    "public/blog-images/remix-mapbox",
-    "public/blog-images/love-the-blog",
     "_posts/Untitled.md"
   ]
 }
