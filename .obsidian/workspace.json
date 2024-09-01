@@ -148,6 +148,13 @@
   },
   "active": "ded8ef69c4473ad4",
   "lastOpenFiles": [
+    "public/blog-images/3d-land-value/final-map.png",
+    "_posts/3D Land Value Visualization.mdx",
+    "public/blog-images/3d-land-value/h3-map.png",
+    "_posts/3D Land Value Visualization.mdx~",
+    "public/blog-images/3d-land-value/purple-map.png",
+    "public/blog-images/3d-land-value/mdb.png",
+    "public/blog-images/3d-land-value/urban3.png",
     "public/layers/stl_parcel_layer_pts.qmd",
     "src/pages/projects/stl-land-value.tsx~",
     "public/blog-images/3d-land-value/demo.gif",
@@ -158,17 +165,9 @@
     "_posts/Hosting Mapbox Raster tiles on S3.mdx~",
     "public/blog-images/s3-raster/demo.gif",
     "public/blog-images/s3-raster/input.png",
-    "public/blog-images/s3-raster/Untitled-1.png",
-    "public/blog-images/s3-raster/Untitled.png",
-    "public/blog-images/s3-raster/Untitled 6.png",
-    "public/blog-images/s3-raster/Untitled 5.png",
-    "public/blog-images/s3-raster/Untitled 4.png",
     "public/blog-images/s3-raster",
     "public/blog-images/remix-mapbox",
     "public/blog-images/love-the-blog",
-    "public/blog-images/drizzle-conditional-queries",
-    "public/blog-images/dokku-digitalocean",
-    "public/blog-images",
     "_posts/Untitled.md"
   ]
 }
