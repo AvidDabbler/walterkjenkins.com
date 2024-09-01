@@ -5,7 +5,7 @@ import { Map, MapProvider } from "react-map-gl";
 import { Favicon } from "~/components/Favicon";
 import { paths } from "~/config";
 import Link from "next/link";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AmbientLight,
   DeckGL,
@@ -201,22 +201,38 @@ const DesignerPage = () => {
         </MapProvider>
       </div>
       <div className="absolute bottom-0 w-screen ">
-        <aside className="grid h-[30vh] min-h-[200px] w-full grid-rows-8 rounded-lg bg-white shadow-lg">
-          <h2>Features</h2>
-          <div className="row-span-7 h-full w-full overflow-auto text-sm">
-            {selectedFeatures.map((el, i) => {
-              return (
-                <div key={i} className="grid grid-cols-8 ">
-                  <p className="col-span-2 truncate">{el.source.address}</p>
-                  <p className="col-span-2 truncate">{el.source.OwnerName}</p>
-                  <p className="col-span-2 truncate">{el.source.TaxAmt}</p>
-                </div>
-              );
-            })}
-          </div>
+        <aside className="grid h-[30vh] min-h-[200px] w-full grid-rows-8  overflow-auto rounded-lg bg-white py-3 shadow-lg">
+          <h2 className="flex items-center px-6 text-2xl font-bold">
+            Selected Properties
+          </h2>
+          <table className="sticky mx-3 table-auto grid-rows-8 text-left">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Owner</th>
+                <th>Tax Amount</th>
+              </tr>
+            </thead>
+            <tbody className="row-span-7 h-full ">
+              {selectedFeatures.map((el, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{el.source.address}</td>
+                    <td>{el.source.OwnerName}</td>
+                    <td>{el.source.TaxAmt}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          {selectedFeatures.length == 0 && (
+            <div className="flex h-full items-center px-6 font-medium">
+              <div>Click the map to add items to this table</div>
+            </div>
+          )}
         </aside>
       </div>
-      <div className="absolute bottom-10 right-5 ">
+      <div className="absolute right-5 top-5">
         <div className="grid gap-3">
           <Link
             href={paths.projects}
@@ -231,7 +247,30 @@ const DesignerPage = () => {
             💻 Work with Walter
           </Link>
         </div>
-      </div>{" "}
+      </div>
+      <div className="absolute left-5 top-5 drop-shadow-lg">
+        <div className="grid max-w-[35vw] gap-3 rounded-lg bg-white p-6">
+          <h1 className="text-2xl font-bold">What is this❓</h1>
+          <p>
+            This is the representation of the amount of taxes that are paid over
+            the the amount of land that it takes up in the City of St Louis.
+          </p>
+          <h2 className="text-2xl">But why?</h2>
+          <p>
+            When you start to look at how much taxes are spent on properties you
+            are accomidating for how much infrastructure is being used to
+            support the people and buisnesses for that area.
+          </p>
+          <div>
+            <a
+              href="https://www.urbanthree.com/services/public-asset-valuation/"
+              className="hover-right-bounce rounded-lg bg-blue-300 p-2 text-white hover:bg-blue-200"
+            >
+              Learn more
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
