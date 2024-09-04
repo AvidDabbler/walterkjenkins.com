@@ -2,6 +2,7 @@ import React from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Image from "next/image";
 import Link from "next/link";
+import { paths } from "~/config";
 
 export const AboutWalter = () => {
   return (
@@ -22,7 +23,7 @@ export const AboutWalter = () => {
           <div className="my-2 flex justify-center">
             <Link
               className="mx-auto rounded-full bg-green-400 px-4 py-2 text-2xl transition-all hover:bg-gray-600"
-              href={"https://www.linkedin.com/in/walter-k-jenkins/"}
+              href={paths.contact}
             >
               Contact me 📲
             </Link>

@@ -15,10 +15,10 @@ export const links = {
 export const paths = {
   home: "/",
   projects: "/projects",
-  contact: "/contact",
+  contact: "https://www.linkedin.com/in/walter-k-jenkins/",
   about: "/about",
   blog: "/blog",
 };
 
+export const cloudfront = process.env.CLOUDFRONT_URL;
 
-export const cloudfront = process.env.CLOUDFRONT_URL

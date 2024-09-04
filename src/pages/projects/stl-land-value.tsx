@@ -241,7 +241,7 @@ const DesignerPage = () => {
             🍔 Back to Projects
           </Link>
           <Link
-            href={"/"}
+            href={paths.contact}
             className="hover-right-bounce rounded-lg bg-blue-300 p-2 hover:bg-blue-200"
           >
             💻 Work with Walter
