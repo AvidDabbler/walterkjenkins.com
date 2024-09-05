@@ -31,7 +31,9 @@ const Home: NextPage = () => {
           </div>
           <Signature />
         </div>
-        <AboutWalter />
+        <div className="bg-blue topo z-50 pt-20">
+          <AboutWalter />
+        </div>
         <Projects />
       </main>
       <Footer />

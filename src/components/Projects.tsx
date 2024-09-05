@@ -41,7 +41,9 @@ export function Projects() {
         <div id="app" className="w-100">
           <div className=" w-100 zi100"></div>
           <div className="pt-30 m-auto grid w-5/6 gap-12 text-3xl">
-            <h2 className="text-center text-3xl text-white">Projects</h2>
+            <h2 className="text-medium text-center text-5xl font-semibold text-white">
+              Projects
+            </h2>
             <div className="group grid gap-12 md:flex">
               <Image
                 src={LandValueDemo}
