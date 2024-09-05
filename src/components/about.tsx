@@ -53,7 +53,7 @@ export const AboutWalter = () => {
           </div>
         </div>
         <p className="text-center text-4xl font-bold">Hey There! 👋</p>
-        <p>
+        <p className="text-2xl">
           I'm <span className="highlight font-medium">Walter Jenkins</span>, a
           full-stack developer with focused on telling stories with data and
           solutions for the public sector. My clients often have a story they
@@ -110,20 +110,20 @@ export const AboutWalter = () => {
           width={600}
           height={600}
         ></Image>
-        <h2 className="text-xl font-bold">What I Offer</h2>
-        <p>
+        <h3 className="text-center text-3xl font-bold">What I Offer</h3>
+        <p className="text-2xl">
           While I can bring your story to life with data, I am especially fond
           of working on websites that help the public sector make an impact. As
           a former public servant I know how hard it is to get things done and I
           help cut through and do things that the public sector might take a
           long time to.
         </p>
-        <p>
+        <p className="text-2xl">
           In the past I have developed websites for causes, organizations and
           buisinesses, developed apps for organizations like the World Central
           Kitchen and built analysis workflows for the United Nations.
         </p>
-        <ul className="grid list-disc gap-6 px-12 ">
+        <ul className="grid list-disc gap-6 px-12 text-2xl">
           <li>
             <span className="highlight font-medium">
               Website and Mobile Development:
@@ -144,8 +144,8 @@ export const AboutWalter = () => {
           </li>
         </ul>
 
-        <h2 className="text-xl font-bold">Why Work With Me?</h2>
-        <p>
+        <h2 className="text-center text-3xl font-bold">Why Work With Me?</h2>
+        <p className="text-2xl">
           I understand the challenges faced by public sector organizations,
           especially in urban planning and public transit. My experience working
           with these sectors means I can offer practical, results-driven
@@ -153,7 +153,7 @@ export const AboutWalter = () => {
           technology that empowers your organization.
         </p>
 
-        <p>
+        <p className="text-2xl">
           Let's work together to make your vision a reality. Whether it's a new
           website, a mobile app, or a data-driven analysis, I'm here to help you
           navigate the complexities of the digital world.

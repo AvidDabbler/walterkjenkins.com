@@ -1,9 +1,9 @@
 ---
 title: 3D Land Value Visualization
 tags:
-  - "#data-visualiztaion"
-  - "#deckgl"
-  - "#mapbox"
+  - "data-visualiztaion"
+  - "deckgl"
+  - "mapbox"
 excerpt: When it comes to determining land value we should be looking at the concentration of that land value and its return. Since land is finite and the cost of sprawl is high.
 coverImage: /blog-images/love-the-blog/heading-image.jpg
 date: "2024-08-31"
@@ -71,13 +71,14 @@ Once we have all of the data exported from the sql database we are able to assoc
 
 ![Import data to qgis](/blog-images/3d-land-value/purple-map.png)
 
-While we could just perform a join on the "handle" field in both the shapefile and csv exported the performance of loading all that geometry would be very intensive for the browser. 
+While we could just perform a join on the "handle" field in both the shapefile and csv exported the performance of loading all that geometry would be very intensive for the browser.
 
-Knowing this I opted to add in lat and lon fields of the center of each parcel. Once that is done I was able to export this as a csv file. 
+Knowing this I opted to add in lat and lon fields of the center of each parcel. Once that is done I was able to export this as a csv file.
 
 Since we have created a csv file that has xy coordinates we can then begin mapping.
 
 ## Creating a web map
+
 While I don't want to go in depth in how I developed this you can take a look at the [code here](https://github.com/AvidDabbler/walterkjenkins.com/blob/main/src/pages/projects/stl-land-value.tsx)
 
 I made a quick map with [react map gl](https://visgl.github.io/react-map-gl/) and [deck.gl](https://deck.gl/) to create a quick mapbox map that loads in that csv file and visualizes that data by grouping the xy coordinates together using the [H3 hex method](https://h3geo.org/)
@@ -85,10 +86,12 @@ I made a quick map with [react map gl](https://visgl.github.io/react-map-gl/) an
 ![H3 mapbox map](/blog-images/3d-land-value/h3-map.png)
 
 ## Exposing clicked properties
-The immediate question after I posted this was "What is the tallest?". 
+
+The immediate question after I posted this was "What is the tallest?".
 Not wanting to answer all of the questions I opted to just make a simple table that allows you to click the bars on the map and display them in a table.
 
 Since there are many addresses for each bar this allows the user to be able to:
+
 1. Load the page fast
 2. Understand where we are making money on our land developments
 3. Dive into what properties are attributing to good and bad outcomes
