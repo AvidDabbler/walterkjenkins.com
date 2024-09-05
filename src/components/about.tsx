@@ -7,39 +7,37 @@ import { paths } from "~/config";
 export const AboutWalter = () => {
   return (
     <div className="bg-blue topo flex h-full min-h-screen w-full flex-col gap-12 ">
-      <div className="mx-auto flex w-full max-w-[600px] flex-col gap-6 px-6  text-white md:w-1/2">
+      <div>
         <Image
           src={"/images/headshot.jpg"}
           alt="headshot of walter"
           className="mx-auto rounded-full"
-          width={200}
-          height={200}
+          width={300}
+          height={300}
         ></Image>
+        <h1 className="pacifico text-center text-[7rem] leading-[8rem] text-white">
+          Walter Jenkins
+        </h1>
+        <h2 className="mx-auto w-3/4 text-center text-3xl font-medium text-orange-500">
+          Developer and Analyst helping companies tell stories with there data
+        </h2>
+      </div>
+      <div className="mx-auto flex w-full max-w-[900px] flex-col gap-6 px-6  text-white">
         <div className="flex flex-col gap-6 pb-8">
-          <h1 className="pacifico text-center text-6xl">Walter Jenkins</h1>
-          <h2 className="text-center text-3xl font-medium text-orange-500">
-            Developer and Analyst helping companies tell stories with there data
-          </h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2 text-xl font-medium capitalize text-white">
-              Startups
-            </p>
-            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2 text-xl font-medium capitalize text-white">
+          <div className="flex flex-wrap justify-center gap-3 text-2xl">
+            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2  font-medium capitalize text-white">
               Data Analysis
             </p>
-            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2 text-xl font-medium capitalize text-white">
+            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2  font-medium capitalize text-white">
               Mobile app development
             </p>
-            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2 text-xl font-medium capitalize text-white">
+            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2  font-medium capitalize text-white">
               Web Mapping
             </p>
-            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2 text-xl font-medium capitalize text-white">
-              Technical Project Management
+            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2  font-medium capitalize text-white">
+              Product Development
             </p>
-            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2 text-xl font-medium capitalize text-white">
-              Product Design
-            </p>
-            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2 text-xl font-medium capitalize text-white">
+            <p className="mx-1 flex flex-wrap justify-center rounded-2xl bg-orange-400 px-2  font-medium capitalize text-white">
               Web Development
             </p>
           </div>
