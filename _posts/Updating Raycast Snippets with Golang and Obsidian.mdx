@@ -1,0 +1,89 @@
+---
+title: Updating Raycast Snippets with Golang and Obsidian
+tags:
+  - Golang
+  - Raycast
+  - Obsidian
+excerpt: Using Raycast is amazing, but I wanted a better way to manage my snippets vault
+coverImage: /blog-images/raycast-snippets/heading-image.jpg
+date: "2024-09-20"
+author:
+  name: Walter Jenkins
+  picture: /assets/blog/authors/tim.jpeg
+ogImage: /blog-images/love-the-blog/heading-image.jpg
+---
+
+![Raycast snippets header image](/blog-images/raycast-snippets/heading-image.jpg)
+
+# Problem
+
+Now that I am running my own business I feel like I am having to sell and talk about my work more and more. Not only that but there is so many things like my calendar, website urls, emails and just in general responses that I need to just have on hand these days to just quickly shoot out a response to people. Being able to have something that allows be to catalogue not only my projects and their descriptions, but just a way to keep moving after getting a question or responding to a proposal has required me to think more about how I spend my time when writing.
+
+# Options
+
+Doing some research there were a couple of requirement that I had to have a cataloging system for common texts.
+
+1. Integrate with my existing workflow and file system - I wanted to just to be able to store this data in a way that was not a _black box_ and allowed me to opt out whenever I wanted
+2. Support rich text or at least allow for line breaks
+3. Quick expansion with the use of keywords and symbols ex. :email would expand to my email
+
+## Espanso
+
+The one strictly _text expander_ that I found was [Espanso](https://espanso.org/) . This is a secure local only peice of software that just uses a yaml file to store all of your snippets. This was a strong contender, but I was not sure how to manage my texts that had multiline info and was just afraid to dive into the hell that is yaml. I think that this would be great for things like emails and links, but beyond that it seems hard to make use of. Overall I am considering using it for items that are not longer than 2 sentences for very common and items that do not change, but I am not sure beyond that.
+
+## Raycast Snippet Manager
+
+As someone who replaced spotlight some time ago for [Raycast](https://www.raycast.com/core-features/snippets) it was amazing to see this being available in my existing workflow. After doing some research I was able to find that I can update these with a single json file and there is documentation for this. The only thing that I hate about this process is that the file has. to be uploaded manually. Raycast does not just story a snippets json file on your machine. It i ingested in their system and I was unable to find documentation on how to update it other than just using the manual process.
+
+# Solution
+
+In the end I ended up just using the Raycast snippet manager as it was what I was already using, but I then added a folder in my existing vault to store all of the snippets. This was great as I love writing in Obsidian, I could see me eventually migrating off with my files still in tact and I could just code up something quickly that would convert my Obsidian markdown files into json.
+
+# Raycast Snippet JSON File formatting
+
+The json file format is simple enough it is just a simple formatting with:
+
+- name: the full name of what you want it called in the system
+- text: the full text that you want to show as an output
+- keyword (optional): an optional output of what you want to use as the expander value
+
+```json
+[
+  {
+    "name": "Personal Email",
+    "text": "sherlock@gmail.com",
+    "keyword": "@@"
+  },
+  {
+    "name": "Home Address",
+    "text": "221B Baker St., London"
+  },
+  {
+    "name": "Catchphrase 1",
+    "text": "Elementary, my dear Watson",
+    "keyword": "!elementary"
+  }
+]
+```
+
+Knowing that it was this simple I just simply had to deliver something that would allow for me to generate this from my existing Obsidian vault.
+
+# Running the script
+
+Running scripts in Go is stupid easy just simply go to the the dir in your terminal, add the env variables with where your vault folder has your snippets than run `go run .` that's it.
+
+# Deleting snippets
+
+Unfortunately, the only way that I found to reliably keep my snippets vault updated was to just delete all and the reimport. The documentation says that you it _will_ skip previously imported snippets, _but_ they have to match the key and full text. So if you were to update a previously imported text then you would have 2 snippets with the same name. Since I am constantly refining my snippets this was a problem and I just opted to delete all of them every time.
+
+Deleting all of the snippets in Raycast is kind of weird as there is no first class component that allows you to manage them. So the solution that I ended up going with was just to right-click and select _Delete All Snippets_.
+
+![Deleting snippets from Raycast](/blog-images/raycast-snippets/deleting-snippets.png)
+
+# Importing snippets
+
+Once you have deleted your snippets and run the go script to create your JSON file you just open Raycast and look for _Import Snippets_ and then point to the file and your done.
+
+![Import snippets from Raycast](/blog-images/raycast-snippets/import-snippets.png)
+
+[Golang script to migrate Obsidian to Raycast](https://gist.github.com/AvidDabbler/df3705ff1c77c7646c49458a69b98f2b)

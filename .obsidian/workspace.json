@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/3D Land Value Visualization.mdx",
+                "file": "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/3D Land Value Visualization.mdx",
+                "file": "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/3D Land Value Visualization.mdx",
+                "file": "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/3D Land Value Visualization.mdx"
+                "file": "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx"
               }
             }
           }
@@ -148,27 +148,27 @@
   },
   "active": "ded8ef69c4473ad4",
   "lastOpenFiles": [
+    "public/blog-images/raycast-snippets/import-snippets.png",
+    "public/blog-images/raycast-snippets/deleting-snippets.png",
+    "public/blog-images/raycast-snippets/heading-image.jpg",
+    "public/blog-images/raycast-snippets/diagram.png",
+    "public/blog-images/raycast-snippets",
+    "public/blog-images/love-the-blog copy/diagram.png",
+    "public/blog-images/love-the-blog copy/heading-image.jpg",
+    "public/blog-images/love-the-blog copy",
+    "_posts/Learn to love the blog.mdx",
+    "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
+    "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
+    "_posts/Updating Raycast Snippets with Golang and Obsidian.md",
+    "_posts/3D Land Value Visualization.mdx",
     "src/components/about.tsx",
     "src/pages/about.tsx~",
     "public/images/headshot.jpg",
     "public/images/PXL_20221109_181035186.PORTRAIT_edit-removebg-preview.jpg",
     "public/images",
     "public/untitled folder",
-    "src/pages/about.tsx",
     "public/blog-images/3d-land-value/final-map.png",
-    "_posts/3D Land Value Visualization.mdx",
     "public/blog-images/3d-land-value/h3-map.png",
-    "_posts/3D Land Value Visualization.mdx~",
-    "public/blog-images/3d-land-value/purple-map.png",
-    "public/blog-images/3d-land-value/mdb.png",
-    "public/blog-images/3d-land-value/urban3.png",
-    "public/layers/stl_parcel_layer_pts.qmd",
-    "src/pages/projects/stl-land-value.tsx~",
-    "public/blog-images/3d-land-value/demo.gif",
-    "public/blog-images/3d-land-value/land-value.gif",
-    "public/blog-images/3d-land-value",
-    "public/blog-images/untitled folder",
-    "public/hamburger.png",
-    "_posts/Untitled.md"
+    "public/blog-images/3d-land-value/purple-map.png"
   ]
 }
