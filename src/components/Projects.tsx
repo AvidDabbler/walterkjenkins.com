@@ -115,7 +115,7 @@ export function Projects() {
               ></Image>
               <div className="my-auto grid w-full gap-3 md:flex md:w-2/3 md:flex-col md:gap-6 md:pr-6">
                 <a
-                  href="https://simple-transit-site.transit.chat"
+                  href="https://github.com/ioTransit/simple-transit-site"
                   className="text-orange-400 hover:text-orange-600"
                 >
                   Simple Transit Site
