@@ -88,6 +88,17 @@ const DesignerPage = () => {
         <Favicon />
       </Head>
       <div className="grid h-screen grid-cols-8">
+        <div className="absolute left-6 top-6 z-50 grid max-w-[400px] gap-3 rounded-md bg-white p-6">
+          <h1 className="text-xl font-bold">
+            15 Minute Walking Distance metrics
+          </h1>
+          <p>
+            This map shows how far you can get with a 15 minute walk from the
+            marker. Drag the marker to update the isochrone to calculate the new
+            walk distance.
+          </p>
+        </div>
+
         <MapProvider>
           <div className="flex h-screen w-screen">
             <LandValueMap />
