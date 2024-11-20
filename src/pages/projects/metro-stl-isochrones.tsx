@@ -5,7 +5,6 @@ import {
   Map,
   MapProvider,
   Marker,
-  Point,
   Source,
 } from "react-map-gl";
 import { Favicon } from "~/components/Favicon";

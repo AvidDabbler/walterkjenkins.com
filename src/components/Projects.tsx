@@ -5,6 +5,7 @@ import SimpleTransitSite from "../assets/simple-transit-site.png";
 import TransitIntensity from "../assets/transit-intensity.png";
 import TrainPicture from "../assets/train.jpg";
 import LandValueDemo from "../../public/blog-images/3d-land-value/demo.gif";
+import IsochroneDemo from "../../public/blog-images/isochrone/demo.gif";
 import CallCenter from "../../public/images/call-center.gif";
 
 export const ExternalProject = ({
@@ -45,6 +46,26 @@ export function Projects() {
             <h2 className="text-medium text-center text-5xl font-semibold text-white">
               Projects
             </h2>
+            <div className="group grid gap-12 md:flex">
+              <Image
+                src={IsochroneDemo}
+                className="mx-auto h-64 w-64 rounded-md ring-4 drop-shadow-lg transition-all hover:h-[17rem] hover:w-[17rem] lg:h-[23rem] lg:w-[23rem] lg:hover:h-96 lg:hover:w-96"
+                alt="profile photo"
+              ></Image>
+              <div className="my-auto grid w-full gap-3 md:flex md:w-2/3 md:flex-col md:gap-6 md:pr-6">
+                <Link
+                  href="/projects/metro-stl-isochrones"
+                  className="text-orange-400 hover:text-orange-600"
+                >
+                  Calculating Walking Isochrones with Mapbox
+                </Link>
+                <p className="text-2xl leading-normal text-gray-200">
+                  All distance is not created equal when it comes to time to
+                  destination
+                </p>
+              </div>
+            </div>
+
             <div className="group grid gap-12 md:flex">
               <Image
                 src={CallCenter}
