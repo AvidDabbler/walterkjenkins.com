@@ -35,7 +35,7 @@ const LandValueMap = ({}: {}) => {
     layout: {},
     paint: {
       // The fill color for the layer is set to a light purple
-      "fill-color": "#5a3fc0",
+      "fill-color": "#c03fb3",
       "fill-opacity": 0.3,
     },
   };
