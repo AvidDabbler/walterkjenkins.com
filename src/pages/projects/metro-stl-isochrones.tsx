@@ -54,8 +54,8 @@ const LandValueMap = ({}: {}) => {
         <Layer {...dataLayer} />
       </Source>
       <Marker
-        longitude={poi[1]}
-        latitude={poi[0]}
+        longitude={poi[1] as number}
+        latitude={poi[0] as number}
         color="red"
         draggable={true}
         onDragEnd={(e) => {
