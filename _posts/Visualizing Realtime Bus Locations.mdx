@@ -1,0 +1,157 @@
+---
+title: Vizualizing Realtime Bus Locations using GTFS-RT
+tags: ["Mapbox", "GTFS", "Realtime"]
+excerpt: "A web developer's guide to vizualizing GTFS-RT with Python or JavaScript"
+coverImage: "/assets/blog/hello-world/cover.jpg"
+date: "2024-11-20"
+author:
+  name: Walter Jenkins
+  picture: "/assets/blog/authors/tim.jpeg"
+ogImage: "/assets/blog/hello-world/cover.jpg"
+---
+
+## Introduction
+
+So over the years I have worked with GTFS feeds from agencies all around to run analysis and build frequency and trip based GIS visualizations. A separate feed from [GTFS](https://developers.google.com/transit/gtfs) is called [GTFS-RT](https://developers.google.com/transit/gtfs-rt) that displays the Realtime locations. This feed as well as GTFS is a global standard and if you wanted to work with this kind of data in your own city check with your local transit authority to see if they are one of the Agencies that [Openly Publish](https://transitfeeds.com/) there information.
+
+This blog post started with a Twitter poll where I asked what people would be interested in me writing about and it was overwhelmingly in favor of Realtime bus locations. Granted the othere options were pretty much geared toward transit policy woks and people like pretty things, but I digress. Vizualizing GTFS-RT has been on my todo list for some time and I am glad that I got around to tackling the problem.
+
+### Data Two Ways
+
+Starting this project it was geared toward the agency wanting to create a service that would process the information server side and host as a Hosted Service for use on an ArcGIS Enterprise system. However, I ended up failing to do so, but have been able to get it running on my local machine so I will show you how I did that. I do have some plans to get this running using a Lambda function or ec2 instance in the future, but haven't played around with it too much.
+
+The other way that I was able to get it up and running is through the MapBox PB API. I started this article thinking that I was going to cover it, but to be quite honest you should go read his [post](https://gavinr.com/protocol-buffers-protobuf-browser/) it is so much better than anything that I could write so I am just going to cover what I ended up fulling putting together on my end using Python.
+
+## Building a Feature Service using Python
+
+So I am going to be honest. I am not sure if I am using this term correctly. In ArcGIS Online/Enterprise world a GIS layer on their online platfor is called a Hosted Feature, but at the end of this you will just be left with a Python script that will output a json file that you can map out.
+
+### Getting your data
+
+So like I said previously you will need a GTFS and GTFS-RT for this project which are generally available openly for most transit agencies. The GTFS is the static feed. This feed will have all of the static elements that will repeat over time, like Stop locations, route attributes, and trip alignments. I have separated each of these out into 2 different calls because the GTFS will at most change once a week where as the GTFS-RT is going to update around every 30 seconds.
+
+_Rule of Thumb: Transit agencies generally change their GTFS on Monday_
+
+**GTFS fetch**
+
+The first thing that you are going to want to do is fetch the Python file and extract the data. Making sure this is run at the top of the script so you do not run this in a loop and when it starts up the first thing it will do is make sure that there is a fresh GTFS to go with the realtime information that is getting pulled in. The purpose for this is the GTFS-RT does not have all of the relevant information that someone would want, but the GTFS is designed to link up to the GTFS-RT and it has all of the information that you would want.
+
+```
+def getGTFS(gtfs_url):
+    gtfs = [ # list of gtfs files and their locations
+        os.path.join(dir, 'agency.txt'),
+        os.path.join(dir, 'calendar.txt'),
+        os.path.join(dir, 'calendar_dates.txt'),
+        os.path.join(dir, 'routes.txt'),
+        os.path.join(dir, 'shapes.txt'),
+        os.path.join(dir, 'stop_times.txt'),
+        os.path.join(dir, 'stops.txt'),
+        os.path.join(dir, 'transfers.txt'),
+        os.path.join(dir, 'trips.txt'),
+    ]
+    for file in gtfs: # delete gtfs files before fetching
+        if os.path.exists(file):
+            os.remove(file)
+
+    print('FETCHING GTFS...')
+
+
+    zipresp = urlopen(gtfs_url) # Create a new file on the hard drive
+    tempzip = open("google_transit.zip", "wb") # Write the contents of the downloaded file into the new file
+    tempzip.write(zipresp.read()) # Close the newly-created file
+    tempzip.close() # Re-open the newly-created file with ZipFile()
+
+    # Extract its contents into <extraction_path> *note that extractall will automatically create the path
+    zf = zipfile.ZipFile("google_transit.zip")
+    zf.extractall(dir) # close the ZipFile instance
+    zf.close()
+    os.remove(fr"{dir}/google_transit.zip")
+
+    print('FETCH COMPLETE!')
+```
+
+**GTFS-RT fetch**
+
+There are 2 different files when it comes to the GTFS-RT that you will be interested in:
+
+- Trips
+- Vehicles
+
+The trips data issues out information about the realtime associated with each trip that is currently in service. You can link up the information in the static GTFS from the trips.txt file using the trip_id column (and then the routes and shapes and stop_times so on and so forth).
+
+The Vehicles data issue out information about the realtime locations of all of the buses.
+
+For more information you can reference the [GTFS-Realtime Specification](https://developers.google.com/transit/gtfs-realtime).
+
+When you fetch out each of the datasets you are going to need to use the pip module in the [google library](https://pypi.org/project/google/) `google.transit.gtfs_realtime_pb2`. What I have done is put together a little function to the the Protocol Buffer infromation that the feed gives off and then parse it to a string and then to a dict.
+
+```
+    def parseDict(pbu):
+        # TAKES THE DATA FROM U (THE PB URL) AND TURNS IT INTO A DICTIONARY
+        feed = gtfs_realtime_pb2.FeedMessage()
+        response = requests.get(pbu)
+        feed.ParseFromString(response.content)
+        feed = MessageToDict(feed)
+        return feed
+```
+
+After you have a dictionary you can then inject data from the GTFS or where ever to the vehicles and trips information. I am not going to go over all of this, but you can take a look at my [GTFSRT-parsing Repo](https://github.com/AvidDabbler/GTFSRT-parsing) for mor in depth workthrough. From there what I did what convert the dict to a [geojson format](https://geojson.org/) by just creating a blank object labeled as a feature collection and within that feature collection there is a feature that has features. With each feature you need to create and inject data into the four different sections:
+
+- type
+- properties
+- geometry
+- data
+
+```
+        allVehicles = {}
+        allVehicles['type'] = {}
+        allVehicles['type'] = 'Feature Collection'
+        allVehicles['features'] = []
+
+ feed = parseDict(pburl)
+        id = 0
+        for value in feed['entity']:
+            obj = {}
+
+            # LIST OF SECTIONS
+            list = ["type", "properties", "geometry", "data"]
+            for i in list: # CREATE SECTIONS
+                obj[i] = {}
+            obj["type"] = "Feature"
+
+            # START OF DATA SECTION
+            tripId = value["vehicle"]["trip"]["tripId"]
+            uni = obj["data"]
+            uni["vehicleId"] = value["vehicle"]["vehicle"]["id"]
+            uni["tripId"] = tripId
+            uni["routeId"] = value["vehicle"]["trip"]["routeId"]
+            uni["coordinates"] = [value["vehicle"]["position"]["longitude"], value["vehicle"]["position"]["latitude"]]
+
+            # START OF GEOMETRY SECTION
+            obj["geometry"]["type"] = "Point"
+            obj["geometry"]["coordinates"] = uni["coordinates"]
+
+
+            # START OF PROPERTIES SECTION
+            obj["properties"] = {}
+            obj["properties"]['id'] = id
+
+            # ADD INDIVIDUAL VEHICLES TO LIST
+            id += 1
+            allVehicles['features'].append(obj)
+        allVehicles = addVehicleInfo(allVehicles)
+        allVehicles = addVehiclePopups(allVehicles)
+        return allVehicles
+```
+
+Once you have this up and running you are going to save it locally and have it update at whatever rate you want the data to update with `time.sleep(x)` then host.
+
+### SOURCES
+
+[FULL REPO](https://github.com/AvidDabbler/GTFSRT-parsing)
+
+Special thanks to Gavin Rehkemper @ [ESRI](https://www.esri.com)
+Twitter --> [@GavinRehkemper](https://twitter.com/gavinrehkemper)
+[Blog](https://gavinr.com/protocol-buffers-protobuf-browser/)
+
+[OpenMobilityData.org](https://openmobilitydata.org/)

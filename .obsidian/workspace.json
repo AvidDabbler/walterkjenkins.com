@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "74f49a58972b4306",
+        "id": "af2809d006dadc48",
         "type": "tabs",
         "children": [
           {
-            "id": "ded8ef69c4473ad4",
+            "id": "f7a0fac9dbd47fcb",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx"
-              }
+              "state": {}
             }
           }
         ]
@@ -146,8 +138,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "ded8ef69c4473ad4",
+  "active": "f7a0fac9dbd47fcb",
   "lastOpenFiles": [
+    "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
     "public/blog-images/raycast-snippets/import-snippets.png",
     "public/blog-images/raycast-snippets/deleting-snippets.png",
     "public/blog-images/raycast-snippets/heading-image.jpg",
@@ -157,8 +150,6 @@
     "public/blog-images/love-the-blog copy/heading-image.jpg",
     "public/blog-images/love-the-blog copy",
     "_posts/Learn to love the blog.mdx",
-    "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
-    "_posts/Updating Raycast Snippets with Golang and Obsidian.mdx",
     "_posts/Updating Raycast Snippets with Golang and Obsidian.md",
     "_posts/3D Land Value Visualization.mdx",
     "src/components/about.tsx",
@@ -168,7 +159,6 @@
     "public/images",
     "public/untitled folder",
     "public/blog-images/3d-land-value/final-map.png",
-    "public/blog-images/3d-land-value/h3-map.png",
-    "public/blog-images/3d-land-value/purple-map.png"
+    "public/blog-images/3d-land-value/h3-map.png"
   ]
 }

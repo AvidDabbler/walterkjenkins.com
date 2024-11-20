@@ -1,0 +1,64 @@
+---
+title: Stop Using American FactFinder
+tags: ["Census", "GIS", "Mapping"]
+excerpt: "Sometimes its just easier to download everything"
+coverImage: "/assets/blog/hello-world/cover.jpg"
+date: "2024-11-15"
+author:
+  name: Walter Jenkins
+  picture: "/assets/blog/authors/tim.jpeg"
+ogImage: "/assets/blog/hello-world/cover.jpg"
+---
+
+## AmericanFactfinder is Garbage
+
+No offense to the nice people at the US Census Bureau, but the AmericanFactfinder tool has been a pain in butt for planner and analysts in government and non-profits for years. Its fine if you just want one excel file every once and a while, but if you rely on it everyday and you know the export process by heart you may want to read this. The US Census provides an easy download option for select ACS data from various geographies for all 50 states.
+
+## CONTENTS
+
+- Using the ACS Web Client to download state level Geodatabases.
+- Using the ACS FTP site
+- What are GEOID's and how to use them
+- How to navigate the data that you downloaded using the metadata table
+
+## Quick Links
+
+- [WebClient Download](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-data.html)
+- [FTP Download](https://www2.census.gov/geo/tiger/TIGER_DP/)
+- [GEOID Lookup](https://census.missouri.edu/geocodes/?state=29)
+
+### Via Web Client
+
+If you are not comfortable working with FTP site thats fine the Census has an easy to use tool that just walks you through the process. If you want multiple states you will have to download them all separately though. The link to the Web Client is below:
+
+[https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-data.html](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-data.html)
+
+### Using the ACS FTP Site
+
+The ACS FTP site might look scary, but if you want some reliable url's that you can bookmark and download a bunch of state level data or even a nation wide level dataset, the FTP is the place to be.
+
+The first thing that you are going to want to do is follow the [link to the ACS](https://www2.census.gov/geo/tiger/TIGER_DP/?#) and then select the year. The image below has the 2018 data circled.
+
+![FTP Home page](/blog-images/american-factfinder/ftp1.PNG)
+
+Once you have landed on the year that you are interested in. You are going to see a bunch of numbers and characters that you might not be familiar with. Don't worry you got this. There is a simple formula for all of the files that you are going to see on this page:
+
+#### ACS*YEAR*ESTIMATE_GEOGRAPHY_STATE-GEOCODE-ID.gdb.zip
+
+If the listed file does not have the State Geocode ID associated with it. It is safe to assume that it is the Nationwide dataset. Below is a snapshot from the 2018 site where you can see that the top file is the nationwide blockgroup dataset and the one below it is the Alabama dataset.
+
+![FTP 2018 Example](/blog-images/american-factfinder/ftp2.PNG)
+
+### What are Geoid's and how to use them
+
+Geoid's are numerical values that are set to be unique identifying integers that are associated with a piece of geography. Unlike numbers though depending on how long a number is dependent on what it stands for. Now if you are dealing with a dataset that is specific to say a state and the only thing in that data set is counties there may be a column in there that is 2 digits long that is associated with the county that goes up in increments of 2 (skipping even numbers). It is important to know that for every state there is a 01 associated with the first county in the alphabet. But there is also a unique number associated with the state that is tacked onto the front of the county number. There is a handy website to help with finding the associated number that you are looking for for the ACS information [HERE](https://census.missouri.edu/geocodes/?state=29). Choose the dropdown and select your state and all of the associated geoid's will be populated.
+
+In the below example, the Missouri Counties are displayed and you will notice that they all start with 29 because that is the unique identifying character to that state. If you were to go a bit deeper you would find that the tract or blockgroup associated with each county would have the same 5 letters at the beginning of the geoid.
+
+![GEOID example](/blog-images/american-factfinder/geoid.PNG)
+
+### Navigating Metadata
+
+Now that you are a master of downloading all of the data you are going to find that the new challenge is actually identifying all of the columns that you now have access to. On the associated page that you were just on if you scroll all the way down to the bottom of the page you will find a [metadata link](https://www2.census.gov/geo/tiger/TIGER_DP/2018ACS/Metadata/). Once you are there you are going to find a list of metadatas that line up with all of the geographies that you had to choose from. Click on the geography that you want and then right-click the next page > save page as > open up in excel > save as an xlxs file.
+
+The way that I keep track is by either highlighting rows or creating new excel files for each associated project so I can rememeber what I was using quickly, but you can always head back to the metadata page for reference.
