@@ -44,6 +44,8 @@
     "zustand": "^4.3.7"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/eslint-parser": "^7.27.0",
     "@loaders.gl/csv": "^4.2.0",
     "@loaders.gl/polyfills": "^4.2.0",
     "@types/eslint": "^8.21.3",
@@ -58,14 +60,14 @@
     "@typescript-eslint/parser": "^5.56.0",
     "autoprefixer": "^10.4.14",
     "daisyui": "^4.12.10",
-    "eslint": "^8.43.0",
+    "eslint": "^8.57.0",
     "eslint-config-next": "^13.2.4",
     "postcss": "^8.4.21",
     "prettier": "^2.8.6",
     "prettier-plugin-tailwindcss": "^0.2.6",
     "tailwindcss": "^3.3.0",
     "tsx": "^3.13.0",
-    "typescript": "^5.0.2"
+    "typescript": "^5.8.2"
   },
   "ct3aMetadata": {
     "initVersion": "7.11.0"

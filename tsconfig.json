@@ -9,7 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -27,15 +27,17 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "**/*.mjs"
-, "src/pages/api/vehicles.js", "src/scripts/gen-rss.ts"  ],
+    "**/*.mjs",
+    "src/pages/api/vehicles.js",
+    "src/scripts/gen-rss.ts"
+  ],
   "exclude": ["node_modules", "**/*.js"],
   "parserOptions": {
     // "tsconfigRootDir": __dirname,
     "project": ["./tsconfig.json"],
-    "extraFileExtensions": [".vue"],
+    "extraFileExtensions": [".vue"]
   },
-    "rules": {
-      "@typescript-eslint/ban-ts-comment": "warning"
+  "rules": {
+    "@typescript-eslint/ban-ts-comment": "warning"
   }
 }

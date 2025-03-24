@@ -40,3 +40,4 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+public/layers/san_antonio_parcel_layer_pts.csv
