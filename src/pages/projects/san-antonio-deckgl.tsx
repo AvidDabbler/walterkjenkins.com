@@ -53,7 +53,7 @@ const lightingEffect = new LightingEffect({
 const INITIAL_VIEW_STATE: MapViewState = {
   latitude: 29.42708842035446,
   longitude: -98.52769208677068,
-  zoom: 11,
+  zoom: 12,
   bearing: 22,
   pitch: 55,
 };
@@ -97,7 +97,7 @@ const LandValueMap = ({
     new HexagonLayer({
       id: PARCEL_LAYER_ID,
       colorRange,
-      coverage: 8,
+      coverage: 5,
       data,
       // @ts-ignore
       elevationScale: data && data.length ? 3 : 0,
@@ -111,13 +111,13 @@ const LandValueMap = ({
       getColorValue: (points) =>
         //@ts-ignore
         points.reduce((acc, point) => acc + point.SUM_VPA, 0),
-      getPointRadius: 40,
+      getPointRadius: 20,
       pickable: true,
       onClick: (e) => {
         setSelectedFeatures(e.object.points);
         return true;
       },
-      radius: 5,
+      radius: 10,
       upperPercentile: 100,
       material: {
         ambient: 0.64,
