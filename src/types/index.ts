@@ -1,13 +1,13 @@
 export interface LessonType {
-	id:              string;
-	tags:            string[];
-	link:            string;
-	technology:      string[];
-	experience:      string;
-	author:          string[];
-	file_under:    string;
+	id: string;
+	tags: string[];
+	link: string;
+	technology: string[];
+	experience: string;
+	author: string[];
+	file_under: string;
 	path: string[];
-	name:            string;
+	name: string;
 }
 
 export interface ArticleType {
@@ -34,15 +34,15 @@ export interface BlogPostType {
 }
 
 export interface LessonType {
-	id:              string;
-	tags:            string[];
-	link:            string;
-	technology:      string[];
-	experience:      string;
-	author:          string[];
-	file_under:    string;
+	id: string;
+	tags: string[];
+	link: string;
+	technology: string[];
+	experience: string;
+	author: string[];
+	file_under: string;
 	path: string[];
-	name:            string;
+	name: string;
 }
 
 export interface ArticleType {
@@ -70,19 +70,19 @@ export interface BlogPostType {
 }
 
 export type Author = {
-  name: string
-  picture: string
+	name: string
+	picture: string
 }
 
 export type Post = {
-  slug: string
-  title: string
-  date: string
-  coverImage: string
-  author: Author
-  excerpt: string
+	slug: string
+	title: string
+	date: string
+	coverImage: string
+	author: Author
+	excerpt: string
 	tags: string[]
-  ogImage:  string
-  content: string
+	ogImage: string
+	content: string
 }
 

@@ -65,8 +65,28 @@ export const AboutWalter = () => {
       <div className="mx-auto flex flex-wrap justify-center gap-6">
         <div className=" flex h-[250px] w-[250px] items-center rounded-full bg-white p-6">
           <Image
+            src={"/images/kcata.webp"}
+            alt="kcata"
+            className="mx-auto px-2 bg-white"
+            width={260}
+            height={260}
+          >
+          </Image>
+        </div>
+        <div className=" flex h-[250px] w-[250px] items-center rounded-full bg-white p-6">
+          <Image
+            src={"/images/urban3.png"}
+            alt="urban3"
+            className="rounded-full bg-white"
+            width={250}
+            height={250}
+          >
+          </Image>
+        </div>
+        <div className=" flex h-[250px] w-[250px] items-center rounded-full bg-white p-6">
+          <Image
             src={"/images/clt1.jpg"}
-            alt="headshot of walter"
+            alt="city of charlotte"
             className="rounded-full bg-white"
             width={250}
             height={250}
@@ -75,7 +95,7 @@ export const AboutWalter = () => {
         <div className="flex h-[250px] w-[250px] items-center rounded-full bg-white p-6">
           <Image
             src={"/images/metrostl.png"}
-            alt="headshot of walter"
+            alt="metro saint louis"
             className="mx-auto bg-white"
             width={200}
             height={200}
@@ -84,7 +104,7 @@ export const AboutWalter = () => {
         <div className="flex h-[250px] w-[250px] items-center rounded-full bg-white p-6">
           <Image
             src={"/images/un.png"}
-            alt="headshot of walter"
+            alt="untied nations"
             className="mx-auto bg-white"
             width={200}
             height={100}
@@ -93,7 +113,7 @@ export const AboutWalter = () => {
         <div className="flex h-[250px] w-[250px] items-center rounded-full bg-white p-6">
           <Image
             src={"/images/world-central-kitchen.png"}
-            alt="headshot of walter"
+            alt="world central kitchen"
             className="mx-auto bg-white"
             width={200}
             height={100}
