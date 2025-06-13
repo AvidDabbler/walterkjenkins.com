@@ -46,7 +46,7 @@ export const BackgroundMap = () => {
       height: size,
       data: new Uint8ClampedArray(size * size * 4),
       onAdd: onAdd(canvas, size),
-      render: function () {
+      render: function() {
         const context = canvas.getContext("2d");
         if (!context) return;
         const duration = 1500;
@@ -72,6 +72,7 @@ export const BackgroundMap = () => {
         context.stroke();
 
         // Update this image's data with data from the canvas.
+        // @ts-ignore
         this.data = context.getImageData(0, 0, size, size).data;
 
         // Continuously repaint the map, resulting
